@@ -1,4 +1,4 @@
-import 'package:ddm_projeto_final/models/model.dart';
+import 'package:ddm_projeto_final/model/model.dart';
 import 'package:sqflite/sqflite.dart' as sqlite;
 import 'package:path/path.dart' as path;
 
@@ -17,10 +17,11 @@ class DBUtil{
       version: 1,
       onCreate: (db, version) {
         db.execute('''
-          CREATE TABLE Pessoa(
+          CREATE TABLE Usuario(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             nome TEXT NOT NULL,
-            estaFeliz INTEGER NOT NULL
+            email TEXT NOT NULL,
+            senha TEXT NOT NULL,
           )
         ''');
       },
