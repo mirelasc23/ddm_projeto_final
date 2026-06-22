@@ -1,6 +1,5 @@
 import 'package:ddm_projeto_final/util/rotas.dart';
 import 'package:ddm_projeto_final/widgets/botao_login.dart';
-
 import '../provider/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -37,6 +36,9 @@ class _FormLoginState extends State<FormLogin> {
   }
 
   Future<void> _submit() async {
+    setState(() => _isLoading = false);
+    print('entra submit');
+
     final valido = _formKey.currentState?.validate() ?? false;
 
     if (!valido) return;
@@ -52,9 +54,11 @@ class _FormLoginState extends State<FormLogin> {
 
     if (_ehLogin()) {
       // Login
+      print('_ehLogin');
       await authProvider.login(_dadosForm['email']!, _dadosForm['password']!);
     } else {
       // Registrar
+      print('_ehCadastro');
       await authProvider.cadastra(
         _dadosForm['email']!,
         _dadosForm['password']!,
@@ -134,7 +138,10 @@ class _FormLoginState extends State<FormLogin> {
               else
                 BotaoLogin(
                   texto: _ehLogin() ? 'Logar' : 'Novo Cadastro',
-                  onPressed: _submit,
+                  onPressed: () {
+                    print('pressiona submit');
+                    _submit();
+                  },
                 ),
               const Spacer(),
               BotaoLogin(

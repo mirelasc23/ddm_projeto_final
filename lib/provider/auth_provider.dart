@@ -7,6 +7,7 @@ class AuthProvider extends ChangeNotifier {
   bool get estaAutenticado => _estaAutenticado;
 
   Future<void> login(String email, String password) async {
+    print('entra login');
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
@@ -28,11 +29,12 @@ class AuthProvider extends ChangeNotifier {
     }
 
     // Simula uma chamada de login
-    await Future.delayed(Duration(seconds: 2));
+    //await Future.delayed(Duration(seconds: 2));
     print('Usuário logado: $email');
   }
 
   Future<void> cadastra(String email, String password) async {
+    print('entra cadastro');
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
@@ -51,7 +53,7 @@ class AuthProvider extends ChangeNotifier {
     }
 
     // Simula uma chamada de registro
-    await Future.delayed(Duration(seconds: 2));
+    //await Future.delayed(Duration(seconds: 2));
     print('Usuário registrado: $email');
   }
 }
