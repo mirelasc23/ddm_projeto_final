@@ -1,4 +1,4 @@
-import 'package:ddm_projeto_final/view/form_login.dart';
+import 'package:ddm_projeto_final/widgets/form_login.dart';
 import 'package:flutter/material.dart';
 
 class TelaLogin extends StatelessWidget {

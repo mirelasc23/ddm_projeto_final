@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "699988950825",
+    "firebase_url": "https://ddm-api-rest-default-rtdb.firebaseio.com",
+    "project_id": "ddm-api-rest",
+    "storage_bucket": "ddm-api-rest.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:699988950825:android:c8a7c1a1d532fb8a944138",
+        "android_client_info": {
+          "package_name": "com.example.config_ambiente_teste"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxLumA5byXmnAObmO7haOUKffq9kF-UbM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:699988950825:android:97a5bc1822b779ef944138",
+        "android_client_info": {
+          "package_name": "com.example.ddm_projeto_final"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxLumA5byXmnAObmO7haOUKffq9kF-UbM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
