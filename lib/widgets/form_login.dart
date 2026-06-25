@@ -216,7 +216,7 @@ class _FormLoginState extends State<FormLogin> {
               const CircularProgressIndicator()
             else
               BotaoLogin(
-                texto: _ehLogin() ? 'Logar' : 'Novo Cadastro',
+                texto: _ehLogin() ? 'Acessar' : 'Novo Cadastro',
                 onPressed: () {
                   print('pressiona submit');
                   _submit();

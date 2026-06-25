@@ -78,9 +78,13 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: MinhaFonte 
+    - family: Railey 
       fonts:
         - asset: assets/fonts/Railey-PersonalUse.ttf
+    
+    - family: ChildosArabic 
+      fonts:
+        - asset: assets/fonts/ChildosArabicDEMO-Light-BF6526371b44256.otf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
