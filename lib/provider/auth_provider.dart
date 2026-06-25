@@ -1,59 +1,97 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class AuthProvider extends ChangeNotifier {
   bool _estaAutenticado = false;
-
   bool get estaAutenticado => _estaAutenticado;
 
+  // Coloque aqui a sua "Chave de API da Web" do console do Firebase
+  final String _apiKey = "AIzaSyCNTlB_qCE1fi_hyQdQZeY_hEPI2xzzCFs";
+
   Future<void> login(String email, String password) async {
-    print('entra login');
+    print('entra login (REST API)');
+    final url = Uri.parse(
+      'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=$_apiKey',
+    );
+
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: password,
+      final response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'email': email,
+          'password': password,
+          'returnSecureToken': true,
+        }),
       );
-      this._estaAutenticado = true;
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found' || e.code == 'invalid-credential') {
-        //invalid-credential está sendo usado nas novas versoes do Firebase Authentication
-        //print('Nenhum usuário encontrado para este e-mail.');
-        print('Credenciais inválidas.');
-      } else if (e.code == 'wrong-password') {
-        print('Senha incorreta fornecida para este usuário.');
+
+      final dadosReposta = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        print('Usuário logado via REST: ${dadosReposta['email']}');
+        // Aqui você pode salvar o dadosReposta['idToken'] se precisar usar em outras APIs
+        _estaAutenticado = true;
       } else {
-        print('Erro do Firebase: ${e.code}');
+        _estaAutenticado = false;
+        final String erro =
+            dadosReposta['error']['message'] ?? 'Erro desconhecido';
+        print('Erro no Login REST: $erro');
+
+        // Mapeamento dos erros comuns do Firebase REST
+        if (erro == 'EMAIL_NOT_FOUND' || erro == 'INVALID_LOGIN_CREDENTIALS') {
+          print('Credenciais inválidas.');
+        } else if (erro == 'INVALID_PASSWORD') {
+          print('Senha incorreta.');
+        }
       }
     } catch (e) {
-      print(e);
+      _estaAutenticado = false;
+      print('Erro de conexão/rede no REST: $e');
     }
 
-    // Simula uma chamada de login
-    //await Future.delayed(Duration(seconds: 2));
-    print('Usuário logado: $email');
+    notifyListeners();
   }
 
   Future<void> cadastra(String email, String password) async {
-    print('entra cadastro');
+    print('entra cadastro (REST API)');
+    final url = Uri.parse(
+      'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=$_apiKey',
+    );
+
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
+      final response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'email': email,
+          'password': password,
+          'returnSecureToken': true,
+        }),
       );
-      this._estaAutenticado = true;
-      print('Usuário registrado: $email');
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        print('A senha fornecida é muito fraca.');
-      } else if (e.code == 'email-already-in-use') {
-        print('Já existe uma conta com esse e-mail.');
+
+      final dadosReposta = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        print('Usuário cadastrado via REST: ${dadosReposta['email']}');
+        _estaAutenticado = true;
+      } else {
+        _estaAutenticado = false;
+        final String erro =
+            dadosReposta['error']['message'] ?? 'Erro desconhecido';
+        print('Erro no Cadastro REST: $erro');
+
+        if (erro == 'EMAIL_EXISTS') {
+          print('Já existe uma conta com esse e-mail.');
+        } else if (erro == 'WEAK_PASSWORD') {
+          print('A senha fornecida é muito fraca.');
+        }
       }
     } catch (e) {
-      print(e);
+      _estaAutenticado = false;
+      print('Erro de conexão/rede no REST: $e');
     }
 
-    // Simula uma chamada de registro
-    //await Future.delayed(Duration(seconds: 2));
-    print('Usuário registrado: $email');
+    notifyListeners();
   }
 }

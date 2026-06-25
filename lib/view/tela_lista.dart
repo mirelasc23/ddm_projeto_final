@@ -18,7 +18,7 @@ class _TelaListaState extends State<TelaLista> {
     super.initState();
     final provider = Provider.of<UsuarioProvider>(context, listen: false);
 
-    provider.carregaUsuarios();
+    provider.carregaPessoas();
   }
 
   /*void _deleta() {
@@ -35,7 +35,7 @@ class _TelaListaState extends State<TelaLista> {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<UsuarioProvider>(context);
-    final usuarios = provider.usuarios;
+    final usuarios = provider.pessoas;
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.titulo),
@@ -55,10 +55,10 @@ class _TelaListaState extends State<TelaLista> {
               ),
               subtitle: Text(
                 style: TextStyle(fontSize: 20),
-                "email: ${usuario.email}",
+                "email: ${usuario.nome}",
               ),
               trailing: IconButton(
-                onPressed: () => provider.removeUsuario(usuario.id!),
+                onPressed: () => provider.removePessoa(usuario.id!),
                 icon: Icon(Icons.delete, color: Colors.red[400]),
               ),
               tileColor: Colors.grey[400],

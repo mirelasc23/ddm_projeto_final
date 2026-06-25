@@ -58,7 +58,6 @@ class DefaultFirebaseOptions {
     databaseURL: 'https://ddm-api-rest-default-rtdb.firebaseio.com',
     storageBucket: 'ddm-api-rest.firebasestorage.app',
   );
-
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyB7dQuZFyG0EGXnF-fbGU3LuM0x3P61XR0',
     appId: '1:699988950825:ios:c88daddfd510cf78944138',
@@ -68,7 +67,6 @@ class DefaultFirebaseOptions {
     storageBucket: 'ddm-api-rest.firebasestorage.app',
     iosBundleId: 'com.example.ddmProjetoFinal',
   );
-
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyB7dQuZFyG0EGXnF-fbGU3LuM0x3P61XR0',
     appId: '1:699988950825:ios:c88daddfd510cf78944138',

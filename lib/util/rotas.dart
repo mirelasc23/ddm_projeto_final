@@ -1,4 +1,5 @@
 class Rotas {
-  static final telaInicial = "/";
+  static final home = "/";
+  static final telaInicial = "/tela-inicial";
   static final telaBusca = "/tela_busca";
 }
