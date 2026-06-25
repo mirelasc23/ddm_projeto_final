@@ -21,7 +21,14 @@ class DBUtil{
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             nome TEXT NOT NULL,
             email TEXT NOT NULL,
-            senha TEXT NOT NULL,
+            senha TEXT NOT NULL
+          )
+        ''');
+        db.execute('''
+          CREATE TABLE Rega(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            idPlanta INTEGER NOT NULL,
+            dataRega TEXT NOT NULL
           )
         ''');
       },
