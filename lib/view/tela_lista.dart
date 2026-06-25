@@ -1,4 +1,5 @@
 import 'package:ddm_projeto_final/provider/usuario_provider.dart';
+import 'package:ddm_projeto_final/widgets/navbar.dart';
 //import 'package:ddm_projeto_final/util/rotas.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +14,14 @@ class TelaLista extends StatefulWidget {
 }
 
 class _TelaListaState extends State<TelaLista> {
+  int paginaSelecionada = 0;
+
+  void selecionarPagina(int outraPaginaSelecionada){
+    setState(() {
+      paginaSelecionada = outraPaginaSelecionada;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -41,6 +50,10 @@ class _TelaListaState extends State<TelaLista> {
             child: const Icon(Icons.add_box_rounded),
           ),
         ],
+      ),
+      bottomNavigationBar: Navbar(
+        paginaSelecionada: paginaSelecionada,
+        aoSelecionarPagina: selecionarPagina,
       ),
     );
   }
