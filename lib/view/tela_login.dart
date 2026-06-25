@@ -19,17 +19,72 @@ class TelaLogin extends StatelessWidget {
             fit: BoxFit.cover, // Garante que a imagem cubra toda a tela
           ),
         ),
-        child: SizedBox(
-          width: double.infinity,
+        child: SafeArea(
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
                   margin: const EdgeInsets.only(bottom: 20, top: 40),
-                  child: const Text(
-                    "Cresce, Brotinho",
-                    style: TextStyle(fontSize: 26, color: Colors.brown),
+                  child: Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      Text(
+                        "Cresce, Brotinho",
+                        style: TextStyle(
+                          fontFamily: 'MinhaFonte',
+                          fontSize: 54,
+                          foreground: Paint()
+                            ..style = PaintingStyle.stroke
+                            ..strokeWidth = 3
+                            ..color = Colors.blue,
+                        ),
+                      ),
+                      const Text(
+                        "Cresce, Brotinho",
+                        style: TextStyle(
+                          fontFamily: 'MinhaFonte',
+                          fontSize: 54,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.white,
+                          shadows: [
+                            // Primeira camada projetada (mais próxima)
+                            /*Shadow(
+                              blurRadius: 0.0,
+                              color: Color.from(
+                                alpha: 0.5,
+                                red: 0.13,
+                                green: 0.59,
+                                blue: 0.95,
+                              ), // Cor do eco do Canva
+                              offset: Offset(4.0, 4.0), // Multiplicador 1
+                            ),
+                            // Segunda camada projetada
+                            Shadow(
+                              blurRadius: 0.0,
+                              color: Color.from(
+                                alpha: 0.3,
+                                red: 0.13,
+                                green: 0.59,
+                                blue: 0.95,
+                              ),
+                              offset: Offset(4.0, 4.0), // Multiplicador 2
+                            ),*/
+                            // Terceira camada projetada (mais distante)
+                            Shadow(
+                              blurRadius: 0.0,
+                              color: Color.from(
+                                alpha: 0.1,
+                                red: 0.13,
+                                green: 0.59,
+                                blue: 0.95,
+                              ),
+                              offset: Offset(4.0, 4.0), // Multiplicador 3
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 const FormLogin(),
