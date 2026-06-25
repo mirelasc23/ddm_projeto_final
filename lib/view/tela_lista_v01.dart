@@ -3,16 +3,16 @@ import 'package:ddm_projeto_final/provider/usuario_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class TelaLista extends StatefulWidget {
+class TelaLista_v01 extends StatefulWidget {
   final String titulo;
 
-  const TelaLista({super.key, required this.titulo});
+  const TelaLista_v01({super.key, required this.titulo});
 
   @override
-  State<TelaLista> createState() => _TelaListaState();
+  State<TelaLista_v01> createState() => _TelaListaState();
 }
 
-class _TelaListaState extends State<TelaLista> {
+class _TelaListaState extends State<TelaLista_v01> {
   @override
   void initState() {
     super.initState();
