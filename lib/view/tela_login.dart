@@ -6,22 +6,35 @@ class TelaLogin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final tamanhoTela = MediaQuery.of(context).size;
+
     return Scaffold(
-      body: SizedBox(
-        width: double.infinity,
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                margin: const EdgeInsets.only(bottom: 20, top: 40),
-                child: const Text(
-                  "Bem-vindo",
-                  style: TextStyle(fontSize: 26, color: Colors.brown),
+      body: Container(
+        width: tamanhoTela.width,
+        height: tamanhoTela.height,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/login-fundo.png'), // Imagem Local
+            // image: NetworkImage('https://link-da-sua-imagem.com'), // Imagem da Internet
+            fit: BoxFit.cover, // Garante que a imagem cubra toda a tela
+          ),
+        ),
+        child: SizedBox(
+          width: double.infinity,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(bottom: 20, top: 40),
+                  child: const Text(
+                    "Cresce, Brotinho",
+                    style: TextStyle(fontSize: 26, color: Colors.brown),
+                  ),
                 ),
-              ),
-              const FormLogin(),
-            ],
+                const FormLogin(),
+              ],
+            ),
           ),
         ),
       ),
