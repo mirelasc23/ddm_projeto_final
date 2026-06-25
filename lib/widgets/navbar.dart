@@ -3,45 +3,47 @@ import 'package:ddm_projeto_final/view/tela_lista_v01.dart';
 import 'package:ddm_projeto_final/view/tela_perfil.dart';
 import 'package:flutter/material.dart';
 
-class Navbar extends StatelessWidget{
-  final int paginaSelecionada;
+class NavbarApp extends StatelessWidget {
+  const NavbarApp({super.key});
 
-  final List<Widget> _telas = [
-    TelaLista_v01(titulo: 'TelaLista_v01',),
-    TelaLista(titulo: 'TelaLista'),
-    TelaPerfil(),
-  ];
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(home: Navbar());
+  }
+}
 
-  final Function(int) aoSelecionarPagina;
+class Navbar extends StatefulWidget {
+  const Navbar({super.key});
 
-  Navbar({super.key, required this.paginaSelecionada, required this.aoSelecionarPagina});
-  
+  @override
+  State<Navbar> createState() => _NavbarState();
+}
+
+class _NavbarState extends State<Navbar> {
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      currentIndex: paginaSelecionada,
-      backgroundColor: Colors.transparent,
-      elevation: 0.0,
-      onTap: aoSelecionarPagina,
-      items: const [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home_rounded),
-          label: 'Início',
-          ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.map_rounded),
-          label: 'Mapa',
-          ),
+      backgroundColor: Colors.lightGreen.withOpacity(0.2),
+      elevation: 0,
+      items: const <BottomNavigationBarItem>[
+        BottomNavigationBarItem(icon: Icon(Icons.home_rounded), label: 'Home'),
+        BottomNavigationBarItem(icon: Icon(Icons.map), label: 'Mapa'),
         BottomNavigationBarItem(
           icon: Icon(Icons.person_rounded),
           label: 'Perfil',
-          ),
+        ),
       ],
-      /*currentIndex: _indiceAtual,
-        selectedItemColor: Colors.blue,
-        onTap: _onItemTapped, */
+      currentIndex: _selectedIndex,
+      selectedItemColor: const Color.fromARGB(255, 255, 255, 255),
+      onTap: _onItemTapped,
     );
   }
-
-  
 }
