@@ -31,6 +31,12 @@ class DBUtil{
             dataRega TEXT NOT NULL
           )
         ''');
+        db.execute('''
+          CREATE TABLE Planta(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nome TEXT NOT NULL
+          )
+        ''');
       },
     );
   } 

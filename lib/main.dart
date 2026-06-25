@@ -1,4 +1,5 @@
 import 'package:ddm_projeto_final/provider/auth_provider.dart';
+import 'package:ddm_projeto_final/provider/rega_provider.dart';
 import 'package:ddm_projeto_final/provider/usuario_provider.dart';
 import 'package:ddm_projeto_final/util/rotas.dart';
 import 'package:ddm_projeto_final/view/tela_lista.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => AuthProvider()),
         ChangeNotifierProvider(create: (context) => UsuarioProvider()),
+        ChangeNotifierProvider(create: (context) => RegaProvider()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
