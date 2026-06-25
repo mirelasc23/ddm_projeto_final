@@ -3,6 +3,7 @@ import 'package:ddm_projeto_final/provider/usuario_provider.dart';
 import 'package:ddm_projeto_final/util/rotas.dart';
 import 'package:ddm_projeto_final/view/tela_lista.dart';
 import 'package:ddm_projeto_final/view/tela_login.dart';
+import 'package:ddm_projeto_final/view/tela_perfil.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
           //Rotas.telaDetalhes : (context) => TelaDados(titulo: "Detalhes pessoa"),
           //Rotas.telaBusca: (context) => TelaLista(titulo: 'Lista ex.'),
           Rotas.telaInicial: (context) => TelaLista(titulo: 'HOME'),
+          Rotas.telaPerfil: (context) => TelaPerfil()
         },
       ),
     );

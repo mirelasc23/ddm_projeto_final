@@ -1,6 +1,6 @@
 import 'package:ddm_projeto_final/provider/usuario_provider.dart';
+import 'package:ddm_projeto_final/util/rotas.dart';
 import 'package:ddm_projeto_final/widgets/navbar.dart';
-//import 'package:ddm_projeto_final/util/rotas.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -33,15 +33,18 @@ class _TelaListaState extends State<TelaLista> {
   @override
   Widget build(BuildContext context) {
     final tamanhoTela = MediaQuery.of(context).size;
-    
+
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      extendBody: true,
       appBar: AppBar(
         title: Text(widget.titulo),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: Container(
         width: tamanhoTela.width,
-        height: tamanhoTela.height,
+        // height: tamanhoTela.height,
+        height: double.infinity,
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/images/login-fundo.png'), // Imagem Local
@@ -57,8 +60,8 @@ class _TelaListaState extends State<TelaLista> {
               children: [
                 FloatingActionButton(
                   onPressed: () {
-                    //Navigator.pushNamed(context, Rotas.telaForm);
-                    print('BOTAO PRESSIONADO');
+                    Navigator.pushNamed(context, Rotas.telaPerfil);
+                    // print('BOTAO PRESSIONADO');
                   },
                   tooltip: 'adicionar usuario',
                   child: const Icon(Icons.add_box_rounded),
