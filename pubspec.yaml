@@ -85,6 +85,10 @@ flutter:
     - family: ChildosArabic 
       fonts:
         - asset: assets/fonts/ChildosArabicDEMO-Light-BF6526371b44256.otf
+    
+    - family: MairyRegular 
+      fonts:
+        - asset: assets/fonts/Mairy Regular.otf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package

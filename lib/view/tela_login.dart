@@ -24,13 +24,14 @@ class TelaLogin extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                const SizedBox(height: 50),
                 Container(
                   margin: const EdgeInsets.only(bottom: 20, top: 40),
                   child: Padding(
                     padding: const EdgeInsets.only(
-                      left: 8.0,
+                      left: 6.0,
                       bottom: 16.0,
                     ), // Espaço para o deslocamento X e Y
                     //padding: const EdgeInsets.all(8.0),
@@ -41,10 +42,10 @@ class TelaLogin extends StatelessWidget {
                           "Cresce, Brotinho!",
                           style: TextStyle(
                             fontFamily: AppFonts.railey,
-                            fontSize: 60,
+                            fontSize: 55,
                             foreground: Paint()
                               ..style = PaintingStyle.stroke
-                              ..strokeWidth = 1.5
+                              ..strokeWidth = 3
                               ..color = Colors.blue,
                           ),
                         ),
@@ -52,8 +53,8 @@ class TelaLogin extends StatelessWidget {
                           "Cresce, Brotinho!",
                           style: TextStyle(
                             fontFamily: AppFonts.railey,
-                            fontSize: 60,
-                            fontWeight: FontWeight.w400,
+                            fontSize: 54,
+                            fontWeight: FontWeight.w600,
                             color: Colors.white,
                             shadows: [
                               // Primeira camada projetada (mais próxima)

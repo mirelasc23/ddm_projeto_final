@@ -1,3 +1,4 @@
+import 'package:ddm_projeto_final/util/fontes.dart';
 import 'package:ddm_projeto_final/util/rotas.dart';
 import 'package:ddm_projeto_final/widgets/botao_login.dart';
 import '../provider/auth_provider.dart';
@@ -70,6 +71,34 @@ class _FormLoginState extends State<FormLogin> {
     if (authProvider.estaAutenticado) {
       Navigator.pushNamed(context, Rotas.telaInicial);
     }
+  }
+
+  // Estilo padrão reutilizável para deixar os inputs arredondados e claros
+  InputDecoration _estiloInput(String label) {
+    return InputDecoration(
+      labelText: label,
+      filled: true,
+      // Cor de fundo clara (pode ajustar para Colors.grey[100] ou similar se preferir)
+      fillColor: const Color.fromRGBO(255, 255, 255, 0.53),
+      // Borda padrão quando o campo não está focado
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(100.0), // Cantos arredondados
+        borderSide: BorderSide.none, // Remove a linha de contorno preta padrão
+      ),
+      // Borda quando o usuário clica no campo
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(100.0),
+        borderSide: const BorderSide(
+          color: Color.from(
+            alpha: 1.0,
+            red: 0.13,
+            green: 0.59,
+            blue: 0.95,
+          ), // Borda azul do seu tema
+          width: 1.5,
+        ),
+      ),
+    );
   }
 
   /*@override
@@ -160,14 +189,25 @@ class _FormLoginState extends State<FormLogin> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(14),
+      padding: const EdgeInsets.all(30),
       height: _ehLogin() ? 310 : 400,
       child: Form(
         key: _formKey,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             TextFormField(
-              decoration: const InputDecoration(labelText: 'E-mail (login)'),
+              decoration: _estiloInput('E-mail (login)'),
+              style: TextStyle(
+                color: Color.from(
+                  alpha: 1.0,
+                  red: 0.13,
+                  green: 0.59,
+                  blue: 0.95,
+                ),
+                fontFamily: AppFonts.mairy,
+              ),
               keyboardType: TextInputType.emailAddress,
               onSaved: (email) =>
                   _dadosForm['email'] = email ?? '', //acao de salvar formulario
@@ -181,8 +221,18 @@ class _FormLoginState extends State<FormLogin> {
                 return null;
               },
             ),
+            //const SizedBox(height: 20),
             TextFormField(
-              decoration: const InputDecoration(labelText: 'Senha'),
+              decoration: _estiloInput('Senha'),
+              style: TextStyle(
+                color: Color.from(
+                  alpha: 1.0,
+                  red: 0.13,
+                  green: 0.59,
+                  blue: 0.95,
+                ),
+                fontFamily: AppFonts.mairy,
+              ),
               keyboardType: TextInputType.emailAddress,
               obscureText: true, //nao mostra caracteres
               controller: _passwordController,
@@ -197,7 +247,16 @@ class _FormLoginState extends State<FormLogin> {
             ),
             if (_ehCadastro())
               TextFormField(
-                decoration: const InputDecoration(labelText: 'Confirmar Senha'),
+                decoration: _estiloInput('Confirmar Senha'),
+                style: TextStyle(
+                  color: Color.from(
+                    alpha: 1.0,
+                    red: 0.13,
+                    green: 0.59,
+                    blue: 0.95,
+                  ),
+                  fontFamily: AppFonts.mairy,
+                ),
                 keyboardType: TextInputType.emailAddress,
                 obscureText: true,
                 validator: _ehLogin()
@@ -211,6 +270,8 @@ class _FormLoginState extends State<FormLogin> {
                         return null;
                       },
               ),
+
+            //const Spacer(),
             const SizedBox(height: 20),
             if (_isLoading)
               const CircularProgressIndicator()
@@ -221,11 +282,13 @@ class _FormLoginState extends State<FormLogin> {
                   print('pressiona submit');
                   _submit();
                 },
+                estiloPrimario: true,
               ),
-            const Spacer(),
+            //const SizedBox(height: 20),
             BotaoLogin(
               texto: _ehLogin() ? 'Criar novo cadastro?' : 'Já tem conta?',
               onPressed: _trocaModoTela,
+              estiloPrimario: false,
             ),
           ],
         ),

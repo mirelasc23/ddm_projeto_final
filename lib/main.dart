@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
         routes: {
           //Rotas.telaDetalhes : (context) => TelaDados(titulo: "Detalhes pessoa"),
           //Rotas.telaBusca: (context) => TelaLista(titulo: 'Lista ex.'),
-          Rotas.telaInicial: (context) => TelaLista(titulo: 'Lista ex.'),
+          Rotas.telaInicial: (context) => TelaLista(titulo: 'HOME'),
         },
       ),
     );
