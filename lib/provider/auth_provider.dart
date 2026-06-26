@@ -5,6 +5,8 @@ import 'package:http/http.dart' as http;
 class AuthProvider extends ChangeNotifier {
   bool _estaAutenticado = false;
   bool get estaAutenticado => _estaAutenticado;
+  bool _apresentaErro = false;
+  bool get apresentaErro => _apresentaErro;
 
   // Coloque aqui a sua "Chave de API da Web" do console do Firebase
   final String _apiKey = "AIzaSyCNTlB_qCE1fi_hyQdQZeY_hEPI2xzzCFs";
@@ -33,6 +35,7 @@ class AuthProvider extends ChangeNotifier {
         // Aqui você pode salvar o dadosReposta['idToken'] se precisar usar em outras APIs
         _estaAutenticado = true;
       } else {
+        _apresentaErro = true;
         _estaAutenticado = false;
         final String erro =
             dadosReposta['error']['message'] ?? 'Erro desconhecido';
@@ -46,6 +49,7 @@ class AuthProvider extends ChangeNotifier {
         }
       }
     } catch (e) {
+      _apresentaErro = true;
       _estaAutenticado = false;
       print('Erro de conexão/rede no REST: $e');
     }
@@ -76,6 +80,7 @@ class AuthProvider extends ChangeNotifier {
         print('Usuário cadastrado via REST: ${dadosReposta['email']}');
         _estaAutenticado = true;
       } else {
+        _apresentaErro = true;
         _estaAutenticado = false;
         final String erro =
             dadosReposta['error']['message'] ?? 'Erro desconhecido';
@@ -88,6 +93,7 @@ class AuthProvider extends ChangeNotifier {
         }
       }
     } catch (e) {
+      _apresentaErro = true;
       _estaAutenticado = false;
       print('Erro de conexão/rede no REST: $e');
     }
