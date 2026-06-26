@@ -58,7 +58,6 @@ class TelaLista extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: Navbar(),
     );
   }
 }
