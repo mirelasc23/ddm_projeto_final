@@ -69,6 +69,7 @@ flutter:
     - assets/images/tela-perfil.png
     - assets/images/paginainicial-fundo.png
     - assets/images/foto-perfil.png
+    - assets/images/imagem_plantar.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

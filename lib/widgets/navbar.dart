@@ -22,28 +22,42 @@ class Navbar extends StatefulWidget {
 class _NavbarState extends State<Navbar> {
   int _selectedIndex = 0;
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+  // final List<Widget> _telas = [
+  //   TelaLista(titulo: 'Inicio'),
+  //   Placeholder(),
+  //   TelaPerfil(),
+  // ];
 
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      backgroundColor: Colors.lightGreen.withOpacity(0.2),
-      elevation: 0,
-      items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(icon: Icon(Icons.home_rounded), label: 'Home'),
-        BottomNavigationBarItem(icon: Icon(Icons.map), label: 'Mapa'),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person_rounded),
-          label: 'Perfil',
-        ),
-      ],
-      currentIndex: _selectedIndex,
-      selectedItemColor: const Color.fromARGB(255, 255, 255, 255),
-      onTap: _onItemTapped,
-    );
+    return NavigationBar(
+
+
+        onDestinationSelected: (int index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
+        
+        backgroundColor: Colors.lightGreen.withOpacity(0.2),
+        elevation: 0,
+
+        indicatorColor: const Color.fromARGB(255, 117, 137, 94),
+        selectedIndex: _selectedIndex,
+        destinations: const <Widget>[
+          NavigationDestination(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          NavigationDestination(
+            icon: Badge(child: Icon(Icons.map)),
+            label: 'Mapa',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.person),
+            label: 'Perfil',
+          ),
+        ],
+      );
   }
 }

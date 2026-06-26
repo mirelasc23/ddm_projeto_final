@@ -9,7 +9,7 @@ class TelaLista extends StatelessWidget {
   final String titulo;
 
   const TelaLista({super.key, required this.titulo});
-    
+
   @override
   Widget build(BuildContext context) {
     final tamanhoTela = MediaQuery.of(context).size;
@@ -17,9 +17,11 @@ class TelaLista extends StatelessWidget {
     return Scaffold(
       extendBodyBehindAppBar: true,
       extendBody: true,
+
       body: Container(
         width: tamanhoTela.width,
         height: double.infinity,
+
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/images/paginainicial-fundo.png'),
@@ -32,6 +34,25 @@ class TelaLista extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                // InkWell(
+                //   onTap: () {},
+                //   child: Ink.image(
+                //     image: AssetImage('assets/images/imagem_plantar.png'),
+                //     fit: BoxFit.cover,
+                //     width: 100,
+                //     height: 100,
+                //   ),
+                // ),
+                ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.pushNamed(context, Rotas.telaPerfil);
+                  },
+                  icon: Image.asset('assets/images/imagem_plantar.png', width: 24, height: 24),
+                  label: Text('Clique Aqui'),
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  ),
+                ),
               ],
             ),
           ),

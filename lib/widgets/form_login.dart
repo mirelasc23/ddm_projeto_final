@@ -38,7 +38,6 @@ class _FormLoginState extends State<FormLogin> {
   }
 
   Future<void> _submit() async {
-    //   setState(() => _isLoading = false);
     print('entra submit');
 
     final valido = _formKey.currentState?.validate() ?? false;
@@ -74,19 +73,15 @@ class _FormLoginState extends State<FormLogin> {
     }
   }
 
-  // Estilo padrão reutilizável para deixar os inputs arredondados e claros
   InputDecoration _estiloInput(String label) {
     return InputDecoration(
       labelText: label,
       filled: true,
-      // Cor de fundo clara (pode ajustar para Colors.grey[100] ou similar se preferir)
       fillColor: const Color.fromRGBO(255, 255, 255, 0.53),
-      // Borda padrão quando o campo não está focado
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(100.0), // Cantos arredondados
-        borderSide: BorderSide.none, // Remove a linha de contorno preta padrão
+        borderRadius: BorderRadius.circular(100.0),
+        borderSide: BorderSide.none,
       ),
-      // Borda quando o usuário clica no campo
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(100.0),
         borderSide: const BorderSide(
@@ -95,7 +90,7 @@ class _FormLoginState extends State<FormLogin> {
             red: 0.13,
             green: 0.59,
             blue: 0.95,
-          ), // Borda azul do seu tema
+          ),
           width: 1.5,
         ),
       ),
