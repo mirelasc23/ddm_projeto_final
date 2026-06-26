@@ -1,5 +1,4 @@
-import 'package:ddm_projeto_final/util/fontes.dart';
-import 'package:ddm_projeto_final/widgets/form_login.dart';
+import 'package:ddm_projeto_final/widgets/form_perfil.dart';
 import 'package:flutter/material.dart';
 
 class TelaPerfil extends StatelessWidget {
@@ -43,7 +42,7 @@ class TelaPerfil extends StatelessWidget {
                     ),
                   ),
                 ),
-                const FormLogin(),
+                const FormPerfil(),
               ],
             ),
           ),

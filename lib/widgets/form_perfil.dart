@@ -15,7 +15,7 @@ class FormPerfil extends StatefulWidget {
 }
 
 class _FormLoginState extends State<FormPerfil> {
-  final _passwordController = TextEditingController();
+  final _metaController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
   Modo _modo = Modo.login;
@@ -103,66 +103,33 @@ class _FormLoginState extends State<FormPerfil> {
 
   @override
   Widget build(BuildContext context) {
+    final tamanhoTela = MediaQuery.of(context).size;
+
     return Container(
       padding: const EdgeInsets.all(30),
-      height: _ehLogin() ? 310 : 400,
+      
       child: Form(
         key: _formKey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            TextFormField(
-              decoration: _estiloInput('E-mail (login)'),
-              style: TextStyle(
-                color: Color.from(
-                  alpha: 1.0,
-                  red: 0.13,
-                  green: 0.59,
-                  blue: 0.95,
+        child: SingleChildScrollView(
+          child: Column(
+            spacing: 16,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(4.0), // Espessura da borda
+                decoration: const BoxDecoration(
+                  color: Color.fromRGBO(255, 148,186,1.0), // Cor da borda
+                  shape: BoxShape.circle,
                 ),
-                fontFamily: AppFonts.mairy,
-              ),
-              keyboardType: TextInputType.emailAddress,
-              onSaved: (email) =>
-                  _dadosForm['email'] = email ?? '', //acao de salvar formulario
-              validator: (_email) {
-                //validacao
-                final email = _email ?? '';
-                if (!email.contains('@')) {
-                  return 'Informe um e-mail válido.'; //com erro, com essa mensagem
-                }
-                //SEM ERRO DE VALIDACAO
-                return null;
-              },
-            ),
-            //const SizedBox(height: 20),
-            TextFormField(
-              decoration: _estiloInput('Senha'),
-              style: TextStyle(
-                color: Color.from(
-                  alpha: 1.0,
-                  red: 0.13,
-                  green: 0.59,
-                  blue: 0.95,
+                child: CircleAvatar(
+                  radius: 50.0,
+                  backgroundImage: AssetImage('assets/images/foto-perfil.png'),
+                  // backgroundImage: NetworkImage('https://seusite.com'),
                 ),
-                fontFamily: AppFonts.mairy,
               ),
-              keyboardType: TextInputType.emailAddress,
-              obscureText: true, //nao mostra caracteres
-              controller: _passwordController,
-              onSaved: (password) => _dadosForm['password'] = password ?? '',
-              validator: (_password) {
-                final password = _password ?? '';
-                if (password.isEmpty || password.length < 3) {
-                  return 'Informe uma senha válida';
-                }
-                return null;
-              },
-            ),
-            if (_ehCadastro())
               TextFormField(
-                decoration: _estiloInput('Confirmar Senha'),
+                decoration: _estiloInput('Nome'),
                 style: TextStyle(
                   color: Color.from(
                     alpha: 1.0,
@@ -173,27 +140,96 @@ class _FormLoginState extends State<FormPerfil> {
                   fontFamily: AppFonts.mairy,
                 ),
                 keyboardType: TextInputType.emailAddress,
-                obscureText: true,
-                validator: _ehLogin()
-                    ? null
-                    : (_password) {
-                        final password = _password ?? '';
-                        //por isso precisa definir o controller da senha, para comparar as senhas
-                        if (password != _passwordController.text) {
-                          return 'Senhas informadas diferentes.';
-                        }
-                        return null;
-                      },
+                onSaved: (email) =>
+                    _dadosForm['email'] = email ?? '', //acao de salvar formulario
+                validator: (_email) {
+                  //validacao
+                  final email = _email ?? '';
+                  if (!email.contains('@')) {
+                    return 'Informe um e-mail válido.'; //com erro, com essa mensagem
+                  }
+                  //SEM ERRO DE VALIDACAO
+                  return null;
+                },
               ),
-
-            //const Spacer(),
-            const SizedBox(height: 20),
-            BotaoLogin(
-              texto: 'Salvar',
-              onPressed: _trocaModoTela,
-              estiloPrimario: true,
-            ),
-          ],
+              // LayoutBuilder(
+              //   builder: (BuildContext context, BoxConstraints constraints) {
+              //     // constraints.maxWidth contém a largura exata do pai
+              //     final larguraDoPai = constraints.maxWidth;
+                  
+              //     return Container(
+              //       width: larguraDoPai * 0.5, // Exemplo: 50% da largura do pai
+              //       color: Colors.blue,
+                    
+              //       child: Text('Largura do pai: $larguraDoPai'),
+              //     );
+              //   },
+              // ),
+              // Container(
+              //   decoration: BoxDecoration(
+              //     border: Border.all(color: Colors.black, width: 3.0),
+              //     borderRadius: BorderRadius.circular(12.0), // Raio dos cantos
+              //   ),
+              //   child: Text('Email'),
+              // ),
+              //const SizedBox(height: 20),
+              TextFormField(
+                decoration: _estiloInput('Meta'),
+                style: TextStyle(
+                  color: Color.from(
+                    alpha: 1.0,
+                    red: 0.13,
+                    green: 0.59,
+                    blue: 0.95,
+                  ),
+                  fontFamily: AppFonts.mairy,
+                ),
+                keyboardType: TextInputType.number,
+                controller: _metaController,
+                onSaved: (password) => _dadosForm['password'] = password ?? '',
+                validator: (_meta) {
+                  final password = _meta ?? '';
+                  if (password.isEmpty || password.length < 3) {
+                    return 'Informe uma senha válida';
+                  }
+                  return null;
+                },
+              ),
+              if (_ehCadastro())
+                TextFormField(
+                  decoration: _estiloInput('Confirmar Senha'),
+                  style: TextStyle(
+                    color: Color.from(
+                      alpha: 1.0,
+                      red: 0.13,
+                      green: 0.59,
+                      blue: 0.95,
+                    ),
+                    fontFamily: AppFonts.mairy,
+                  ),
+                  keyboardType: TextInputType.emailAddress,
+                  obscureText: true,
+                  validator: _ehLogin()
+                      ? null
+                      : (_meta) {
+                          final password = _meta ?? '';
+                          //por isso precisa definir o controller da senha, para comparar as senhas
+                          if (password != _metaController.text) {
+                            return 'Senhas informadas diferentes.';
+                          }
+                          return null;
+                        },
+                ),
+          
+              //const Spacer(),
+              const SizedBox(height: 20),
+              BotaoLogin(
+                texto: 'Salvar',
+                onPressed: _trocaModoTela,
+                estiloPrimario: true,
+              ),
+            ],
+          ),
         ),
       ),
     );

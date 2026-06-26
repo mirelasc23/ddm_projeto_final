@@ -5,8 +5,9 @@ class Usuario implements Model {
   final String nome;
   final String email;
   String senha;
+  int meta;
 
-  Usuario({required this.nome, required this.email, required this.senha});
+  Usuario({required this.nome, required this.email, required this.senha, required this.meta});
 
   @override
   set id(int id) {
@@ -22,7 +23,8 @@ class Usuario implements Model {
       'id': _id,
       'nome': nome,
       'email': email,
-      'senha': senha
+      'senha': senha,
+      'meta': meta
     };
   }
 
@@ -31,6 +33,7 @@ class Usuario implements Model {
       nome: map['nome'] as String,
       email: map['email'] as String,
       senha: map['senha'] as String,
+      meta: map['meta'] as int
     );
     pessoa.id = map['id'] as int;
     return pessoa;
@@ -38,6 +41,6 @@ class Usuario implements Model {
   
   @override
   String toString() {
-    return 'Usuario {id: $_id, nome: $nome, email: $email}';
+    return 'Usuario {nome: $nome, email: $email, meta: $meta}';
   }
 }
