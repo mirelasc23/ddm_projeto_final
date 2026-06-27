@@ -1,14 +1,17 @@
 import 'dart:convert';
 
-import 'package:ddm_projeto_final/model/pessoa.dart';
+// import 'package:ddm_projeto_final/model/pessoa.dart';
+import 'package:ddm_projeto_final/model/usuario.dart';
 import 'package:ddm_projeto_final/util/db.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class UsuarioProvider with ChangeNotifier {
-  List<Pessoa> _pessoas = [];
+  // List<Pessoa> _pessoas = [];
+  List<Usuario> _usuarios = [];
   final String _url =
       "https://teste-ddm-ifsc-default-rtdb.firebaseio.com/pessoas.json";
+    List<Usuario> get usuarios => _usuarios;
 
   /*List<Usuario> get pessoasDummy {
     _usuarios  = [
@@ -35,7 +38,7 @@ class UsuarioProvider with ChangeNotifier {
     });
     notifyListeners();
   }
-
+*/
   void addUsuario(Usuario usuario) async{
     final response = await http.post(
       Uri.parse(_url),
@@ -50,8 +53,8 @@ class UsuarioProvider with ChangeNotifier {
     DBUtil.delete("Usuario", id);
     _usuarios.removeWhere((usuario) => usuario.id == id);
     notifyListeners();
-  }*/
-
+  }
+/*
   List<Pessoa> get pessoas => _pessoas;
 
   Future<void> carregaPessoas() async {
@@ -78,5 +81,5 @@ class UsuarioProvider with ChangeNotifier {
 
   void removePessoa(String id) {
     //deve ser feito (remover no firebase)
-  }
+  }*/
 }

@@ -34,6 +34,8 @@ class AuthProvider extends ChangeNotifier {
         print('Usuário logado via REST: ${dadosReposta['email']}');
         // Aqui você pode salvar o dadosReposta['idToken'] se precisar usar em outras APIs
         _estaAutenticado = true;
+        print('LOGIN: ${dadosReposta['idToken']}');
+        print('EMAIL: ${dadosReposta['email']}');
       } else {
         _apresentaErro = true;
         _estaAutenticado = false;
@@ -79,6 +81,8 @@ class AuthProvider extends ChangeNotifier {
       if (response.statusCode == 200) {
         print('Usuário cadastrado via REST: ${dadosReposta['email']}');
         _estaAutenticado = true;
+        print('LOGIN: ${dadosReposta['idToken']}');
+        print('EMAIL: ${dadosReposta['email']}');
       } else {
         _apresentaErro = true;
         _estaAutenticado = false;
@@ -100,4 +104,48 @@ class AuthProvider extends ChangeNotifier {
 
     notifyListeners();
   }
-}
+
+  
+  /*Future<void> getEmail() async {
+    print('get email (REST API)');
+    final url = Uri.parse(
+      'https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=$_apiKey',
+    );
+
+    try {
+      final response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'idToken': _idToken
+        }),
+      );
+
+      final dadosReposta = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        print('email: ${dadosReposta['email']}');
+        _estaAutenticado = true;
+        // print('LOGIN: $_idToken');
+      } else {
+        _apresentaErro = true;
+        _estaAutenticado = false;
+        final String erro =
+            dadosReposta['error']['message'] ?? 'Erro desconhecido';
+        print('Erro no Cadastro REST: $erro');
+
+        if (erro == 'EMAIL_EXISTS') {
+          print('Já existe uma conta com esse e-mail.');
+        } else if (erro == 'WEAK_PASSWORD') {
+          print('A senha fornecida é muito fraca.');
+        }
+      }
+    } catch (e) {
+      _apresentaErro = true;
+      _estaAutenticado = false;
+      print('Erro de conexão/rede no REST: $e');
+    }
+
+    notifyListeners();
+  }
+*/}

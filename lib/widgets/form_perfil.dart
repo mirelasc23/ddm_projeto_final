@@ -26,14 +26,15 @@ class _FormLoginState extends State<FormPerfil> {
   bool _ehCadastro() => _modo == Modo.cadastro;
 
   void _trocaModoTela() {
-    setState(() {
-      if (_ehLogin()) {
-        _modo = Modo.cadastro;
-      } else {
-        _modo = Modo.login;
-      }
-      print("Modo atual: ${_ehLogin() ? 'Login' : 'Cadastro'}");
-    });
+    // setState(() {
+    //   if (_ehLogin()) {
+    //     _modo = Modo.cadastro;
+    //   } else {
+    //     _modo = Modo.login;
+    //   }
+    //   print("Modo atual: ${_ehLogin() ? 'Login' : 'Cadastro'}");
+    // });
+    print("funcao _trocaModoTela");
   }
 
   Future<void> _submit() async {
@@ -53,18 +54,18 @@ class _FormLoginState extends State<FormPerfil> {
       listen: false,
     );
 
-    if (_ehLogin()) {
-      // Login
-      print('_ehLogin');
-      await authProvider.login(_dadosForm['email']!, _dadosForm['password']!);
-    } else {
-      // Registrar
-      print('_ehCadastro');
-      await authProvider.cadastra(
-        _dadosForm['email']!,
-        _dadosForm['password']!,
-      );
-    }
+    // if (_ehLogin()) {
+    //   // Login
+    //   print('_ehLogin');
+    //   await authProvider.login(_dadosForm['email']!, _dadosForm['password']!);
+    // } else {
+    //   // Registrar
+    //   print('_ehCadastro');
+    //   await authProvider.cadastra(
+    //     _dadosForm['email']!,
+    //     _dadosForm['password']!,
+    //   );
+    // }
 
     setState(() => _isLoading = false);
 
@@ -103,7 +104,13 @@ class _FormLoginState extends State<FormPerfil> {
 
   @override
   Widget build(BuildContext context) {
+    final AuthProvider authProvider = Provider.of<AuthProvider>(
+      context,
+      listen: false,
+    );
+
     final tamanhoTela = MediaQuery.of(context).size;
+    //final email = authProvider.getEmail();
 
     return Container(
       padding: const EdgeInsets.all(30),
@@ -165,13 +172,13 @@ class _FormLoginState extends State<FormPerfil> {
               //     );
               //   },
               // ),
-              // Container(
-              //   decoration: BoxDecoration(
-              //     border: Border.all(color: Colors.black, width: 3.0),
-              //     borderRadius: BorderRadius.circular(12.0), // Raio dos cantos
-              //   ),
-              //   child: Text('Email'),
-              // ),
+              Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black, width: 3.0),
+                  borderRadius: BorderRadius.circular(12.0), // Raio dos cantos
+                ),
+                child: Text('Email: email'),
+              ),
               //const SizedBox(height: 20),
               TextFormField(
                 decoration: _estiloInput('Meta'),
