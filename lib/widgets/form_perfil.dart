@@ -1,3 +1,4 @@
+import 'package:ddm_projeto_final/model/acesso.dart';
 import 'package:ddm_projeto_final/util/fontes.dart';
 import 'package:ddm_projeto_final/util/rotas.dart';
 import 'package:ddm_projeto_final/widgets/botao_login.dart';
@@ -15,6 +16,7 @@ class FormPerfil extends StatefulWidget {
 }
 
 class _FormLoginState extends State<FormPerfil> {
+  
   final _metaController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
@@ -26,19 +28,11 @@ class _FormLoginState extends State<FormPerfil> {
   bool _ehCadastro() => _modo == Modo.cadastro;
 
   void _trocaModoTela() {
-    // setState(() {
-    //   if (_ehLogin()) {
-    //     _modo = Modo.cadastro;
-    //   } else {
-    //     _modo = Modo.login;
-    //   }
-    //   print("Modo atual: ${_ehLogin() ? 'Login' : 'Cadastro'}");
-    // });
+
     print("funcao _trocaModoTela");
   }
 
   Future<void> _submit() async {
-    //   setState(() => _isLoading = false);
     print('entra submit');
 
     final valido = _formKey.currentState?.validate() ?? false;
@@ -58,13 +52,6 @@ class _FormLoginState extends State<FormPerfil> {
     //   // Login
     //   print('_ehLogin');
     //   await authProvider.login(_dadosForm['email']!, _dadosForm['password']!);
-    // } else {
-    //   // Registrar
-    //   print('_ehCadastro');
-    //   await authProvider.cadastra(
-    //     _dadosForm['email']!,
-    //     _dadosForm['password']!,
-    //   );
     // }
 
     setState(() => _isLoading = false);
@@ -74,19 +61,15 @@ class _FormLoginState extends State<FormPerfil> {
     }
   }
 
-  // Estilo padrão reutilizável para deixar os inputs arredondados e claros
   InputDecoration _estiloInput(String label) {
     return InputDecoration(
       labelText: label,
       filled: true,
-      // Cor de fundo clara (pode ajustar para Colors.grey[100] ou similar se preferir)
       fillColor: const Color.fromRGBO(255, 255, 255, 0.53),
-      // Borda padrão quando o campo não está focado
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(100.0), // Cantos arredondados
-        borderSide: BorderSide.none, // Remove a linha de contorno preta padrão
+        borderSide: BorderSide.none, 
       ),
-      // Borda quando o usuário clica no campo
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(100.0),
         borderSide: const BorderSide(
@@ -95,7 +78,7 @@ class _FormLoginState extends State<FormPerfil> {
             red: 0.13,
             green: 0.59,
             blue: 0.95,
-          ), // Borda azul do seu tema
+          ),
           width: 1.5,
         ),
       ),
@@ -155,23 +138,9 @@ class _FormLoginState extends State<FormPerfil> {
                   if (!email.contains('@')) {
                     return 'Informe um e-mail válido.'; //com erro, com essa mensagem
                   }
-                  //SEM ERRO DE VALIDACAO
                   return null;
                 },
               ),
-              // LayoutBuilder(
-              //   builder: (BuildContext context, BoxConstraints constraints) {
-              //     // constraints.maxWidth contém a largura exata do pai
-              //     final larguraDoPai = constraints.maxWidth;
-                  
-              //     return Container(
-              //       width: larguraDoPai * 0.5, // Exemplo: 50% da largura do pai
-              //       color: Colors.blue,
-                    
-              //       child: Text('Largura do pai: $larguraDoPai'),
-              //     );
-              //   },
-              // ),
               Container(
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.black, width: 3.0),
@@ -217,18 +186,16 @@ class _FormLoginState extends State<FormPerfil> {
                   keyboardType: TextInputType.emailAddress,
                   obscureText: true,
                   validator: _ehLogin()
-                      ? null
-                      : (_meta) {
-                          final password = _meta ?? '';
-                          //por isso precisa definir o controller da senha, para comparar as senhas
-                          if (password != _metaController.text) {
-                            return 'Senhas informadas diferentes.';
-                          }
-                          return null;
-                        },
+                    ? null
+                    : (_meta) {
+                        final password = _meta ?? '';
+                        //por isso precisa definir o controller da senha, para comparar as senhas
+                        if (password != _metaController.text) {
+                          return 'Senhas informadas diferentes.';
+                        }
+                        return null;
+                      },
                 ),
-          
-              //const Spacer(),
               const SizedBox(height: 20),
               BotaoLogin(
                 texto: 'Salvar',

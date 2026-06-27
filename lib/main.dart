@@ -1,3 +1,4 @@
+import 'package:ddm_projeto_final/model/acesso.dart';
 import 'package:ddm_projeto_final/provider/auth_provider.dart';
 import 'package:ddm_projeto_final/provider/rega_provider.dart';
 import 'package:ddm_projeto_final/provider/usuario_provider.dart';
@@ -10,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
+import 'package:get_it/get_it.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,6 +23,15 @@ void main() async {
     ),
   );*/
   runApp(const MyApp());
+}
+
+// 1. Crie uma instância do seu GetIt
+final getIt = GetIt.instance;
+
+// 2. Função chamada quando você tiver os dados do input
+void inicializarObjeto(Acesso acesso) {
+  // Registra a instância em tempo de execução
+  getIt.registerSingleton<Acesso>(acesso);
 }
 
 class MyApp extends StatelessWidget {
