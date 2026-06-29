@@ -14,17 +14,21 @@ class TelaHome extends StatelessWidget {
         ),
       ),
       child: Padding(
-        padding: const EdgeInsets.only(top: 600, bottom: 100, left: 20, right: 180),
+        padding: const EdgeInsets.only(
+          top: 600,
+          bottom: 100,
+          left: 20,
+          right: 180,
+        ),
         child: TextButton(
           onPressed: () {},
           style: TextButton.styleFrom(
-            // foregroundColor: Colors.green.withOpacity(0.2),
             backgroundBuilder:
                 (BuildContext context, Set<WidgetState> states, Widget? child) {
                   return Ink(
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage('assets/images/imagem_plantar.png'),
+                        image: AssetImage('assets/images/plantar.png'),
                         fit: .fitWidth,
                       ),
                     ),
