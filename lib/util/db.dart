@@ -2,13 +2,12 @@ import 'package:ddm_projeto_final/model/model.dart';
 import 'package:sqflite/sqflite.dart' as sqlite;
 import 'package:path/path.dart' as path;
 
-class DBUtil{
-
+class DBUtil {
   static Future<sqlite.Database> _getDB() async {
     //local onde o banco de dados sera armazenado
     final databasePath = await sqlite.getDatabasesPath();
     //join para criar o caminho p arq de forma correta, independente do SO
-    final arqBD = path.join (databasePath, "pessoas.db");
+    final arqBD = path.join(databasePath, "brotinho.db");
 
     //abrir o banco de dados, se nao existir, ele cria
     //funcao onCreate so eh chamada na primeira vez
@@ -18,10 +17,12 @@ class DBUtil{
       onCreate: (db, version) {
         db.execute('''
           CREATE TABLE Usuario(
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id TEXT PRIMARY KEY,
             nome TEXT NOT NULL,
             email TEXT NOT NULL,
-            senha TEXT NOT NULL
+            id_token TEXT,
+            refresh_token TEXT,
+            expira_em TEXT
           )
         ''');
         db.execute('''
@@ -39,25 +40,33 @@ class DBUtil{
         ''');
       },
     );
-  } 
+  }
 
   static Future<void> insert(Model model) async {
     final db = await _getDB();
-    model.id = await db.insert(model.runtimeType.toString(), model.toMap());
+    await db.insert(
+      model.runtimeType.toString(),
+      model.toMap(),
+      conflictAlgorithm: sqlite.ConflictAlgorithm.replace,
+    );
   }
 
-  static Future<List<Map<String, dynamic>>> list (String table) async {
+  static Future<int> update(
+    String table,
+    Map<String, dynamic> data,
+    dynamic id,
+  ) async {
+    final db = await _getDB();
+    return await db.update(table, data, where: 'id = ?', whereArgs: [id]);
+  }
+
+  static Future<List<Map<String, dynamic>>> list(String table) async {
     final db = await _getDB();
     return db.query(table);
   }
 
-  static  Future<int> delete(String table, int id) async {
+  static Future<int> delete(String table, int id) async {
     final db = await _getDB();
-    return await db.delete(
-      table,
-      where: 'id = ?',
-      whereArgs: [id],
-    );
-}
-
+    return await db.delete(table, where: 'id = ?', whereArgs: [id]);
+  }
 }
