@@ -5,6 +5,7 @@ import 'package:ddm_projeto_final/provider/rega_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:ddm_projeto_final/widgets/botao_acao.dart';
 import 'package:provider/provider.dart';
+import 'package:ddm_projeto_final/util/fontes.dart';
 
 class TelaHome extends StatelessWidget {
   const TelaHome({Key? key}) : super(key: key);
@@ -27,6 +28,53 @@ class TelaHome extends StatelessWidget {
       child: SafeArea(
         child: Stack(
           children: [
+            Positioned(
+              top: 20,
+              left: 0,
+              right: 0,
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 6.0, bottom: 16.0),
+                      child: Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          Text(
+                            "Cresce, Brotinho!",
+                            style: TextStyle(
+                              fontFamily: AppFonts.railey,
+                              fontSize: 45,
+                              foreground: Paint()
+                                ..style = PaintingStyle.stroke
+                                ..strokeWidth = 3
+                                ..color = Colors.blue,
+                            ),
+                          ),
+                          const Text(
+                            "Cresce, Brotinho!",
+                            style: TextStyle(
+                              fontFamily: AppFonts.railey,
+                              fontSize: 44.5,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                              shadows: [
+                                Shadow(
+                                  blurRadius: 0.0,
+                                  color: Color.from(
+                                    alpha: 0.1,
+                                    red: 0.13,
+                                    green: 0.59,
+                                    blue: 0.95,
+                                  ),
+                                  offset: Offset(4.0, 4.0), // Multiplicador 3
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                ),
+              ),
+            ),
             Positioned(
               top: tamanhoTela.height * 0.42,
               right: 30,
