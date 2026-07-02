@@ -130,23 +130,6 @@ class _FormLoginState extends State<FormPerfil> {
                           return null;
                         },
                       ),
-                      /*botaoSaibaMais(
-                        context,
-                        'Calcular consumo de água',
-                        'fórmula para cálculo',
-                      ),
-                      IconButton(
-                        icon: const Icon(
-                          Icons.info_outline,
-                          color: Colors.blue,
-                        ),
-                        tooltip:
-                            'Este e-mail será usado para acessar sua conta.', // Mensagem flutuante
-                        onPressed: () {
-                          // Opcional: No mobile, um clique rápido também pode ativar o tooltip se configurado,
-                          // mas por padrão ele funciona ao manter pressionado.
-                        },
-                      ),*/
                       Tooltip(
                         message: 'Dados salvos localmente no SQLite.',
                         triggerMode:
@@ -160,74 +143,6 @@ class _FormLoginState extends State<FormPerfil> {
                           onPressed: null,
                         ),
                       ),
-                      /*IconButton(
-                        icon: const Icon(
-                          Icons.info_outline,
-                          color: Colors.blue,
-                        ),
-                        onPressed: () {
-                          showModalBottomSheet(
-                            context: context,
-                            shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(24.0),
-                              ), // Arredonda só o topo
-                            ),
-                            builder: (context) {
-                              return Container(
-                                padding: const EdgeInsets.all(24.0),
-                                height: 200, // Altura do painel informativo
-                                child: const Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Sobre a segurança da senha',
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    SizedBox(height: 12),
-                                    Text(
-                                      'ALERTA BOTTOM_SHEET Sua senha é criptografada e armazenada diretamente nos servidores seguros do Firebase Auth, nenhum administrador tem acesso a ela.',
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                          );
-                        },
-                      ),
-                      if (_ehCadastro())
-                        TextFormField(
-                          decoration: Util.estiloInput('Confirmar Senha'),
-                          style: TextStyle(
-                            color: Color.from(
-                              alpha: 1.0,
-                              red: 0.13,
-                              green: 0.59,
-                              blue: 0.95,
-                            ),
-                            fontFamily: AppFonts.mairy,
-                          ),
-                          keyboardType: TextInputType.emailAddress,
-                          obscureText: true,
-                          validator: _ehLogin()
-                              ? null
-                              : (_meta) {
-                                  final password = _meta ?? '';
-                                  if (password != _metaController.text) {
-                                    return 'Senhas informadas diferentes.';
-                                  }
-                                  return null;
-                                },
-                        ),
-                      const SizedBox(height: 20),
-                      BotaoLogin(
-                        texto: 'Salvar',
-                        onPressed: _trocaModoTela,
-                        estiloPrimario: true,
-                      ),*/
                     ],
                   ),
                 ),
