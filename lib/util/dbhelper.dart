@@ -6,7 +6,6 @@ import 'package:ddm_projeto_final/model/rega.dart';
 // import 'package:ddm_projeto_final/model/regiao.dart';
 
 class DatabaseHelper {
-  // Inicializa o Singleton do DatabaseHelper
   static final DatabaseHelper instance = DatabaseHelper._init();
   static Database? _database;
 
@@ -32,7 +31,6 @@ class DatabaseHelper {
     );
   }
 
-  // Cria a tabela para salvar os dados do usuário e tokens
   Future _createDB(Database db, int version) async {
     await db.execute('''
       CREATE TABLE sessao_usuario (
@@ -76,7 +74,6 @@ class DatabaseHelper {
     ''');
   }
 
-  // Salva ou atualiza a sessão inteira (Usado no Login)
   Future<void> salvarSessao(Acesso sessao) async {
     final db = await instance.database;
     await db.insert('sessao_usuario', {
@@ -89,7 +86,6 @@ class DatabaseHelper {
     }, conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
-  // Busca os dados da sessão atual
   Future<Acesso?> buscarSessao() async {
     final db = await instance.database;
     final maps = await db.query('sessao_usuario', limit: 1);
@@ -108,7 +104,6 @@ class DatabaseHelper {
     return null;
   }
 
-  // Atualiza apenas os tokens após o Refresh (Usado pelo Interceptor)
   Future<Acesso> atualizarTokens({
     required String novoIdToken,
     required String novoRefreshToken,
@@ -116,19 +111,16 @@ class DatabaseHelper {
   }) async {
     final db = await instance.database;
 
-    // Atualiza os dados no banco
     await db.update('sessao_usuario', {
       'id_token': novoIdToken,
       'refresh_token': novoRefreshToken,
       'expira_em': expiraEm.toIso8601String(),
     });
 
-    // Retorna a sessão atualizada para o interceptor continuar o fluxo
     final sessaoAtualizada = await buscarSessao();
     return sessaoAtualizada!;
   }
 
-  // Limpa os dados (Usado no Logout ou Token inválido)
   Future<void> limparSessao() async {
     final db = await instance.database;
     await db.delete('sessao_usuario');

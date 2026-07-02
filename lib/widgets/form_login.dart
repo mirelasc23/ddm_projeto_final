@@ -124,7 +124,6 @@ class _FormLoginState extends State<FormLogin> {
 
     return Container(
       padding: const EdgeInsets.all(30),
-      //height: _ehLogin() ? 310 : tamanhoTela.height * 0.6,
       height: tamanhoTela.height * 0.6,
       child: Form(
         key: _formKey,
@@ -133,14 +132,13 @@ class _FormLoginState extends State<FormLogin> {
             return SingleChildScrollView(
               child: ConstrainedBox(
                 constraints: BoxConstraints(
-                  // Força a coluna a ter no mínimo a altura total disponível do Container
                   minHeight: constraints.maxHeight,
                 ),
                 child: IntrinsicHeight(
                   child: Column(
                     spacing: 16,
                     mainAxisAlignment:
-                        MainAxisAlignment.center, // Agora vai funcionar!
+                        MainAxisAlignment.center, 
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       if (_ehCadastro())
@@ -158,12 +156,10 @@ class _FormLoginState extends State<FormLogin> {
                           ),
                           onSaved: (nome) => _dadosForm['nome'] = nome ?? '',
                           validator: (_nome) {
-                            //validacao
                             final nome = _nome ?? '';
                             if (nome.isEmpty || nome.length < 3) {
                               return 'Insira seu nome';
                             }
-                            //SEM ERRO DE VALIDACAO
                             return null;
                           },
                         ),
@@ -181,19 +177,15 @@ class _FormLoginState extends State<FormLogin> {
                         ),
                         keyboardType: TextInputType.emailAddress,
                         onSaved: (email) => _dadosForm['email'] =
-                            email ?? '', //acao de salvar formulario
+                            email ?? '', 
                         validator: (_email) {
-                          //validacao
                           final email = _email ?? '';
                           if (!email.contains('@')) {
-                            return 'Informe um e-mail válido.'; //com erro, com essa mensagem
+                            return 'Informe um e-mail válido.'; 
                           }
-                          //SEM ERRO DE VALIDACAO
                           return null;
                         },
                       ),
-                      //if (!_dadosForm.isEmpty) Text('erro'),
-                      //const SizedBox(height: 20),
                       TextFormField(
                         decoration: _estiloInput('Senha'),
                         style: TextStyle(
@@ -206,7 +198,7 @@ class _FormLoginState extends State<FormLogin> {
                           fontFamily: AppFonts.mairy,
                         ),
                         keyboardType: TextInputType.emailAddress,
-                        obscureText: true, //nao mostra caracteres
+                        obscureText: true,
                         controller: _passwordController,
                         onSaved: (password) =>
                             _dadosForm['password'] = password ?? '',
@@ -236,7 +228,6 @@ class _FormLoginState extends State<FormLogin> {
                               ? null
                               : (_password) {
                                   final password = _password ?? '';
-                                  //por isso precisa definir o controller da senha, para comparar as senhas
                                   if (password != _passwordController.text) {
                                     return 'Senhas informadas diferentes.';
                                   }
@@ -244,7 +235,6 @@ class _FormLoginState extends State<FormLogin> {
                                 },
                         ),
 
-                      //const Spacer(),
                       const SizedBox(height: 20),
                       if (_isLoading)
                         const CircularProgressIndicator()
@@ -257,7 +247,6 @@ class _FormLoginState extends State<FormLogin> {
                           },
                           estiloPrimario: true,
                         ),
-                      //const SizedBox(height: 20),
                       BotaoLogin(
                         texto: _ehLogin()
                             ? 'Criar novo cadastro?'
@@ -265,7 +254,6 @@ class _FormLoginState extends State<FormLogin> {
                         onPressed: _trocaModoTela,
                         estiloPrimario: false,
                       ),
-                      // Seus widgets aqui
                     ],
                   ),
                 ),

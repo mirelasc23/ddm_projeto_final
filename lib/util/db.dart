@@ -1,4 +1,6 @@
 import 'package:ddm_projeto_final/model/model.dart';
+import 'package:ddm_projeto_final/model/planta.dart';
+import 'package:ddm_projeto_final/model/rega.dart';
 import 'package:sqflite/sqflite.dart' as sqlite;
 import 'package:path/path.dart' as path;
 
@@ -64,5 +66,63 @@ class DBUtil {
   static Future<int> delete(String table, String id) async {
     final db = await _getDB();
     return await db.delete(table, where: 'id = ?', whereArgs: [id]);
+  }
+
+  //plantas
+
+  Future<int> inserirPlanta(Planta planta) async {
+    final db = await _getDB();
+    return await db.insert('planta', planta.toMap());
+  }
+
+  Future<List<Planta>> buscarPlantas() async {
+    final db = await _getDB();
+    final maps = await db.query('planta');
+    return maps.map((map) => Planta.fromMap(map)).toList();
+  }
+
+  Future<Planta?> buscarPlantaPorId(int id) async {
+    final db = await _getDB();
+    final maps = await db.query('planta', where: 'id = ?', whereArgs: [id]);
+    if (maps.isEmpty) return null;
+    return Planta.fromMap(maps.first);
+  }
+
+  Future<int> atualizarPlanta(Planta planta) async {
+    final db = await _getDB();
+    return await db.update(
+      'planta',
+      planta.toMap(),
+      where: 'id = ?',
+      whereArgs: [planta.id],
+    );
+  }
+
+  Future<int> excluirPlanta(int id) async {
+    final db = await _getDB();
+    return await db.delete('planta', where: 'id = ?', whereArgs: [id]);
+  }
+
+//regas
+
+Future<int> inserirRega(Rega rega) async {
+    final db = await _getDB();
+    return await db.insert('rega', rega.toMap());
+  }
+
+  Future<List<Rega>> buscarRegasPorPlanta(int idPlanta) async {
+    final db = await _getDB();
+    final maps = await db.query(
+      'rega',
+      where: 'idPlanta = ?',
+      whereArgs: [idPlanta],
+      orderBy: 'dataRega DESC',
+    );
+    return maps.map((map) => Rega.fromMap(map)).toList();
+  }
+
+  Future<int> excluirRega(int id) async {
+    final db = await _getDB();
+    return await db.delete('rega', where: 'id = ?', whereArgs: [id]);
   }
 }
