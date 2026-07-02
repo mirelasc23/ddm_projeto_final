@@ -7,14 +7,14 @@ import 'package:provider/provider.dart';
 
 enum Modo { cadastro, login }
 
-class FormPerfil extends StatefulWidget {
-  const FormPerfil({Key? key}) : super(key: key);
+class FormPlanta extends StatefulWidget {
+  const FormPlanta({Key? key}) : super(key: key);
 
   @override
-  State<FormPerfil> createState() => _FormPerfilState();
+  State<FormPlanta> createState() => _FormPlantaState();
 }
 
-class _FormPerfilState extends State<FormPerfil> {
+class _FormPlantaState extends State<FormPlanta> {
   final _metaController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 

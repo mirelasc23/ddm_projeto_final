@@ -4,6 +4,7 @@ import 'package:ddm_projeto_final/provider/rega_provider.dart';
 import 'package:ddm_projeto_final/provider/usuario_provider.dart';
 import 'package:ddm_projeto_final/util/rotas.dart';
 import 'package:ddm_projeto_final/view/tela_login.dart';
+import 'package:ddm_projeto_final/view/tela_planta.dart';
 import 'package:ddm_projeto_final/view/telas.dart';
 import 'package:ddm_projeto_final/view/tela_perfil.dart';
 import 'package:flutter/material.dart';
@@ -15,12 +16,6 @@ import 'package:get_it/get_it.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  /*runApp(
-    ChangeNotifierProvider(
-      create: (context) => AuthProvider(),
-      child: const MyApp(),
-    ),
-  );*/
   runApp(const MyApp());
 }
 
@@ -47,7 +42,8 @@ class MyApp extends StatelessWidget {
         home: TelaLogin(),
         routes: {
           Rotas.telaInicial:(context) => Telas(),
-          Rotas.telaPerfil: (context) => TelaPerfil()
+          Rotas.telaPerfil: (context) => TelaPerfil(),
+          Rotas.telaPlanta: (context) => TelaPlanta()
         },
       ),
     );
