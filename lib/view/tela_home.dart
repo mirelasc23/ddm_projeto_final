@@ -1,5 +1,8 @@
+import 'package:ddm_projeto_final/model/rega.dart';
+import 'package:ddm_projeto_final/provider/rega_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:ddm_projeto_final/widgets/botao_acao.dart';
+import 'package:provider/provider.dart';
 
 class TelaHome extends StatelessWidget {
   const TelaHome({Key? key}) : super(key: key);
@@ -31,7 +34,15 @@ class TelaHome extends StatelessWidget {
                 cor: Colors.lightBlue,
                 tamanho: 220,
                 onTap: () {
-                  //implementar
+                  final provider = Provider.of<RegaProvider>(
+                    context,
+                    listen: false,
+                  );
+                  final hoje = DateTime.now();
+                  final dataHoje =
+                      '${hoje.year}-${hoje.month.toString().padLeft(2, '0')}-${hoje.day.toString().padLeft(2, '0')}';
+                  final rega = Rega(idPlanta: 1, dataRega: dataHoje);
+                  provider.regar(rega);
                 },
               ),
             ),
