@@ -102,46 +102,10 @@ class _FormLoginState extends State<FormPerfil> {
                 child: CircleAvatar(
                   radius: 50.0,
                   backgroundImage: AssetImage('assets/images/foto-perfil.png'),
-                  // backgroundImage: NetworkImage('https://seusite.com'),
                 ),
               ),
-              /*TextFormField(
-                initialValue: acesso!.nome,
-                readOnly: true,
-                enabled: false,
-                decoration: _estiloInput('Nome'),
-                style: TextStyle(
-                  color: Color.from(
-                    alpha: 1.0,
-                    red: 0.13,
-                    green: 0.59,
-                    blue: 0.95,
-                  ),
-                  fontFamily: AppFonts.mairy,
-                ),
-                keyboardType: TextInputType.emailAddress,
-                onSaved: (email) => _dadosForm['email'] =
-                    email ?? '', //acao de salvar formulario
-                validator: (_email) {
-                  //validacao
-                  final email = _email ?? '';
-                  if (!email.contains('@')) {
-                    return 'Informe um e-mail válido.'; //com erro, com essa mensagem
-                  }
-                  return null;
-                },
-              ),*/
               caixaTextoExibicao('Nome', acesso!.nome),
-              /*Container(
-                padding: EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black, width: 3.0),
-                  borderRadius: BorderRadius.circular(100.0), // Raio dos cantos
-                ),
-                child: Text('Email: ${acesso!.email}'),
-              ),*/
               caixaTextoExibicao('Email', acesso!.email),
-              //const SizedBox(height: 20),
               TextFormField(
                 decoration: _estiloInput('Meta'),
                 style: TextStyle(
@@ -182,7 +146,6 @@ class _FormLoginState extends State<FormPerfil> {
                       ? null
                       : (_meta) {
                           final password = _meta ?? '';
-                          //por isso precisa definir o controller da senha, para comparar as senhas
                           if (password != _metaController.text) {
                             return 'Senhas informadas diferentes.';
                           }
