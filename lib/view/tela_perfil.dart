@@ -19,7 +19,7 @@ class TelaPerfil extends StatelessWidget {
             fit: BoxFit.cover, // Garante que a imagem cubra toda a tela
           ),
         ),
-        child: SafeArea(
+        child: /*SafeArea(
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -41,12 +41,12 @@ class TelaPerfil extends StatelessWidget {
                       ],
                     ),
                   ),
-                ),
-                const FormPerfil(),
-              ],
-            ),
-          ),
-        ),
+                ),*/
+            const FormPerfil(),
+        //],
+        //),
+        //),
+        //),
       ),
     );
   }

@@ -62,84 +62,108 @@ class _FormLoginState extends State<FormPerfil> {
     );
 
     final acesso = authProvider.acessoAtual;
+    //final tamanhoTela = MediaQuery.of(context).size;
 
     return Container(
+      //height: tamanhoTela.height,
       padding: const EdgeInsets.all(30),
       child: Form(
         key: _formKey,
-        child: SingleChildScrollView(
-          child: Column(
-            spacing: 16,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                padding: const EdgeInsets.all(4.0), // Espessura da borda
-                decoration: const BoxDecoration(
-                  color: Color.fromRGBO(255, 148, 186, 1.0), // Cor da borda
-                  shape: BoxShape.circle,
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            return SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  // Força a coluna a ter no mínimo a altura total disponível do Container
+                  minHeight: constraints.maxHeight,
                 ),
-                child: CircleAvatar(
-                  radius: 50.0,
-                  backgroundImage: AssetImage('assets/images/foto-perfil.png'),
-                ),
-              ),
-              caixaTextoExibicao('Nome', acesso!.nome),
-              caixaTextoExibicao('Email', acesso.email),
-              TextFormField(
-                decoration: Util.estiloInput('Meta'),
-                style: TextStyle(
-                  color: Color.from(
-                    alpha: 1.0,
-                    red: 0.13,
-                    green: 0.59,
-                    blue: 0.95,
-                  ),
-                  fontFamily: AppFonts.mairy,
-                ),
-                keyboardType: TextInputType.number,
-                controller: _metaController,
-                onSaved: (password) => _dadosForm['password'] = password ?? '',
-                validator: (_meta) {
-                  final password = _meta ?? '';
-                  if (password.isEmpty || password.length < 3) {
-                    return 'Informe uma senha válida';
-                  }
-                  return null;
-                },
-              ),
-              if (_ehCadastro())
-                TextFormField(
-                  decoration: Util.estiloInput('Confirmar Senha'),
-                  style: TextStyle(
-                    color: Color.from(
-                      alpha: 1.0,
-                      red: 0.13,
-                      green: 0.59,
-                      blue: 0.95,
-                    ),
-                    fontFamily: AppFonts.mairy,
-                  ),
-                  keyboardType: TextInputType.emailAddress,
-                  obscureText: true,
-                  validator: _ehLogin()
-                      ? null
-                      : (_meta) {
+                child: IntrinsicHeight(
+                  child: Column(
+                    //spacing: 16,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(
+                          4.0,
+                        ), // Espessura da borda
+                        decoration: const BoxDecoration(
+                          color: Color.fromRGBO(
+                            255,
+                            148,
+                            186,
+                            1.0,
+                          ), // Cor da borda
+                          shape: BoxShape.circle,
+                        ),
+                        child: CircleAvatar(
+                          radius: 75.0,
+                          backgroundImage: AssetImage(
+                            'assets/images/foto-perfil.png',
+                          ),
+                        ),
+                      ),
+                      caixaTextoExibicao('Nome', acesso!.nome),
+                      caixaTextoExibicao('Email', acesso.email),
+                      TextFormField(
+                        decoration: Util.estiloInput('Meta'),
+                        style: TextStyle(
+                          color: Color.from(
+                            alpha: 1.0,
+                            red: 0.13,
+                            green: 0.59,
+                            blue: 0.95,
+                          ),
+                          fontFamily: AppFonts.mairy,
+                        ),
+                        keyboardType: TextInputType.number,
+                        controller: _metaController,
+                        onSaved: (password) =>
+                            _dadosForm['password'] = password ?? '',
+                        validator: (_meta) {
                           final password = _meta ?? '';
-                          if (password != _metaController.text) {
-                            return 'Senhas informadas diferentes.';
+                          if (password.isEmpty || password.length < 3) {
+                            return 'Informe uma senha válida';
                           }
                           return null;
                         },
+                      ),
+                      if (_ehCadastro())
+                        TextFormField(
+                          decoration: Util.estiloInput('Confirmar Senha'),
+                          style: TextStyle(
+                            color: Color.from(
+                              alpha: 1.0,
+                              red: 0.13,
+                              green: 0.59,
+                              blue: 0.95,
+                            ),
+                            fontFamily: AppFonts.mairy,
+                          ),
+                          keyboardType: TextInputType.emailAddress,
+                          obscureText: true,
+                          validator: _ehLogin()
+                              ? null
+                              : (_meta) {
+                                  final password = _meta ?? '';
+                                  if (password != _metaController.text) {
+                                    return 'Senhas informadas diferentes.';
+                                  }
+                                  return null;
+                                },
+                        ),
+                      const SizedBox(height: 20),
+                      BotaoLogin(
+                        texto: 'Salvar',
+                        onPressed: _trocaModoTela,
+                        estiloPrimario: true,
+                      ),
+                    ],
+                  ),
                 ),
-              const SizedBox(height: 20),
-              BotaoLogin(
-                texto: 'Salvar',
-                onPressed: _trocaModoTela,
-                estiloPrimario: true,
               ),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );
