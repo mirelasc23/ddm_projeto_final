@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
-class LocalizacaoPage extends StatefulWidget {
+class Localizacao extends StatefulWidget {
   @override
-  _LocalizacaoPageState createState() => _LocalizacaoPageState();
+  _LocalizacaoState createState() => _LocalizacaoState();
 }
 
-class _LocalizacaoPageState extends State<LocalizacaoPage> {
+class _LocalizacaoState extends State<Localizacao> {
   String _posicaoAtual = "Pressione o botão para buscar a localização";
 
-  Future<void> _pegarLocalizacao() async {
+  Future<void> pegarLocalizacao() async {
     bool servicoAtivado;
     LocationPermission permissao;
 
@@ -75,7 +75,7 @@ class _LocalizacaoPageState extends State<LocalizacaoPage> {
               ),
               const SizedBox(height: 20),
               ElevatedButton(
-                onPressed: _pegarLocalizacao,
+                onPressed: pegarLocalizacao,
                 child: const Text('Obter Localização'),
               ),
             ],

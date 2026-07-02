@@ -24,12 +24,9 @@ void main() async {
   runApp(const MyApp());
 }
 
-// 1. Crie uma instância do seu GetIt
 final getIt = GetIt.instance;
 
-// 2. Função chamada quando você tiver os dados do input
 void inicializarObjeto(Acesso acesso) {
-  // Registra a instância em tempo de execução
   getIt.registerSingleton<Acesso>(acesso);
 }
 
@@ -47,12 +44,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.blueGrey)),
-        // home: const TelaInicio(title: 'Flutter Demo Home Page'),
         home: TelaLogin(),
         routes: {
-          //Rotas.telaDetalhes : (context) => TelaDados(titulo: "Detalhes pessoa"),
-          //Rotas.telaBusca: (context) => TelaLista(titulo: 'Lista ex.'),
-          // Rotas.telaInicial: (context) => TelaLista(titulo: 'HOME'),
           Rotas.telaInicial:(context) => Telas(),
           Rotas.telaPerfil: (context) => TelaPerfil()
         },
