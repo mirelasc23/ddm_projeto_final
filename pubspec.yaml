@@ -76,6 +76,7 @@ flutter:
     - assets/images/imagem_plantar.png
     - assets/images/plantar.png
     - assets/images/regar.png
+    - assets/images/mapa-fundo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
