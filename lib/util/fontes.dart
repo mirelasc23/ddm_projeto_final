@@ -4,5 +4,5 @@ class AppFonts {
   static const String mairy = 'MairyRegular';
 }
 
-// No seu código:
+// No código:
 //TextStyle(fontFamily: AppFonts.railey)

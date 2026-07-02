@@ -1,6 +1,6 @@
-import 'package:ddm_projeto_final/model/acesso.dart';
 import 'package:ddm_projeto_final/util/fontes.dart';
 import 'package:ddm_projeto_final/util/rotas.dart';
+import 'package:ddm_projeto_final/util/util.dart';
 import 'package:ddm_projeto_final/widgets/botao_login.dart';
 import 'package:ddm_projeto_final/widgets/caixa_texto.dart';
 import '../provider/auth_provider.dart';
@@ -54,25 +54,6 @@ class _FormLoginState extends State<FormPerfil> {
     }
   }
 
-  InputDecoration _estiloInput(String label) {
-    return InputDecoration(
-      labelText: label,
-      filled: true,
-      fillColor: const Color.fromRGBO(255, 255, 255, 0.53),
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(100.0), // Cantos arredondados
-        borderSide: BorderSide.none,
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(100.0),
-        borderSide: const BorderSide(
-          color: Color.from(alpha: 1.0, red: 0.13, green: 0.59, blue: 0.95),
-          width: 1.5,
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final AuthProvider authProvider = Provider.of<AuthProvider>(
@@ -80,7 +61,6 @@ class _FormLoginState extends State<FormPerfil> {
       listen: false,
     );
 
-    //final tamanhoTela = MediaQuery.of(context).size;
     final acesso = authProvider.acessoAtual;
 
     return Container(
@@ -105,9 +85,9 @@ class _FormLoginState extends State<FormPerfil> {
                 ),
               ),
               caixaTextoExibicao('Nome', acesso!.nome),
-              caixaTextoExibicao('Email', acesso!.email),
+              caixaTextoExibicao('Email', acesso.email),
               TextFormField(
-                decoration: _estiloInput('Meta'),
+                decoration: Util.estiloInput('Meta'),
                 style: TextStyle(
                   color: Color.from(
                     alpha: 1.0,
@@ -130,7 +110,7 @@ class _FormLoginState extends State<FormPerfil> {
               ),
               if (_ehCadastro())
                 TextFormField(
-                  decoration: _estiloInput('Confirmar Senha'),
+                  decoration: Util.estiloInput('Confirmar Senha'),
                   style: TextStyle(
                     color: Color.from(
                       alpha: 1.0,
