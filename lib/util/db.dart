@@ -33,7 +33,11 @@ class DBUtil {
         db.execute('''
           CREATE TABLE Planta(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            nome TEXT NOT NULL
+            nome TEXT NOT NULL,
+            latitude REAL NOT NULL,
+            longitude REAL NOT NULL,
+            imagem TEXT,
+            idRegiao INTEGER
           )
         ''');
       },
