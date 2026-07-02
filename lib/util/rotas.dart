@@ -4,4 +4,5 @@ class Rotas {
   static final telaBusca = "/tela_busca";
   static final telaPerfil = "/tela_perfil";
   static final telaMae = "/tela-mae";
+  static final telaPlanta = "/tela_planta";
 }

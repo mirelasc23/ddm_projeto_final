@@ -32,7 +32,7 @@ class AuthInterceptor extends Interceptor {
       }
 
       // 3. Adiciona o token válido no cabeçalho da requisição atual
-      options.headers['Authorization'] = 'Bearer ${sessao!.idToken}';
+      options.headers['Authorization'] = 'Bearer ${sessao.idToken}';
     }
 
     return handler.next(options);

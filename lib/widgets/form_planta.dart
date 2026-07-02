@@ -7,14 +7,14 @@ import 'package:provider/provider.dart';
 
 enum Modo { cadastro, login }
 
-class FormPerfil extends StatefulWidget {
-  const FormPerfil({Key? key}) : super(key: key);
+class FormPlanta extends StatefulWidget {
+  const FormPlanta({Key? key}) : super(key: key);
 
   @override
-  State<FormPerfil> createState() => _FormPerfilState();
+  State<FormPlanta> createState() => _FormPlantaState();
 }
 
-class _FormPerfilState extends State<FormPerfil> {
+class _FormPlantaState extends State<FormPlanta> {
   final _metaController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
@@ -28,10 +28,8 @@ class _FormPerfilState extends State<FormPerfil> {
     );
 
     final acesso = authProvider.acessoAtual;
-    //final tamanhoTela = MediaQuery.of(context).size;
 
     return Container(
-      //height: tamanhoTela.height,
       padding: const EdgeInsets.all(30),
       child: Form(
         key: _formKey,
@@ -40,7 +38,6 @@ class _FormPerfilState extends State<FormPerfil> {
             return SingleChildScrollView(
               child: ConstrainedBox(
                 constraints: BoxConstraints(
-                  // Força a coluna a ter no mínimo a altura total disponível do Container
                   minHeight: constraints.maxHeight,
                 ),
                 child: IntrinsicHeight(
@@ -52,14 +49,14 @@ class _FormPerfilState extends State<FormPerfil> {
                       Container(
                         padding: const EdgeInsets.all(
                           4.0,
-                        ), // Espessura da borda
+                        ), 
                         decoration: const BoxDecoration(
                           color: Color.fromRGBO(
                             255,
                             148,
                             186,
                             1.0,
-                          ), // Cor da borda
+                          ), 
                           shape: BoxShape.circle,
                         ),
                         child: CircleAvatar(
@@ -98,7 +95,7 @@ class _FormPerfilState extends State<FormPerfil> {
                       Tooltip(
                         message: 'Dados salvos localmente no SQLite.',
                         triggerMode:
-                            TooltipTriggerMode.tap, // Força o clique rápido
+                            TooltipTriggerMode.tap,
                         preferBelow: false,
                         child: IconButton(
                           icon: const Icon(

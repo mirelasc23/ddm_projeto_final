@@ -1,5 +1,4 @@
 import 'package:ddm_projeto_final/provider/usuario_provider.dart';
-//import 'package:ddm_projeto_final/util/rotas.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,20 +16,7 @@ class _TelaListaState extends State<TelaLista_v01> {
   void initState() {
     super.initState();
     final provider = Provider.of<UsuarioProvider>(context, listen: false);
-
-    // provider.carregaPessoas();
   }
-
-  /*void _deleta() {
-    if (!(_endereco == null || _nomeController.text.isEmpty)) {
-      _endereco!.complemento = _complementoController.text;
-      _endereco!.numero = _numeroController.text;
-      _usuario = Pessoa(nome: _nomeController.text, endereco: _endereco!);
-      final provider = Provider.of<PessoaProvider>(context, listen: false);
-      provider.addPessoa(_usuario!);
-      Navigator.pop(context);
-    }
-  }*/
 
   @override
   Widget build(BuildContext context) {

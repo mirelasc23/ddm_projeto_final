@@ -1,8 +1,8 @@
 import 'package:ddm_projeto_final/widgets/form_perfil.dart';
 import 'package:flutter/material.dart';
 
-class TelaPerfil extends StatelessWidget {
-  const TelaPerfil({Key? key}) : super(key: key);
+class TelaPlanta extends StatelessWidget {
+  const TelaPlanta({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
