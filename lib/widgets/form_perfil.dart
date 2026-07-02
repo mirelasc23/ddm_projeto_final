@@ -72,29 +72,29 @@ class _FormPerfilState extends State<FormPerfil> {
                       caixaTextoExibicao('Nome', acesso!.nome),
                       caixaTextoExibicao('Email', acesso.email),
                       const SizedBox(height: 40),
-                      TextFormField(
-                        decoration: Util.estiloInput('Meta'),
-                        style: TextStyle(
-                          color: Color.from(
-                            alpha: 1.0,
-                            red: 0.13,
-                            green: 0.59,
-                            blue: 0.95,
-                          ),
-                          fontFamily: AppFonts.mairy,
-                        ),
-                        keyboardType: TextInputType.number,
-                        controller: _metaController,
-                        onSaved: (password) =>
-                            _dadosForm['password'] = password ?? '',
-                        validator: (_meta) {
-                          final password = _meta ?? '';
-                          if (password.isEmpty || password.length < 3) {
-                            return 'Informe uma senha válida';
-                          }
-                          return null;
-                        },
-                      ),
+                      // TextFormField(
+                      //   decoration: Util.estiloInput('Meta'),
+                      //   style: TextStyle(
+                      //     color: Color.from(
+                      //       alpha: 1.0,
+                      //       red: 0.13,
+                      //       green: 0.59,
+                      //       blue: 0.95,
+                      //     ),
+                      //     fontFamily: AppFonts.mairy,
+                      //   ),
+                      //   keyboardType: TextInputType.number,
+                      //   controller: _metaController,
+                      //   onSaved: (password) =>
+                      //       _dadosForm['password'] = password ?? '',
+                      //   validator: (_meta) {
+                      //     final password = _meta ?? '';
+                      //     if (password.isEmpty || password.length < 3) {
+                      //       return 'Informe uma senha válida';
+                      //     }
+                      //     return null;
+                      //   },
+                      // ),
                       Tooltip(
                         message: 'Dados salvos localmente no SQLite.',
                         triggerMode:

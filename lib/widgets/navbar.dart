@@ -22,7 +22,7 @@ class Navbar extends StatelessWidget{
       margin: const EdgeInsets.fromLTRB(24, 0, 24, 16),
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       decoration: BoxDecoration(
-        color: Colors.lightGreen.withOpacity(0.35),
+        color: Colors.white.withOpacity(0.35),
         borderRadius: BorderRadius.circular(40)
       ),
       child: Row(
