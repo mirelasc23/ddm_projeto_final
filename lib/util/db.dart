@@ -16,7 +16,7 @@ class DBUtil {
       version: 1,
       onCreate: (db, version) {
         db.execute('''
-          CREATE TABLE Usuario(
+          CREATE TABLE Acesso(
             id TEXT PRIMARY KEY,
             nome TEXT NOT NULL,
             email TEXT NOT NULL,

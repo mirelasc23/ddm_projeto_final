@@ -121,8 +121,7 @@ class AuthProvider extends ChangeNotifier {
         final segundos = int.parse(dadosResposta['expiresIn']);
         final dataExpiracao = DateTime.now().add(Duration(seconds: segundos));
 
-        String nomeUsuario =
-            dadosResposta['displayName'] ?? email.split('@')[0];
+        String nomeUsuario = dadosResposta['email'] ?? email.split('@')[0];
 
         _acessoAtual = Acesso(
           uid: dadosResposta['localId'],
@@ -160,7 +159,7 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> cadastra(String email, String password) async {
+  Future<void> cadastra(String email, String password, String nome) async {
     _apresentaErro = false;
     print('entra cadastro (REST API)');
     final url = Uri.parse(
@@ -187,8 +186,8 @@ class AuthProvider extends ChangeNotifier {
         final segundos = int.parse(dadosResposta['expiresIn']);
         final dataExpiracao = DateTime.now().add(Duration(seconds: segundos));
 
-        String nomeUsuario =
-            dadosResposta['displayName'] ?? email.split('@')[0];
+        //String nomeUsuario = dadosResposta['displayName'] ?? email.split('@')[0];
+        String nomeUsuario = nome;
 
         _acessoAtual = Acesso(
           uid: dadosResposta['localId'],

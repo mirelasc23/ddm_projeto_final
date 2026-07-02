@@ -16,7 +16,8 @@ class FormPerfil extends StatefulWidget {
 }
 
 class _FormLoginState extends State<FormPerfil> {
-  
+  final _nomeController = TextEditingController();
+  final _emailController = TextEditingController();
   final _metaController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
@@ -28,7 +29,6 @@ class _FormLoginState extends State<FormPerfil> {
   bool _ehCadastro() => _modo == Modo.cadastro;
 
   void _trocaModoTela() {
-
     print("funcao _trocaModoTela");
   }
 
@@ -48,12 +48,6 @@ class _FormLoginState extends State<FormPerfil> {
       listen: false,
     );
 
-    // if (_ehLogin()) {
-    //   // Login
-    //   print('_ehLogin');
-    //   await authProvider.login(_dadosForm['email']!, _dadosForm['password']!);
-    // }
-
     setState(() => _isLoading = false);
 
     if (authProvider.estaAutenticado) {
@@ -68,17 +62,12 @@ class _FormLoginState extends State<FormPerfil> {
       fillColor: const Color.fromRGBO(255, 255, 255, 0.53),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(100.0), // Cantos arredondados
-        borderSide: BorderSide.none, 
+        borderSide: BorderSide.none,
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(100.0),
         borderSide: const BorderSide(
-          color: Color.from(
-            alpha: 1.0,
-            red: 0.13,
-            green: 0.59,
-            blue: 0.95,
-          ),
+          color: Color.from(alpha: 1.0, red: 0.13, green: 0.59, blue: 0.95),
           width: 1.5,
         ),
       ),
@@ -92,12 +81,11 @@ class _FormLoginState extends State<FormPerfil> {
       listen: false,
     );
 
-    final tamanhoTela = MediaQuery.of(context).size;
-    //final email = authProvider.getEmail();
+    //final tamanhoTela = MediaQuery.of(context).size;
+    final acesso = authProvider.acessoAtual;
 
     return Container(
       padding: const EdgeInsets.all(30),
-      
       child: Form(
         key: _formKey,
         child: SingleChildScrollView(
@@ -109,7 +97,7 @@ class _FormLoginState extends State<FormPerfil> {
               Container(
                 padding: const EdgeInsets.all(4.0), // Espessura da borda
                 decoration: const BoxDecoration(
-                  color: Color.fromRGBO(255, 148,186,1.0), // Cor da borda
+                  color: Color.fromRGBO(255, 148, 186, 1.0), // Cor da borda
                   shape: BoxShape.circle,
                 ),
                 child: CircleAvatar(
@@ -119,6 +107,7 @@ class _FormLoginState extends State<FormPerfil> {
                 ),
               ),
               TextFormField(
+                controller: _nomeController,
                 decoration: _estiloInput('Nome'),
                 style: TextStyle(
                   color: Color.from(
@@ -130,8 +119,8 @@ class _FormLoginState extends State<FormPerfil> {
                   fontFamily: AppFonts.mairy,
                 ),
                 keyboardType: TextInputType.emailAddress,
-                onSaved: (email) =>
-                    _dadosForm['email'] = email ?? '', //acao de salvar formulario
+                onSaved: (email) => _dadosForm['email'] =
+                    email ?? '', //acao de salvar formulario
                 validator: (_email) {
                   //validacao
                   final email = _email ?? '';
@@ -142,11 +131,12 @@ class _FormLoginState extends State<FormPerfil> {
                 },
               ),
               Container(
+                padding: EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.black, width: 3.0),
-                  borderRadius: BorderRadius.circular(12.0), // Raio dos cantos
+                  borderRadius: BorderRadius.circular(100.0), // Raio dos cantos
                 ),
-                child: Text('Email: email'),
+                child: Text('Email: $_emailController'),
               ),
               //const SizedBox(height: 20),
               TextFormField(
@@ -186,15 +176,15 @@ class _FormLoginState extends State<FormPerfil> {
                   keyboardType: TextInputType.emailAddress,
                   obscureText: true,
                   validator: _ehLogin()
-                    ? null
-                    : (_meta) {
-                        final password = _meta ?? '';
-                        //por isso precisa definir o controller da senha, para comparar as senhas
-                        if (password != _metaController.text) {
-                          return 'Senhas informadas diferentes.';
-                        }
-                        return null;
-                      },
+                      ? null
+                      : (_meta) {
+                          final password = _meta ?? '';
+                          //por isso precisa definir o controller da senha, para comparar as senhas
+                          if (password != _metaController.text) {
+                            return 'Senhas informadas diferentes.';
+                          }
+                          return null;
+                        },
                 ),
               const SizedBox(height: 20),
               BotaoLogin(

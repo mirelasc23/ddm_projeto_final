@@ -23,11 +23,12 @@ class TelaLogin extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const SizedBox(height: 50),
+                //const SizedBox(height: 50),
                 Container(
-                  margin: const EdgeInsets.only(bottom: 20, top: 40),
+                  height: tamanhoTela.height * 0.1,
+                  margin: const EdgeInsets.only(bottom: 20, top: 90),
                   child: Padding(
                     padding: const EdgeInsets.only(left: 6.0, bottom: 16.0),
                     child: Stack(

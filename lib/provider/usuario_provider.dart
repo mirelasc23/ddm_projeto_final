@@ -11,7 +11,7 @@ class UsuarioProvider with ChangeNotifier {
   List<Usuario> _usuarios = [];
   final String _url =
       "https://teste-ddm-ifsc-default-rtdb.firebaseio.com/pessoas.json";
-    List<Usuario> get usuarios => _usuarios;
+  List<Usuario> get usuarios => _usuarios;
 
   /*List<Usuario> get pessoasDummy {
     _usuarios  = [
@@ -39,7 +39,7 @@ class UsuarioProvider with ChangeNotifier {
     notifyListeners();
   }
 */
-  void addUsuario(Usuario usuario) async{
+  void addUsuario(Usuario usuario) async {
     final response = await http.post(
       Uri.parse(_url),
       body: jsonEncode(usuario.toMap()),
@@ -49,12 +49,13 @@ class UsuarioProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void removeUsuario(int id){
-    DBUtil.delete("Usuario", id);
+  void removeUsuario(int id) {
+    DBUtil.delete("Usuario", id.toString());
     _usuarios.removeWhere((usuario) => usuario.id == id);
     notifyListeners();
   }
-/*
+
+  /*
   List<Pessoa> get pessoas => _pessoas;
 
   Future<void> carregaPessoas() async {

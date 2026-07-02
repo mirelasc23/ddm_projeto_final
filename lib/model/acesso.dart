@@ -1,4 +1,6 @@
-class Acesso {
+import 'package:ddm_projeto_final/model/model.dart';
+
+class Acesso implements Model {
   /*String _idToken;
   final String _nome;
   String _email;*/
@@ -57,4 +59,7 @@ class Acesso {
   String toString() {
     return 'Acesso{id: $idToken, nome: $nome, email: $email}';
   }
+
+  @override
+  int? id;
 }

@@ -58,7 +58,7 @@ class _TelaListaState extends State<TelaLista_v01> {
                 "email: ${usuario.nome}",
               ),
               trailing: IconButton(
-                onPressed: () => provider.removeUsuario(usuario.id!),
+                onPressed: () => provider.removeUsuario(usuario.id!.toInt()),
                 icon: Icon(Icons.delete, color: Colors.red[400]),
               ),
               tileColor: Colors.grey[400],
