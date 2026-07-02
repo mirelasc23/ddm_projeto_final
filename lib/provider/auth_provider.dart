@@ -1,4 +1,7 @@
 import 'dart:convert';
+import 'package:ddm_projeto_final/model/acesso.dart';
+import 'package:ddm_projeto_final/model/model.dart';
+import 'package:ddm_projeto_final/util/db.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -8,10 +11,90 @@ class AuthProvider extends ChangeNotifier {
   bool _apresentaErro = false;
   bool get apresentaErro => _apresentaErro;
 
-  // Coloque aqui a sua "Chave de API da Web" do console do Firebase
+  Acesso? _acessoAtual;
+  Acesso? get acessoAtual => _acessoAtual;
+
   final String _apiKey = "AIzaSyCNTlB_qCE1fi_hyQdQZeY_hEPI2xzzCFs";
 
+  Future<String?> obterTokenValido() async {
+    // Se o usuário não está na memória, tenta buscar do SQLite
+    if (_acessoAtual == null) {
+      final lista = await DBUtil.list('Usuario');
+      if (lista.isNotEmpty) {
+        final dados = lista.first;
+        _acessoAtual = Acesso(
+          uid: dados['id'],
+          nome: dados['nome'],
+          email: dados['email'],
+          idToken: dados['id_token'],
+          refreshToken: dados['refresh_token'],
+          expiraEm: DateTime.parse(dados['expira_em']),
+        );
+        _estaAutenticado = true;
+      }
+    }
+
+    if (_acessoAtual == null) return null;
+
+    // Se NÃO precisa de refresh, retorna o token atual imediatamente
+    if (!_acessoAtual!.precisaDeRefresh) {
+      return _acessoAtual!.idToken;
+    }
+
+    // Se precisar de refresh, faz a chamada na API de tokens do Firebase
+    print('Token expirado! Atualizando...');
+    final url = Uri.parse(
+      'https://securetoken.googleapis.com/v1/token?key=$_apiKey',
+    );
+
+    try {
+      final response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: {
+          'grant_type': 'refresh_token',
+          'refresh_token': _acessoAtual!.refreshToken,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final dadosToken = jsonDecode(response.body);
+
+        final segundos = int.parse(dadosToken['expires_in']);
+        final novaExpiracao = DateTime.now().add(Duration(seconds: segundos));
+
+        // Atualiza os dados locais na memória
+        _acessoAtual = Acesso(
+          uid: _acessoAtual!.uid,
+          nome: _acessoAtual!.nome, // Mantém o nome existente
+          email: _acessoAtual!.email, // Mantém o e-mail existente
+          idToken: dadosToken['id_token'],
+          refreshToken: dadosToken['refresh_token'],
+          expiraEm: novaExpiracao,
+        );
+
+        // Atualiza no banco de dados usando o DBUtil
+        await DBUtil.update('Usuario', {
+          'id_token': _acessoAtual!.idToken,
+          'refresh_token': _acessoAtual!.refreshToken,
+          'expira_em': _acessoAtual!.expiraEm.toIso8601String(),
+        }, _acessoAtual!.uid);
+
+        print('Token renovado com sucesso!');
+        return _acessoAtual!.idToken;
+      } else {
+        // Se falhar o refresh token (ex: senha alterada em outro dispositivo) force o logout
+        await logout();
+        return null;
+      }
+    } catch (e) {
+      print('Erro ao tentar renovar token: $e');
+      return null;
+    }
+  }
+
   Future<void> login(String email, String password) async {
+    _apresentaErro = false;
     print('entra login (REST API)');
     final url = Uri.parse(
       'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=$_apiKey',
@@ -28,19 +111,37 @@ class AuthProvider extends ChangeNotifier {
         }),
       );
 
-      final dadosReposta = jsonDecode(response.body);
+      final dadosResposta = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
-        print('Usuário logado via REST: ${dadosReposta['email']}');
-        // Aqui você pode salvar o dadosReposta['idToken'] se precisar usar em outras APIs
+        print('Usuário logado via REST: ${dadosResposta['email']}');
+        // Aqui você pode salvar o dadosResposta['idToken'] se precisar usar em outras APIs
         _estaAutenticado = true;
-        print('LOGIN: ${dadosReposta['idToken']}');
-        print('EMAIL: ${dadosReposta['email']}');
+
+        final segundos = int.parse(dadosResposta['expiresIn']);
+        final dataExpiracao = DateTime.now().add(Duration(seconds: segundos));
+
+        String nomeUsuario =
+            dadosResposta['displayName'] ?? email.split('@')[0];
+
+        _acessoAtual = Acesso(
+          uid: dadosResposta['localId'],
+          nome: nomeUsuario,
+          email: dadosResposta['email'],
+          idToken: dadosResposta['idToken'],
+          refreshToken: dadosResposta['refreshToken'],
+          expiraEm: dataExpiracao,
+        );
+
+        await DBUtil.insert(_acessoAtual! as Model);
+
+        print('LOGIN: ${dadosResposta['idToken']}');
+        print('EMAIL: ${dadosResposta['email']}');
       } else {
         _apresentaErro = true;
         _estaAutenticado = false;
         final String erro =
-            dadosReposta['error']['message'] ?? 'Erro desconhecido';
+            dadosResposta['error']['message'] ?? 'Erro desconhecido';
         print('Erro no Login REST: $erro');
 
         // Mapeamento dos erros comuns do Firebase REST
@@ -60,6 +161,7 @@ class AuthProvider extends ChangeNotifier {
   }
 
   Future<void> cadastra(String email, String password) async {
+    _apresentaErro = false;
     print('entra cadastro (REST API)');
     final url = Uri.parse(
       'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=$_apiKey',
@@ -76,18 +178,36 @@ class AuthProvider extends ChangeNotifier {
         }),
       );
 
-      final dadosReposta = jsonDecode(response.body);
+      final dadosResposta = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
-        print('Usuário cadastrado via REST: ${dadosReposta['email']}');
+        print('Usuário cadastrado via REST: ${dadosResposta['email']}');
         _estaAutenticado = true;
-        print('LOGIN: ${dadosReposta['idToken']}');
-        print('EMAIL: ${dadosReposta['email']}');
+
+        final segundos = int.parse(dadosResposta['expiresIn']);
+        final dataExpiracao = DateTime.now().add(Duration(seconds: segundos));
+
+        String nomeUsuario =
+            dadosResposta['displayName'] ?? email.split('@')[0];
+
+        _acessoAtual = Acesso(
+          uid: dadosResposta['localId'],
+          nome: nomeUsuario,
+          email: dadosResposta['email'],
+          idToken: dadosResposta['idToken'],
+          refreshToken: dadosResposta['refreshToken'],
+          expiraEm: dataExpiracao,
+        );
+
+        await DBUtil.insert(_acessoAtual! as Model);
+
+        print('LOGIN: ${dadosResposta['idToken']}');
+        print('EMAIL: ${dadosResposta['email']}');
       } else {
         _apresentaErro = true;
         _estaAutenticado = false;
         final String erro =
-            dadosReposta['error']['message'] ?? 'Erro desconhecido';
+            dadosResposta['error']['message'] ?? 'Erro desconhecido';
         print('Erro no Cadastro REST: $erro');
 
         if (erro == 'EMAIL_EXISTS') {
@@ -105,47 +225,12 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  
-  /*Future<void> getEmail() async {
-    print('get email (REST API)');
-    final url = Uri.parse(
-      'https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=$_apiKey',
-    );
-
-    try {
-      final response = await http.post(
-        url,
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({
-          'idToken': _idToken
-        }),
-      );
-
-      final dadosReposta = jsonDecode(response.body);
-
-      if (response.statusCode == 200) {
-        print('email: ${dadosReposta['email']}');
-        _estaAutenticado = true;
-        // print('LOGIN: $_idToken');
-      } else {
-        _apresentaErro = true;
-        _estaAutenticado = false;
-        final String erro =
-            dadosReposta['error']['message'] ?? 'Erro desconhecido';
-        print('Erro no Cadastro REST: $erro');
-
-        if (erro == 'EMAIL_EXISTS') {
-          print('Já existe uma conta com esse e-mail.');
-        } else if (erro == 'WEAK_PASSWORD') {
-          print('A senha fornecida é muito fraca.');
-        }
-      }
-    } catch (e) {
-      _apresentaErro = true;
-      _estaAutenticado = false;
-      print('Erro de conexão/rede no REST: $e');
+  Future<void> logout() async {
+    if (_acessoAtual != null) {
+      await DBUtil.delete('Usuario', _acessoAtual!.uid);
     }
-
+    _acessoAtual = null;
+    _estaAutenticado = false;
     notifyListeners();
   }
-*/}
+}

@@ -65,7 +65,7 @@ class DBUtil {
     return db.query(table);
   }
 
-  static Future<int> delete(String table, int id) async {
+  static Future<int> delete(String table, String id) async {
     final db = await _getDB();
     return await db.delete(table, where: 'id = ?', whereArgs: [id]);
   }

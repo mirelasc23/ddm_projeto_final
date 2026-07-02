@@ -15,9 +15,8 @@ class TelaLogin extends StatelessWidget {
         height: tamanhoTela.height,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/login-fundo.png'), // Imagem Local
-            // image: NetworkImage('https://link-da-sua-imagem.com'), // Imagem da Internet
-            fit: BoxFit.cover, // Garante que a imagem cubra toda a tela
+            image: AssetImage('assets/images/login-fundo.png'),
+            fit: BoxFit.cover,
           ),
         ),
         child: SafeArea(
@@ -30,11 +29,7 @@ class TelaLogin extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.only(bottom: 20, top: 40),
                   child: Padding(
-                    padding: const EdgeInsets.only(
-                      left: 6.0,
-                      bottom: 16.0,
-                    ), // Espaço para o deslocamento X e Y
-                    //padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.only(left: 6.0, bottom: 16.0),
                     child: Stack(
                       clipBehavior: Clip.none,
                       children: [
@@ -57,29 +52,6 @@ class TelaLogin extends StatelessWidget {
                             fontWeight: FontWeight.w600,
                             color: Colors.white,
                             shadows: [
-                              // Primeira camada projetada (mais próxima)
-                              /*Shadow(
-                                blurRadius: 0.0,
-                                color: Color.from(
-                                  alpha: 0.5,
-                                  red: 0.13,
-                                  green: 0.59,
-                                  blue: 0.95,
-                                ), // Cor do eco do Canva
-                                offset: Offset(4.0, 4.0), // Multiplicador 1
-                              ),
-                              // Segunda camada projetada
-                              Shadow(
-                                blurRadius: 0.0,
-                                color: Color.from(
-                                  alpha: 0.3,
-                                  red: 0.13,
-                                  green: 0.59,
-                                  blue: 0.95,
-                                ),
-                                offset: Offset(4.0, 4.0), // Multiplicador 2
-                              ),*/
-                              // Terceira camada projetada (mais distante)
                               Shadow(
                                 blurRadius: 0.0,
                                 color: Color.from(

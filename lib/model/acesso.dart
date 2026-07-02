@@ -27,13 +27,20 @@ class Acesso {
   //   _idToken = id;
   // }
 
-  String? get id => _idToken;
+  String? get id => _idToken;*/
 
   Map<String, dynamic> toMap() {
-    return {'id: ': _idToken, ', nome: ': _nome, ', email: ':_email}; //, 'endereco': endereco.toMap()};
+    return {
+      'id': uid,
+      'nome': nome,
+      'email': email,
+      'id_token': idToken,
+      'refresh_token': refreshToken,
+      'expira_em': expiraEm.toIso8601String(),
+    };
   }
 
-  factory Acesso.fromMap(Map<String, dynamic> map) {
+  /*factory Acesso.fromMap(Map<String, dynamic> map) {
     var pessoa = Acesso(
       nome: map['nome'] as String,
       idToken: map['idToken'] as String,

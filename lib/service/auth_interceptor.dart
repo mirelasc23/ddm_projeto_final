@@ -1,4 +1,5 @@
 import 'package:ddm_projeto_final/model/acesso.dart';
+import 'package:ddm_projeto_final/util/dbhelper.dart';
 import 'package:dio/dio.dart';
 
 class AuthInterceptor extends Interceptor {
