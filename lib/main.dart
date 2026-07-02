@@ -3,7 +3,6 @@ import 'package:ddm_projeto_final/provider/auth_provider.dart';
 import 'package:ddm_projeto_final/provider/rega_provider.dart';
 import 'package:ddm_projeto_final/provider/usuario_provider.dart';
 import 'package:ddm_projeto_final/util/rotas.dart';
-import 'package:ddm_projeto_final/view/tela_lista.dart';
 import 'package:ddm_projeto_final/view/tela_login.dart';
 import 'package:ddm_projeto_final/view/telas.dart';
 import 'package:ddm_projeto_final/view/tela_perfil.dart';

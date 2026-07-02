@@ -1,5 +1,4 @@
 import 'package:ddm_projeto_final/util/fontes.dart';
-import 'package:ddm_projeto_final/util/rotas.dart';
 import 'package:ddm_projeto_final/util/util.dart';
 import 'package:ddm_projeto_final/widgets/caixa_texto.dart';
 import '../provider/auth_provider.dart';
@@ -18,40 +17,8 @@ class FormPerfil extends StatefulWidget {
 class _FormLoginState extends State<FormPerfil> {
   final _metaController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  bool _isLoading = false;
-  Modo _modo = Modo.login;
 
   final Map<String, String> _dadosForm = {'email': '', 'password': ''};
-
-  bool _ehLogin() => _modo == Modo.login;
-  bool _ehCadastro() => _modo == Modo.cadastro;
-
-  void _trocaModoTela() {
-    print("funcao _trocaModoTela");
-  }
-
-  Future<void> _submit() async {
-    print('entra submit');
-
-    final valido = _formKey.currentState?.validate() ?? false;
-
-    if (!valido) return;
-
-    setState(() => _isLoading = true);
-
-    _formKey.currentState?.save();
-
-    AuthProvider authProvider = Provider.of<AuthProvider>(
-      context,
-      listen: false,
-    );
-
-    setState(() => _isLoading = false);
-
-    if (authProvider.estaAutenticado) {
-      Navigator.pushNamed(context, Rotas.telaInicial);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,10 +28,8 @@ class _FormLoginState extends State<FormPerfil> {
     );
 
     final acesso = authProvider.acessoAtual;
-    //final tamanhoTela = MediaQuery.of(context).size;
 
     return Container(
-      //height: tamanhoTela.height,
       padding: const EdgeInsets.all(30),
       child: Form(
         key: _formKey,
@@ -73,7 +38,6 @@ class _FormLoginState extends State<FormPerfil> {
             return SingleChildScrollView(
               child: ConstrainedBox(
                 constraints: BoxConstraints(
-                  // Força a coluna a ter no mínimo a altura total disponível do Container
                   minHeight: constraints.maxHeight,
                 ),
                 child: IntrinsicHeight(
@@ -85,14 +49,14 @@ class _FormLoginState extends State<FormPerfil> {
                       Container(
                         padding: const EdgeInsets.all(
                           4.0,
-                        ), // Espessura da borda
+                        ), 
                         decoration: const BoxDecoration(
                           color: Color.fromRGBO(
                             255,
                             148,
                             186,
                             1.0,
-                          ), // Cor da borda
+                          ), 
                           shape: BoxShape.circle,
                         ),
                         child: CircleAvatar(
@@ -131,7 +95,7 @@ class _FormLoginState extends State<FormPerfil> {
                       Tooltip(
                         message: 'Dados salvos localmente no SQLite.',
                         triggerMode:
-                            TooltipTriggerMode.tap, // Força o clique rápido
+                            TooltipTriggerMode.tap,
                         preferBelow: false,
                         child: IconButton(
                           icon: const Icon(
