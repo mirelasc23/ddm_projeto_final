@@ -105,7 +105,7 @@ class _FormLoginState extends State<FormPerfil> {
                   // backgroundImage: NetworkImage('https://seusite.com'),
                 ),
               ),
-              TextFormField(
+              /*TextFormField(
                 initialValue: acesso!.nome,
                 readOnly: true,
                 enabled: false,
@@ -130,16 +130,16 @@ class _FormLoginState extends State<FormPerfil> {
                   }
                   return null;
                 },
-              ),
+              ),*/
               caixaTextoExibicao('Nome', acesso!.nome),
-              Container(
+              /*Container(
                 padding: EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.black, width: 3.0),
                   borderRadius: BorderRadius.circular(100.0), // Raio dos cantos
                 ),
                 child: Text('Email: ${acesso!.email}'),
-              ),
+              ),*/
               caixaTextoExibicao('Email', acesso!.email),
               //const SizedBox(height: 20),
               TextFormField(
