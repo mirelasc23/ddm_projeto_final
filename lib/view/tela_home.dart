@@ -1,4 +1,6 @@
+import 'package:ddm_projeto_final/model/planta.dart';
 import 'package:ddm_projeto_final/model/rega.dart';
+import 'package:ddm_projeto_final/provider/planta_provider.dart';
 import 'package:ddm_projeto_final/provider/rega_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:ddm_projeto_final/widgets/botao_acao.dart';
@@ -53,8 +55,36 @@ class TelaHome extends StatelessWidget {
                 imagem: 'assets/images/plantar.png',
                 label: 'Plantar',
                 cor: Colors.lightGreen,
-                onTap: () {
-                  //implementar
+                onTap: () async {
+                  final controller = TextEditingController();
+                  final nome = await showDialog<String>(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Text('Nova planta'),
+                      content: TextField(
+                        controller: controller,
+                        decoration: InputDecoration(hintText: 'Nome da planta'),
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: Text('Cancelar'),
+                        ),
+                        TextButton(
+                          onPressed: () =>
+                              Navigator.pop(context, controller.text),
+                          child: Text('Salvar'),
+                        ),
+                      ],
+                    ),
+                  );
+                  if (nome != null && nome.isNotEmpty) {
+                    final provider = Provider.of<PlantaProvider>(
+                      context,
+                      listen: false,
+                    );
+                    await provider.adicionarPlanta(Planta(nome: nome, lat: 0.0, long: 0.0));
+                  }
                 },
               ),
             ),
