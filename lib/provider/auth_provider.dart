@@ -17,7 +17,6 @@ class AuthProvider extends ChangeNotifier {
   final String _apiKey = "AIzaSyCNTlB_qCE1fi_hyQdQZeY_hEPI2xzzCFs";
 
   Future<String?> obterTokenValido() async {
-    // Se o usuário não está na memória, tenta buscar do SQLite
     if (_acessoAtual == null) {
       final lista = await DBUtil.list('Usuario');
       if (lista.isNotEmpty) {
@@ -36,12 +35,10 @@ class AuthProvider extends ChangeNotifier {
 
     if (_acessoAtual == null) return null;
 
-    // Se NÃO precisa de refresh, retorna o token atual imediatamente
     if (!_acessoAtual!.precisaDeRefresh) {
       return _acessoAtual!.idToken;
     }
 
-    // Se precisar de refresh, faz a chamada na API de tokens do Firebase
     print('Token expirado! Atualizando...');
     final url = Uri.parse(
       'https://securetoken.googleapis.com/v1/token?key=$_apiKey',
@@ -63,17 +60,15 @@ class AuthProvider extends ChangeNotifier {
         final segundos = int.parse(dadosToken['expires_in']);
         final novaExpiracao = DateTime.now().add(Duration(seconds: segundos));
 
-        // Atualiza os dados locais na memória
         _acessoAtual = Acesso(
           uid: _acessoAtual!.uid,
-          nome: _acessoAtual!.nome, // Mantém o nome existente
-          email: _acessoAtual!.email, // Mantém o e-mail existente
+          nome: _acessoAtual!.nome, 
+          email: _acessoAtual!.email, 
           idToken: dadosToken['id_token'],
           refreshToken: dadosToken['refresh_token'],
           expiraEm: novaExpiracao,
         );
 
-        // Atualiza no banco de dados usando o DBUtil
         await DBUtil.update('Usuario', {
           'id_token': _acessoAtual!.idToken,
           'refresh_token': _acessoAtual!.refreshToken,
@@ -83,7 +78,6 @@ class AuthProvider extends ChangeNotifier {
         print('Token renovado com sucesso!');
         return _acessoAtual!.idToken;
       } else {
-        // Se falhar o refresh token (ex: senha alterada em outro dispositivo) force o logout
         await logout();
         return null;
       }
@@ -115,7 +109,6 @@ class AuthProvider extends ChangeNotifier {
 
       if (response.statusCode == 200) {
         print('Usuário logado via REST: ${dadosResposta['email']}');
-        // Aqui você pode salvar o dadosResposta['idToken'] se precisar usar em outras APIs
         _estaAutenticado = true;
 
         final segundos = int.parse(dadosResposta['expiresIn']);
@@ -143,7 +136,6 @@ class AuthProvider extends ChangeNotifier {
             dadosResposta['error']['message'] ?? 'Erro desconhecido';
         print('Erro no Login REST: $erro');
 
-        // Mapeamento dos erros comuns do Firebase REST
         if (erro == 'EMAIL_NOT_FOUND' || erro == 'INVALID_LOGIN_CREDENTIALS') {
           print('Credenciais inválidas.');
         } else if (erro == 'INVALID_PASSWORD') {

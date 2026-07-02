@@ -1,7 +1,7 @@
+import 'package:ddm_projeto_final/provider/planta_provider.dart';
 import 'package:ddm_projeto_final/util/fontes.dart';
 import 'package:ddm_projeto_final/util/util.dart';
 import 'package:ddm_projeto_final/widgets/caixa_texto.dart';
-import '../provider/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,16 +18,16 @@ class _FormPlantaState extends State<FormPlanta> {
   final _metaController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-  final Map<String, String> _dadosForm = {'email': '', 'password': ''};
+  final Map<String, String> _dadosForm = {'nome': '', 'password': ''};
 
   @override
   Widget build(BuildContext context) {
-    final AuthProvider authProvider = Provider.of<AuthProvider>(
+    final PlantaProvider plantaProvider = Provider.of<PlantaProvider>(
       context,
       listen: false,
     );
 
-    final acesso = authProvider.acessoAtual;
+    //final planta = plantaProvider.plantaAtual;
 
     return Container(
       padding: const EdgeInsets.all(30),
@@ -66,8 +66,8 @@ class _FormPlantaState extends State<FormPlanta> {
                           ),
                         ),
                       ),
-                      caixaTextoExibicao('Nome', acesso!.nome),
-                      caixaTextoExibicao('Email', acesso.email),
+                      //caixaTextoExibicao('Nome', planta!.nome),
+                      //caixaTextoExibicao('Meta', planta.email),
                       const SizedBox(height: 40),
                       TextFormField(
                         decoration: Util.estiloInput('Meta'),

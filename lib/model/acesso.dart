@@ -1,9 +1,6 @@
 import 'package:ddm_projeto_final/model/model.dart';
 
 class Acesso implements Model {
-  /*String _idToken;
-  final String _nome;
-  String _email;*/
   final String uid;
   final String nome;
   final String email;
@@ -20,17 +17,6 @@ class Acesso implements Model {
     required this.expiraEm,
   });
 
-  /*Acesso({required nome, required email, required idToken}) :
-  _email = email,
-  _idToken = idToken,
-  _nome = nome;*
-
-  // set id(String id) {
-  //   _idToken = id;
-  // }
-
-  String? get id => _idToken;*/
-
   Map<String, dynamic> toMap() {
     return {
       'id': uid,
@@ -41,16 +27,6 @@ class Acesso implements Model {
       'expira_em': expiraEm.toIso8601String(),
     };
   }
-
-  /*factory Acesso.fromMap(Map<String, dynamic> map) {
-    var pessoa = Acesso(
-      nome: map['nome'] as String,
-      idToken: map['idToken'] as String,
-      email: map['email'] as String,
-    );
-    // pessoa.id = map['id'] as String;
-    return pessoa;
-  }*/
 
   bool get precisaDeRefresh =>
       DateTime.now().isAfter(expiraEm.subtract(const Duration(minutes: 5)));
