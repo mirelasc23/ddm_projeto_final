@@ -4,13 +4,9 @@ import 'package:path/path.dart' as path;
 
 class DBUtil {
   static Future<sqlite.Database> _getDB() async {
-    //local onde o banco de dados sera armazenado
     final databasePath = await sqlite.getDatabasesPath();
-    //join para criar o caminho p arq de forma correta, independente do SO
     final arqBD = path.join(databasePath, "brotinho.db");
 
-    //abrir o banco de dados, se nao existir, ele cria
-    //funcao onCreate so eh chamada na primeira vez
     return sqlite.openDatabase(
       arqBD,
       version: 1,
