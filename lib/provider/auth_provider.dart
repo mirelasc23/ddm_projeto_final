@@ -114,7 +114,7 @@ class AuthProvider extends ChangeNotifier {
         final segundos = int.parse(dadosResposta['expiresIn']);
         final dataExpiracao = DateTime.now().add(Duration(seconds: segundos));
 
-        String nomeUsuario = dadosResposta['email'] ?? email.split('@')[0];
+        String nomeUsuario = dadosResposta['email'].split('@')[0] ?? email.split('@')[0];
 
         _acessoAtual = Acesso(
           uid: dadosResposta['localId'],
