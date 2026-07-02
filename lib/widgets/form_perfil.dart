@@ -95,19 +95,43 @@ class _FormPerfilState extends State<FormPerfil> {
                       //     return null;
                       //   },
                       // ),
-                      Tooltip(
-                        message: 'Dados salvos localmente no SQLite.',
-                        triggerMode:
-                            TooltipTriggerMode.tap, // Força o clique rápido
-                        preferBelow: false,
-                        child: IconButton(
-                          icon: const Icon(
-                            Icons.info_rounded,
-                            color: Colors.red,
+                      // Tooltip(
+                      //   message: 'Dados salvos localmente no SQLite.',
+                      //   triggerMode:
+                      //       TooltipTriggerMode.tap, // Força o clique rápido
+                      //   preferBelow: false,
+                      //   child: IconButton(
+                      //     icon: const Icon(
+                      //       Icons.info_rounded,
+                      //       color: Colors.red,
+                      //     ),
+                      //     onPressed: null,
+                      //   ),
+                      // ),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFFFFC107),
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            elevation: 3,
                           ),
-                          onPressed: null,
+                          child: const Text(
+                            "Salvar",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                       ),
+
+                      const SizedBox(height: 20),
                     ],
                   ),
                 ),
