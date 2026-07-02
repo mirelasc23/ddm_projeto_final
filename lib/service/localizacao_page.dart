@@ -13,7 +13,6 @@ class _LocalizacaoPageState extends State<LocalizacaoPage> {
     bool servicoAtivado;
     LocationPermission permissao;
 
-    // 1. Verifica se o serviço de localização está ativado no celular
     servicoAtivado = await Geolocator.isLocationServiceEnabled();
     if (!servicoAtivado) {
       setState(() {
@@ -22,7 +21,6 @@ class _LocalizacaoPageState extends State<LocalizacaoPage> {
       return;
     }
 
-    // 2. Verifica as permissões de acesso
     permissao = await Geolocator.checkPermission();
     if (permissao == LocationPermission.denied) {
       permissao = await Geolocator.requestPermission();
@@ -41,7 +39,6 @@ class _LocalizacaoPageState extends State<LocalizacaoPage> {
       return;
     }
 
-    // 3. Pega a localização atual com alta precisão
     try {
       Position posicao = await Geolocator.getCurrentPosition(
         locationSettings: const LocationSettings(
