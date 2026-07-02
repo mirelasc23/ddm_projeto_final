@@ -1,6 +1,5 @@
 import 'package:ddm_projeto_final/util/fontes.dart';
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
 
 Widget caixaTextoExibicaoInput(String label, String valor) {
   return Stack(

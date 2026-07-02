@@ -1,8 +1,6 @@
 import 'package:ddm_projeto_final/util/fontes.dart';
 import 'package:ddm_projeto_final/util/rotas.dart';
 import 'package:ddm_projeto_final/util/util.dart';
-import 'package:ddm_projeto_final/widgets/botao_login.dart';
-import 'package:ddm_projeto_final/widgets/botao_saiba_mais.dart';
 import 'package:ddm_projeto_final/widgets/caixa_texto.dart';
 import '../provider/auth_provider.dart';
 import 'package:flutter/material.dart';

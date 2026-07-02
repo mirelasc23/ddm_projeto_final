@@ -1,12 +1,11 @@
 import 'package:ddm_projeto_final/util/fontes.dart';
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
 
 Widget caixaTextoExibicao(String label, String valor) {
   return Stack(
     children: [
       Align(
-        alignment: Alignment.topCenter, // ALinhamento por quadrante
+        alignment: Alignment.topCenter,
         child: Text(
           label,
           style: const TextStyle(
@@ -35,19 +34,6 @@ Widget caixaTextoExibicao(String label, String valor) {
           ),
         ),
       ),
-      /*Align(
-        alignment: Alignment.topCenter, // ALinhamento por quadrante
-        child: Text(
-          label,
-          style: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w400,
-            letterSpacing: 0.4,
-            color: Color.fromRGBO(70, 120, 148, 1.0),
-            fontFamily: AppFonts.childos,
-          ),
-        ),
-      ),*/
     ],
   );
 }
