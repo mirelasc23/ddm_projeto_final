@@ -1,7 +1,7 @@
+import 'package:ddm_projeto_final/util/db.dart';
 import 'package:flutter/material.dart';
 import 'package:ddm_projeto_final/model/planta.dart';
 import 'package:ddm_projeto_final/model/regiao.dart';
-import 'package:ddm_projeto_final/util/dbhelper.dart';
 
 class TelaMapa extends StatefulWidget {
   const TelaMapa({Key? key}) : super(key: key);
@@ -22,7 +22,7 @@ class _TelaMapaState extends State<TelaMapa> {
   }
 
   Future<void> _carregarMapa() async {
-    final plantas = await DatabaseHelper.instance.buscarPlantas();
+    final plantas = await DBUtil.buscarPlantas();
     print("Plantas qtd: ${plantas.length}");
     setState(() {
       _plantas = plantas;

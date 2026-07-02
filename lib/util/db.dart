@@ -75,7 +75,7 @@ class DBUtil {
     return await db.insert('planta', planta.toMap());
   }
 
-  Future<List<Planta>> buscarPlantas() async {
+  static Future<List<Planta>> buscarPlantas() async {
     final db = await _getDB();
     final maps = await db.query('planta');
     return maps.map((map) => Planta.fromMap(map)).toList();

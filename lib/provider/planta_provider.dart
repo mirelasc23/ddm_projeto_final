@@ -17,5 +17,4 @@ class PlantaProvider extends ChangeNotifier {
     _plantas = response.map((map) => Planta.fromMap(map)).toList();
     notifyListeners();
   }
-  
 }
