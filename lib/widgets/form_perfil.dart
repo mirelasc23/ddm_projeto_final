@@ -130,7 +130,7 @@ class _FormLoginState extends State<FormPerfil> {
                           return null;
                         },
                       ),
-                      botaoSaibaMais(
+                      /*botaoSaibaMais(
                         context,
                         'Calcular consumo de água',
                         'fórmula para cálculo',
@@ -141,11 +141,24 @@ class _FormLoginState extends State<FormPerfil> {
                           color: Colors.blue,
                         ),
                         tooltip:
-                            'TOOLTIP Este e-mail será usado para acessar sua conta.', // Mensagem flutuante
+                            'Este e-mail será usado para acessar sua conta.', // Mensagem flutuante
                         onPressed: () {
                           // Opcional: No mobile, um clique rápido também pode ativar o tooltip se configurado,
                           // mas por padrão ele funciona ao manter pressionado.
                         },
+                      ),*/
+                      Tooltip(
+                        message: 'Dados salvos localmente no SQLite.',
+                        triggerMode:
+                            TooltipTriggerMode.tap, // Força o clique rápido
+                        preferBelow: false,
+                        child: IconButton(
+                          icon: const Icon(
+                            Icons.info_rounded,
+                            color: Colors.red,
+                          ),
+                          onPressed: null,
+                        ),
                       ),
                       /*IconButton(
                         icon: const Icon(
@@ -184,7 +197,7 @@ class _FormLoginState extends State<FormPerfil> {
                             },
                           );
                         },
-                      ),*/
+                      ),
                       if (_ehCadastro())
                         TextFormField(
                           decoration: Util.estiloInput('Confirmar Senha'),
@@ -214,7 +227,7 @@ class _FormLoginState extends State<FormPerfil> {
                         texto: 'Salvar',
                         onPressed: _trocaModoTela,
                         estiloPrimario: true,
-                      ),
+                      ),*/
                     ],
                   ),
                 ),
