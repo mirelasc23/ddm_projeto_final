@@ -2,6 +2,7 @@ import 'package:ddm_projeto_final/model/acesso.dart';
 import 'package:ddm_projeto_final/util/fontes.dart';
 import 'package:ddm_projeto_final/util/rotas.dart';
 import 'package:ddm_projeto_final/widgets/botao_login.dart';
+import 'package:ddm_projeto_final/widgets/caixa_texto.dart';
 import '../provider/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,8 +17,6 @@ class FormPerfil extends StatefulWidget {
 }
 
 class _FormLoginState extends State<FormPerfil> {
-  final _nomeController = TextEditingController();
-  final _emailController = TextEditingController();
   final _metaController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
@@ -107,7 +106,9 @@ class _FormLoginState extends State<FormPerfil> {
                 ),
               ),
               TextFormField(
-                controller: _nomeController,
+                initialValue: acesso!.nome,
+                readOnly: true,
+                enabled: false,
                 decoration: _estiloInput('Nome'),
                 style: TextStyle(
                   color: Color.from(
@@ -130,14 +131,16 @@ class _FormLoginState extends State<FormPerfil> {
                   return null;
                 },
               ),
+              caixaTextoExibicao('Nome', acesso!.nome),
               Container(
                 padding: EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.black, width: 3.0),
                   borderRadius: BorderRadius.circular(100.0), // Raio dos cantos
                 ),
-                child: Text('Email: $_emailController'),
+                child: Text('Email: ${acesso!.email}'),
               ),
+              caixaTextoExibicao('Email', acesso!.email),
               //const SizedBox(height: 20),
               TextFormField(
                 decoration: _estiloInput('Meta'),

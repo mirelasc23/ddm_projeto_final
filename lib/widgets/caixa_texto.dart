@@ -2,31 +2,31 @@ import 'package:ddm_projeto_final/util/fontes.dart';
 import 'package:flutter/material.dart';
 
 Widget caixaTextoExibicao(String label, String valor) {
-  return Container(
-    width: double.infinity, // Ocupa a largura disponível igual ao input
-    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-    decoration: BoxDecoration(
-      // Equivalente ao 'filled: true' e 'fillColor'
-      color: const Color.fromRGBO(255, 255, 255, 0.53),
-      // Equivalente ao 'borderRadius: BorderRadius.circular(100.0)'
-      borderRadius: BorderRadius.circular(100.0),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        // O "Label" menor em cima, simulando o comportamento do input
-        Text(
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Padding(
+        padding: const EdgeInsets.only(left: 12.0, bottom: 3.0),
+        child: Text(
           label,
-          style: TextStyle(
-            fontSize: 12,
-            color: Colors.grey[700],
+          style: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: Colors.white70, // Ajuste a cor conforme o fundo do seu app
             fontFamily: AppFonts.mairy,
           ),
         ),
-        const SizedBox(height: 4),
-        // O valor real do dado do usuário
-        Text(
+      ),
+      // A caixa estilizada contendo apenas o valor
+      Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+        decoration: BoxDecoration(
+          color: const Color.fromRGBO(255, 255, 255, 0.53),
+          borderRadius: BorderRadius.circular(100.0),
+        ),
+        child: Text(
           valor,
           style: const TextStyle(
             fontSize: 16,
@@ -34,7 +34,7 @@ Widget caixaTextoExibicao(String label, String valor) {
             fontFamily: AppFonts.mairy,
           ),
         ),
-      ],
-    ),
+      ),
+    ],
   );
 }
