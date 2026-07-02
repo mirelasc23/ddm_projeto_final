@@ -1,18 +1,50 @@
-# ddm_projeto_final
-# ddm_projeto_final
+# 🌱 Cresce, Brotinho!
 
-A new Flutter project.
+App para acompanhamento lúdico da rega de plantas, desenvolvido como trabalho final da disciplina de Desenvolvimento para Dispositivos Móveis (DDM) no IFSC Campus Tubarão.
 
-## Getting Started
+## 👥 Autores
 
-This project is a starting point for a Flutter application.
+- Bruna Hreisemnou Ribeiro
+- Mirela Silveira Corrêa
+- Pedro Henrique Martins Santos
 
-A few resources to get you started if this is your first Flutter project:
+## 📱 Sobre o App
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+O usuário faz login, cadastra suas plantas e registra as regas do dia a dia. Cada planta tem uma localização geográfica associada, visualizada no mapa. O app incentiva o cuidado contínuo com as plantas de forma simples e visual.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 🧩 Funcionalidades
+
+- Login e cadastro de usuário com autenticação via Firebase
+- Tela home com botões para plantar (cadastrar nova planta) e regar
+- Cadastro de plantas com nome e localização geográfica (GPS)
+- Visualização de plantas no mapa
+- Perfil do usuário
+- Navegação entre telas por barra inferior (navbar)
+
+## 🛠️ Tecnologias
+
+- Flutter / Dart
+- Provider (gerenciamento de estado)
+- Firebase Authentication (autenticação)
+- SQLite via sqflite (armazenamento local de plantas e regas)
+- Geolocator (GPS)
+- Google Maps / localização
+
+## 📂 Estrutura do Projeto
+
+```
+lib/
+  model/
+  provider/
+  view/
+  widgets/
+  service/
+  util/
+```
+
+## ▶️ Como Rodar
+
+1. Clone o repositório
+2. Rode `flutter pub get`
+3. Conecte um dispositivo ou inicie um emulador
+4. Rode `flutter run`
