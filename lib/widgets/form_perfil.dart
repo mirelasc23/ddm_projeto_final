@@ -2,6 +2,7 @@ import 'package:ddm_projeto_final/util/fontes.dart';
 import 'package:ddm_projeto_final/util/rotas.dart';
 import 'package:ddm_projeto_final/util/util.dart';
 import 'package:ddm_projeto_final/widgets/botao_login.dart';
+import 'package:ddm_projeto_final/widgets/botao_saiba_mais.dart';
 import 'package:ddm_projeto_final/widgets/caixa_texto.dart';
 import '../provider/auth_provider.dart';
 import 'package:flutter/material.dart';
@@ -79,7 +80,7 @@ class _FormLoginState extends State<FormPerfil> {
                 ),
                 child: IntrinsicHeight(
                   child: Column(
-                    //spacing: 16,
+                    spacing: 16,
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -105,6 +106,7 @@ class _FormLoginState extends State<FormPerfil> {
                       ),
                       caixaTextoExibicao('Nome', acesso!.nome),
                       caixaTextoExibicao('Email', acesso.email),
+                      const SizedBox(height: 40),
                       TextFormField(
                         decoration: Util.estiloInput('Meta'),
                         style: TextStyle(
@@ -128,6 +130,61 @@ class _FormLoginState extends State<FormPerfil> {
                           return null;
                         },
                       ),
+                      botaoSaibaMais(
+                        context,
+                        'Calcular consumo de água',
+                        'fórmula para cálculo',
+                      ),
+                      IconButton(
+                        icon: const Icon(
+                          Icons.info_outline,
+                          color: Colors.blue,
+                        ),
+                        tooltip:
+                            'TOOLTIP Este e-mail será usado para acessar sua conta.', // Mensagem flutuante
+                        onPressed: () {
+                          // Opcional: No mobile, um clique rápido também pode ativar o tooltip se configurado,
+                          // mas por padrão ele funciona ao manter pressionado.
+                        },
+                      ),
+                      /*IconButton(
+                        icon: const Icon(
+                          Icons.info_outline,
+                          color: Colors.blue,
+                        ),
+                        onPressed: () {
+                          showModalBottomSheet(
+                            context: context,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(24.0),
+                              ), // Arredonda só o topo
+                            ),
+                            builder: (context) {
+                              return Container(
+                                padding: const EdgeInsets.all(24.0),
+                                height: 200, // Altura do painel informativo
+                                child: const Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Sobre a segurança da senha',
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    SizedBox(height: 12),
+                                    Text(
+                                      'ALERTA BOTTOM_SHEET Sua senha é criptografada e armazenada diretamente nos servidores seguros do Firebase Auth, nenhum administrador tem acesso a ela.',
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          );
+                        },
+                      ),*/
                       if (_ehCadastro())
                         TextFormField(
                           decoration: Util.estiloInput('Confirmar Senha'),
