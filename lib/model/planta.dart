@@ -47,4 +47,10 @@ class Planta implements Model{
       idRegiao: map['idRegiao'] as int?,
     );
   }
+
+  @override
+  String toString() {
+    return 'Planta(id: $_id, nome: nome, lat: $lat, long: $long, imagem: $imagem, idRegiao: $idRegiao)';
+  }
+
 }
