@@ -6,6 +6,7 @@ class Planta implements Model{
   final double lat;
   final double long;
   final String? imagem;
+  final int? idRegiao;
 
   Planta({
     int? id, 
@@ -13,6 +14,7 @@ class Planta implements Model{
     required this.lat,
     required this.long,
     this.imagem,
+    this.idRegiao,
     }) : _id = id;
   
   @override
@@ -31,6 +33,7 @@ class Planta implements Model{
       'latitude': lat,
       'longitude': long,
       'imagem': imagem,
+      'idRegiao': idRegiao,
     };
   }
   
@@ -41,6 +44,7 @@ class Planta implements Model{
       lat: map['latitude'] as double,
       long: map['longitude'] as double,
       imagem: map[ 'imagem'] as String?,
+      idRegiao: map['idRegiao'] as int?,
     );
   }
 }

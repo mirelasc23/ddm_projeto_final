@@ -1,3 +1,4 @@
+import 'package:ddm_projeto_final/view/tela_mapa.dart';
 import 'package:ddm_projeto_final/view/tela_perfil.dart';
 import 'package:ddm_projeto_final/view/tela_home.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ class _TelasState extends State<Telas> {
     });
   }
 
-  final List<Widget> _paginas = [TelaHome(), Placeholder(), TelaPerfil()];
+  final List<Widget> _paginas = [TelaHome(), TelaMapa(), TelaPerfil()];
 
   @override
   Widget build(BuildContext context) {

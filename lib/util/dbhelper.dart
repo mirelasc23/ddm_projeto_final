@@ -3,6 +3,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:ddm_projeto_final/model/planta.dart';
 import 'package:ddm_projeto_final/model/rega.dart';
+// import 'package:ddm_projeto_final/model/regiao.dart';
 
 class DatabaseHelper {
   // Inicializa o Singleton do DatabaseHelper
@@ -20,6 +21,8 @@ class DatabaseHelper {
   Future<Database> _initDB(String filePath) async {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, filePath);
+
+    print("Banco aberto: $path");
 
     return await openDatabase(
       path,
@@ -59,7 +62,7 @@ class DatabaseHelper {
         latitude REAL NOT NULL,
         longitude REAL NOT NULL,
         imagem TEXT,
-        descricao TEXT
+        idRegiao INTEGER NOT NULL
       )
     ''');
 
@@ -136,7 +139,10 @@ class DatabaseHelper {
 
   Future<int> inserirPlanta(Planta planta) async {
     final db = await instance.database;
-    return await db.insert('planta', planta.toMap());
+    print(planta.toMap());
+    final id = await db.insert('planta', planta.toMap());
+    print("Salvou com id: $id");
+    return id;
   }
 
   Future<List<Planta>> buscarPlantas() async {
@@ -189,4 +195,6 @@ Future<int> inserirRega(Rega rega) async {
     final db = await instance.database;
     return await db.delete('rega', where: 'id = ?', whereArgs: [id]);
   }
+
+
 }
