@@ -1,9 +1,6 @@
 import 'package:ddm_projeto_final/model/acesso.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'package:ddm_projeto_final/model/planta.dart';
-import 'package:ddm_projeto_final/model/rega.dart';
-// import 'package:ddm_projeto_final/model/regiao.dart';
 
 class DatabaseHelper {
   static final DatabaseHelper instance = DatabaseHelper._init();
@@ -125,68 +122,4 @@ class DatabaseHelper {
     final db = await instance.database;
     await db.delete('sessao_usuario');
   }
-
-
-//plantas
-
-  Future<int> inserirPlanta(Planta planta) async {
-    final db = await instance.database;
-    print(planta.toMap());
-    final id = await db.insert('planta', planta.toMap());
-    print("Salvou com id: $id");
-    return id;
-  }
-
-  Future<List<Planta>> buscarPlantas() async {
-    final db = await instance.database;
-    final maps = await db.query('planta');
-    return maps.map((map) => Planta.fromMap(map)).toList();
-  }
-
-  Future<Planta?> buscarPlantaPorId(int id) async {
-    final db = await instance.database;
-    final maps = await db.query('planta', where: 'id = ?', whereArgs: [id]);
-    if (maps.isEmpty) return null;
-    return Planta.fromMap(maps.first);
-  }
-
-  Future<int> atualizarPlanta(Planta planta) async {
-    final db = await instance.database;
-    return await db.update(
-      'planta',
-      planta.toMap(),
-      where: 'id = ?',
-      whereArgs: [planta.id],
-    );
-  }
-
-  Future<int> excluirPlanta(int id) async {
-    final db = await instance.database;
-    return await db.delete('planta', where: 'id = ?', whereArgs: [id]);
-  }
-
-//regas
-
-Future<int> inserirRega(Rega rega) async {
-    final db = await instance.database;
-    return await db.insert('rega', rega.toMap());
-  }
-
-  Future<List<Rega>> buscarRegasPorPlanta(int idPlanta) async {
-    final db = await instance.database;
-    final maps = await db.query(
-      'rega',
-      where: 'idPlanta = ?',
-      whereArgs: [idPlanta],
-      orderBy: 'dataRega DESC',
-    );
-    return maps.map((map) => Rega.fromMap(map)).toList();
-  }
-
-  Future<int> excluirRega(int id) async {
-    final db = await instance.database;
-    return await db.delete('rega', where: 'id = ?', whereArgs: [id]);
-  }
-
-
 }
