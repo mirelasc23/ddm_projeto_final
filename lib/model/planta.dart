@@ -3,8 +3,17 @@ import 'package:ddm_projeto_final/model/model.dart';
 class Planta implements Model{
   int? _id;
   final String nome;
+  final double lat;
+  final double long;
+  final String? imagem;
 
-  Planta({int? id, required this.nome}) : _id = id;
+  Planta({
+    int? id, 
+    required this.nome,
+    required this.lat,
+    required this.long,
+    this.imagem,
+    }) : _id = id;
   
   @override
   set id(int id) {
@@ -19,6 +28,9 @@ class Planta implements Model{
     return {
       if (_id != null) 'id': _id,
       'nome': nome,
+      'latitude': lat,
+      'longitude': long,
+      'imagem': imagem,
     };
   }
   
@@ -26,6 +38,9 @@ class Planta implements Model{
     return Planta(
       id: map['id'] as int?,
       nome: map['nome'] as String,
+      lat: map['latitude'] as double,
+      long: map['longitude'] as double,
+      imagem: map[ 'imagem'] as String?,
     );
   }
 }
