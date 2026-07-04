@@ -1,5 +1,7 @@
 import 'package:ddm_projeto_final/util/fontes.dart';
+import 'package:ddm_projeto_final/util/util.dart';
 import 'package:ddm_projeto_final/widgets/caixa_texto.dart';
+import 'package:ddm_projeto_final/widgets/caixa_texto_input.dart';
 import '../provider/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -92,8 +94,8 @@ class _FormPerfilState extends State<FormPerfil> {
                       ),
                       caixaTextoExibicao('Nome', acesso!.nome),
                       caixaTextoExibicao('Email', acesso.email),
-                      const SizedBox(height: 8),
-                      Align(
+                      //const SizedBox(height: 8),
+                      /*Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
                           'Meta de água (mL)',
@@ -129,8 +131,32 @@ class _FormPerfilState extends State<FormPerfil> {
                           }
                           return null;
                         },
+                      ),*/
+                      TextFormField(
+                        decoration: Util.estiloInput('Meta'),
+                        style: TextStyle(
+                          color: Color.from(
+                            alpha: 1.0,
+                            red: 0.13,
+                            green: 0.59,
+                            blue: 0.95,
+                          ),
+                          fontFamily: AppFonts.mairy,
+                        ),
+                        keyboardType: TextInputType.number,
+                        controller: _metaController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Informe a meta de água';
+                          }
+                          final meta = int.tryParse(value);
+                          if (meta == null || meta <= 0) {
+                            return 'Informe um valor válido';
+                          }
+                          return null;
+                        },
                       ),
-                      const SizedBox(height: 8),
+                      //const SizedBox(height: 8),
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
