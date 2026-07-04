@@ -4,6 +4,7 @@ import 'package:ddm_projeto_final/provider/planta_provider.dart';
 import 'package:ddm_projeto_final/provider/rega_provider.dart';
 import 'package:ddm_projeto_final/provider/usuario_provider.dart';
 import 'package:ddm_projeto_final/util/rotas.dart';
+import 'package:ddm_projeto_final/view/tela_lista.dart';
 import 'package:ddm_projeto_final/view/tela_login.dart';
 import 'package:ddm_projeto_final/view/tela_planta.dart';
 import 'package:ddm_projeto_final/view/telas.dart';
@@ -46,6 +47,7 @@ class MyApp extends StatelessWidget {
           Rotas.telaInicial: (context) => Telas(),
           Rotas.telaPerfil: (context) => TelaPerfil(),
           Rotas.telaPlanta: (context) => TelaPlanta(),
+          Rotas.telaLista: (context) => TelaLista(titulo: 'lista'),
         },
       ),
     );
