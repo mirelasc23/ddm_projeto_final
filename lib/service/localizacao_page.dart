@@ -1,23 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
-class LocalizacaoPage extends StatefulWidget {
-  @override
-  _LocalizacaoPageState createState() => _LocalizacaoPageState();
-}
-
-class _LocalizacaoPageState extends State<LocalizacaoPage> {
+class LocalizacaoPage {
+  Position? _posicao;
   String _posicaoAtual = "Pressione o botão para buscar a localização";
 
-  Future<void> _pegarLocalizacao() async {
+  Position? get posicao => _posicao;
+
+  Future<void> pegarLocalizacao() async {
     bool servicoAtivado;
     LocationPermission permissao;
 
     servicoAtivado = await Geolocator.isLocationServiceEnabled();
     if (!servicoAtivado) {
-      setState(() {
-        _posicaoAtual = 'Serviços de localização estão desativados.';
-      });
+      _posicaoAtual = 'Serviços de localização estão desativados.';
       return;
     }
 
@@ -25,60 +21,27 @@ class _LocalizacaoPageState extends State<LocalizacaoPage> {
     if (permissao == LocationPermission.denied) {
       permissao = await Geolocator.requestPermission();
       if (permissao == LocationPermission.denied) {
-        setState(() {
-          _posicaoAtual = 'Permissões de localização foram negadas.';
-        });
+        _posicaoAtual = 'Permissões de localização foram negadas.';
         return;
       }
     }
-    
+
     if (permissao == LocationPermission.deniedForever) {
-      setState(() {
-        _posicaoAtual = 'Permissões negadas permanentemente.';
-      });
+      _posicaoAtual = 'Permissões negadas permanentemente.';
       return;
     }
 
     try {
-      Position posicao = await Geolocator.getCurrentPosition(
+      //Position _posicao = await Geolocator.getCurrentPosition(
+      _posicao = await Geolocator.getCurrentPosition(
         locationSettings: const LocationSettings(
           accuracy: LocationAccuracy.high,
         ),
       );
-      setState(() {
-        _posicaoAtual = 'Latitude: ${posicao.latitude}\nLongitude: ${posicao.longitude}';
-      });
+      _posicaoAtual =
+          'Latitude: ${_posicao!.latitude}\nLongitude: ${_posicao!.longitude}';
     } catch (e) {
-      setState(() {
-        _posicaoAtual = 'Erro ao buscar localização: $e';
-      });
+      _posicaoAtual = 'Erro ao buscar localização: $e';
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Exemplo de Geolocalização')),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                _posicaoAtual,
-                textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 18),
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: _pegarLocalizacao,
-                child: const Text('Obter Localização'),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
   }
 }

@@ -2,6 +2,7 @@ import 'package:ddm_projeto_final/model/planta.dart';
 import 'package:ddm_projeto_final/model/rega.dart';
 import 'package:ddm_projeto_final/provider/planta_provider.dart';
 import 'package:ddm_projeto_final/provider/rega_provider.dart';
+import 'package:ddm_projeto_final/service/localizacao_page.dart';
 import 'package:flutter/material.dart';
 import 'package:ddm_projeto_final/widgets/botao_acao.dart';
 import 'package:provider/provider.dart';
@@ -35,43 +36,43 @@ class TelaHome extends StatelessWidget {
               child: Center(
                 child: Padding(
                   padding: const EdgeInsets.only(left: 6.0, bottom: 16.0),
-                      child: Stack(
-                        clipBehavior: Clip.none,
-                        children: [
-                          Text(
-                            "Cresce, Brotinho!",
-                            style: TextStyle(
-                              fontFamily: AppFonts.railey,
-                              fontSize: 45,
-                              foreground: Paint()
-                                ..style = PaintingStyle.stroke
-                                ..strokeWidth = 3
-                                ..color = Colors.blue,
-                            ),
-                          ),
-                          const Text(
-                            "Cresce, Brotinho!",
-                            style: TextStyle(
-                              fontFamily: AppFonts.railey,
-                              fontSize: 44.5,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white,
-                              shadows: [
-                                Shadow(
-                                  blurRadius: 0.0,
-                                  color: Color.from(
-                                    alpha: 0.1,
-                                    red: 0.13,
-                                    green: 0.59,
-                                    blue: 0.95,
-                                  ),
-                                  offset: Offset(4.0, 4.0), // Multiplicador 3
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
+                  child: Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      Text(
+                        "Cresce, Brotinho!",
+                        style: TextStyle(
+                          fontFamily: AppFonts.railey,
+                          fontSize: 45,
+                          foreground: Paint()
+                            ..style = PaintingStyle.stroke
+                            ..strokeWidth = 3
+                            ..color = Colors.blue,
+                        ),
                       ),
+                      const Text(
+                        "Cresce, Brotinho!",
+                        style: TextStyle(
+                          fontFamily: AppFonts.railey,
+                          fontSize: 44.5,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                          shadows: [
+                            Shadow(
+                              blurRadius: 0.0,
+                              color: Color.from(
+                                alpha: 0.1,
+                                red: 0.13,
+                                green: 0.59,
+                                blue: 0.95,
+                              ),
+                              offset: Offset(4.0, 4.0), // Multiplicador 3
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -131,7 +132,19 @@ class TelaHome extends StatelessWidget {
                       context,
                       listen: false,
                     );
-                    await provider.adicionarPlanta(Planta(nome: nome, lat: 0.0, long: 0.0));
+
+                    final localizacaoPlanta = LocalizacaoPage();
+                    localizacaoPlanta.pegarLocalizacao();
+                    final posicaoPlanta = localizacaoPlanta.posicao;
+                    //final posicaoPlanta = LocalizacaoPage().pegarLocalizacao().posi
+                    //await provider.adicionarPlanta(Planta(nome: nome, lat: 0.0, long: 0.0));
+                    Planta planta = Planta(
+                      nome: nome,
+                      lat: posicaoPlanta!.latitude,
+                      long: posicaoPlanta.longitude,
+                    );
+                    await provider.adicionarPlanta(planta);
+                    print(planta);
                   }
                 },
               ),

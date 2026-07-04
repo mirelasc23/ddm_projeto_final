@@ -43,9 +43,9 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.blueGrey)),
         home: TelaLogin(),
         routes: {
-          Rotas.telaInicial:(context) => Telas(),
+          Rotas.telaInicial: (context) => Telas(),
           Rotas.telaPerfil: (context) => TelaPerfil(),
-          Rotas.telaPlanta: (context) => TelaPlanta()
+          Rotas.telaPlanta: (context) => TelaPlanta(),
         },
       ),
     );
