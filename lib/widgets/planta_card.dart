@@ -47,8 +47,11 @@ class PlantaCardSheet extends StatelessWidget {
                 errorBuilder: (context, error, stackTrace) => Container(
                   height: 140,
                   color: Colors.green.shade50,
-                  child: const Icon(Icons.local_florist,
-                      size: 48, color: Colors.green),
+                  child: const Icon(
+                    Icons.local_florist,
+                    size: 48,
+                    color: Colors.green,
+                  ),
                 ),
               ),
             ),
@@ -57,10 +60,7 @@ class PlantaCardSheet extends StatelessWidget {
           // Nome da planta
           Text(
             planta.nome,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 4),
 
@@ -98,8 +98,11 @@ class PlantaCardSheet extends StatelessWidget {
               if (rega == null) {
                 return Row(
                   children: [
-                    Icon(Icons.water_drop_outlined,
-                        size: 18, color: Colors.grey.shade500),
+                    Icon(
+                      Icons.water_drop_outlined,
+                      size: 18,
+                      color: Colors.grey.shade500,
+                    ),
                     const SizedBox(width: 8),
                     Text(
                       'Nenhuma rega registrada',

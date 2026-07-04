@@ -106,6 +106,7 @@
 
 import 'package:ddm_projeto_final/provider/planta_provider.dart';
 import 'package:ddm_projeto_final/util/db.dart';
+import 'package:ddm_projeto_final/util/rotas.dart';
 import 'package:ddm_projeto_final/widgets/planta_card.dart';
 import 'package:flutter/material.dart';
 import 'package:ddm_projeto_final/model/planta.dart';
@@ -174,24 +175,39 @@ class _TelaMapaState extends State<TelaMapa> {
       ),
       child: SafeArea(
         child: Stack(
-          children: _plantas.map((planta) {
-            final posicao = regiao.coordenadaParaPosicao(
-              planta.lat,
-              planta.long,
-            );
-            return Positioned(
-              left: tamanhoTela.width * posicao.dx,
-              top: tamanhoTela.height * posicao.dy,
-              child: GestureDetector(
-                onTap: () => _abrirCardPlanta(context, planta),
-                child: const Icon(
-                  Icons.location_on,
-                  color: Colors.red,
-                  size: 42,
+          children: [
+            ..._plantas.map((planta) {
+              final posicao = regiao.coordenadaParaPosicao(
+                planta.lat,
+                planta.long,
+              );
+              return Positioned(
+                left: tamanhoTela.width * posicao.dx,
+                top: tamanhoTela.height * posicao.dy,
+                child: GestureDetector(
+                  onTap: () => _abrirCardPlanta(context, planta),
+                  child: const Icon(
+                    Icons.location_on,
+                    color: Colors.red,
+                    size: 42,
+                  ),
                 ),
+              );
+            }).toList(),
+            Positioned(
+              bottom: 16,
+              right: 16,
+              child: FloatingActionButton(
+                backgroundColor: Colors.orangeAccent,
+                onPressed: () {
+                  // Ação do seu botão aqui (ex: voltar para home, centralizar mapa, etc)
+                  print("Botão do mapa pressionado!");
+                  Navigator.pushNamed(context, Rotas.telaLista);
+                },
+                child: const Icon(Icons.list, color: Colors.white),
               ),
-            );
-          }).toList(),
+            ),
+          ],
         ),
       ),
     );
