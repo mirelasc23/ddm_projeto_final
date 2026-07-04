@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
 class LocalizacaoPage {
@@ -8,7 +7,7 @@ class LocalizacaoPage {
   Position? get posicao => _posicao;
 
   Future<void> pegarLocalizacao() async {
-    /*bool servicoAtivado;
+    bool servicoAtivado;
     LocationPermission permissao;
 
     servicoAtivado = await Geolocator.isLocationServiceEnabled();
@@ -29,29 +28,14 @@ class LocalizacaoPage {
     if (permissao == LocationPermission.deniedForever) {
       _posicaoAtual = 'Permissões negadas permanentemente.';
       return;
-    }*/
+    }
 
     try {
-      //Position _posicao = await Geolocator.getCurrentPosition(
-      /*_posicao = await Geolocator.getCurrentPosition(
+      _posicao = await Geolocator.getCurrentPosition(
         locationSettings: const LocationSettings(
           accuracy: LocationAccuracy.high,
         ),
-      );*/
-
-      // 1. Tenta pegar a última localização conhecida (geralmente mais estável se o celular não se moveu)
-      Position? lastKnown = await Geolocator.getLastKnownPosition();
-
-      if (lastKnown != null) {
-        _posicao = lastKnown;
-      } else {
-        // 2. Se não houver cache, aí sim busca a atual
-        _posicao = await Geolocator.getCurrentPosition(
-          locationSettings: const LocationSettings(
-            accuracy: LocationAccuracy.high,
-          ),
-        );
-      }
+      );
 
       _posicaoAtual =
           'Latitude: ${_posicao!.latitude}\nLongitude: ${_posicao!.longitude}';

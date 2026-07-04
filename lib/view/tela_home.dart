@@ -31,7 +31,7 @@ class TelaHome extends StatelessWidget {
         child: Stack(
           children: [
             Positioned(
-              top: 20,
+              top: tamanhoTela.height * 0.1,
               left: 0,
               right: 0,
               child: Center(
@@ -44,7 +44,7 @@ class TelaHome extends StatelessWidget {
                         "Cresce, Brotinho!",
                         style: TextStyle(
                           fontFamily: AppFonts.railey,
-                          fontSize: 45,
+                          fontSize: 55,
                           foreground: Paint()
                             ..style = PaintingStyle.stroke
                             ..strokeWidth = 3
@@ -55,7 +55,7 @@ class TelaHome extends StatelessWidget {
                         "Cresce, Brotinho!",
                         style: TextStyle(
                           fontFamily: AppFonts.railey,
-                          fontSize: 44.5,
+                          fontSize: 54,
                           fontWeight: FontWeight.w600,
                           color: Colors.white,
                           shadows: [
@@ -78,7 +78,7 @@ class TelaHome extends StatelessWidget {
               ),
             ),
             Positioned(
-              top: tamanhoTela.height * 0.42,
+              top: tamanhoTela.height * 0.4,
               right: 30,
               child: BotaoAcao(
                 imagem: 'assets/images/regar.png',
@@ -137,27 +137,25 @@ class TelaHome extends StatelessWidget {
                     LocalizacaoPage localizacaoPlanta = LocalizacaoPage();
                     await localizacaoPlanta.pegarLocalizacao();
                     Position? posicaoPlanta = localizacaoPlanta.posicao;
-                    //final posicaoPlanta = LocalizacaoPage().pegarLocalizacao().posi
-                    //await provider.adicionarPlanta(Planta(nome: nome, lat: 0.0, long: 0.0));
-                    /*Planta planta = Planta(
-                      nome: nome,
-                      lat: posicaoPlanta!.latitude,
-                      long: posicaoPlanta.longitude,
-                    );
-                    await provider.adicionarPlanta(planta);
-                    print(planta);*/
 
                     if (posicaoPlanta != null) {
+                      // Arredonda para 5 casas decimais (~1 metro de precisão)
+                      double latArredondada = double.parse(
+                        posicaoPlanta.latitude.toStringAsFixed(5),
+                      );
+                      double longArredondada = double.parse(
+                        posicaoPlanta.longitude.toStringAsFixed(5),
+                      );
+
                       Planta planta = Planta(
                         nome: nome,
-                        lat: posicaoPlanta.latitude,
-                        long: posicaoPlanta.longitude,
+                        lat: latArredondada,
+                        long: longArredondada,
                       );
 
                       await provider.adicionarPlanta(planta);
                       print("Planta salva com sucesso: $planta");
                     } else {
-                      // Caso o GPS falhe, exibe um aviso ou trata o erro
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           content: Text(
