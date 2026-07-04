@@ -104,11 +104,13 @@
 //   }
 // }
 
+import 'package:ddm_projeto_final/provider/planta_provider.dart';
 import 'package:ddm_projeto_final/util/db.dart';
 import 'package:ddm_projeto_final/widgets/planta_card.dart';
 import 'package:flutter/material.dart';
 import 'package:ddm_projeto_final/model/planta.dart';
 import 'package:ddm_projeto_final/model/regiao.dart';
+import 'package:provider/provider.dart';
 
 class TelaMapa extends StatefulWidget {
   const TelaMapa({Key? key}) : super(key: key);
@@ -129,11 +131,12 @@ class _TelaMapaState extends State<TelaMapa> {
   }
 
   Future<void> _carregarMapa() async {
-    final plantas = await DBUtil.buscarPlantas();
-    print("Plantas qtd: ${plantas.length}");
+    final provider = Provider.of<PlantaProvider>(context, listen: false);
+    //final plantas = await DBUtil.buscarPlantas();
+    print("Plantas qtd: ${provider.plantas.length}");
     setState(() {
-      _plantas = plantas;
-      _regiao = Regiao.calcularDePlantas(plantas);
+      _plantas = provider.plantas;
+      _regiao = Regiao.calcularDePlantas(provider.plantas);
       _carregando = false;
     });
   }

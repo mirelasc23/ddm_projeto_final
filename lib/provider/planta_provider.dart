@@ -8,7 +8,8 @@ class PlantaProvider extends ChangeNotifier {
 
   Future<void> adicionarPlanta(Planta planta) async {
     await DBUtil.insert(planta);
-    _plantas.add(planta);
+    //_plantas.add(planta);
+    await carregarPlantas();
     notifyListeners();
   }
 

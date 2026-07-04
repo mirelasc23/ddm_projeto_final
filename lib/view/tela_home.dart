@@ -5,6 +5,7 @@ import 'package:ddm_projeto_final/provider/rega_provider.dart';
 import 'package:ddm_projeto_final/service/localizacao_page.dart';
 import 'package:flutter/material.dart';
 import 'package:ddm_projeto_final/widgets/botao_acao.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 import 'package:ddm_projeto_final/util/fontes.dart';
 
@@ -133,18 +134,38 @@ class TelaHome extends StatelessWidget {
                       listen: false,
                     );
 
-                    final localizacaoPlanta = LocalizacaoPage();
-                    localizacaoPlanta.pegarLocalizacao();
-                    final posicaoPlanta = localizacaoPlanta.posicao;
+                    LocalizacaoPage localizacaoPlanta = LocalizacaoPage();
+                    await localizacaoPlanta.pegarLocalizacao();
+                    Position? posicaoPlanta = localizacaoPlanta.posicao;
                     //final posicaoPlanta = LocalizacaoPage().pegarLocalizacao().posi
                     //await provider.adicionarPlanta(Planta(nome: nome, lat: 0.0, long: 0.0));
-                    Planta planta = Planta(
+                    /*Planta planta = Planta(
                       nome: nome,
                       lat: posicaoPlanta!.latitude,
                       long: posicaoPlanta.longitude,
                     );
                     await provider.adicionarPlanta(planta);
-                    print(planta);
+                    print(planta);*/
+
+                    if (posicaoPlanta != null) {
+                      Planta planta = Planta(
+                        nome: nome,
+                        lat: posicaoPlanta.latitude,
+                        long: posicaoPlanta.longitude,
+                      );
+
+                      await provider.adicionarPlanta(planta);
+                      print("Planta salva com sucesso: $planta");
+                    } else {
+                      // Caso o GPS falhe, exibe um aviso ou trata o erro
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text(
+                            'Não foi possível obter a localização atual.',
+                          ),
+                        ),
+                      );
+                    }
                   }
                 },
               ),

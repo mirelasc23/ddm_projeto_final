@@ -43,5 +43,6 @@ class LocalizacaoPage {
     } catch (e) {
       _posicaoAtual = 'Erro ao buscar localização: $e';
     }
+    print(_posicaoAtual);
   }
 }

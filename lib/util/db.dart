@@ -51,6 +51,7 @@ class DBUtil {
       model.toMap(),
       conflictAlgorithm: sqlite.ConflictAlgorithm.replace,
     );
+    //return await db.insert('Planta', model.toMap());
   }
 
   static Future<int> update(
@@ -107,9 +108,9 @@ class DBUtil {
     return await db.delete('planta', where: 'id = ?', whereArgs: [id]);
   }
 
-//regas
+  //regas
 
-Future<int> inserirRega(Rega rega) async {
+  Future<int> inserirRega(Rega rega) async {
     final db = await _getDB();
     return await db.insert('rega', rega.toMap());
   }
