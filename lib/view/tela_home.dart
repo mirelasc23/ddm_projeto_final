@@ -86,7 +86,7 @@ class TelaHome extends StatelessWidget {
                 cor: Colors.lightBlue,
                 tamanho: 220,
                 onTap: () {
-                  final provider = Provider.of<RegaProvider>(
+                  /*final provider = Provider.of<RegaProvider>(
                     context,
                     listen: false,
                   );
@@ -94,7 +94,12 @@ class TelaHome extends StatelessWidget {
                   final dataHoje =
                       '${hoje.year}-${hoje.month.toString().padLeft(2, '0')}-${hoje.day.toString().padLeft(2, '0')}';
                   final rega = Rega(idPlanta: 1, dataRega: dataHoje);
-                  provider.regar(rega);
+                  provider.regar(rega);*/
+                  final planta = Planta(nome: 'tst', lat: 1.0, long: 1.0);
+                  Provider.of<PlantaProvider>(
+                    context,
+                    listen: false,
+                  ).regarPlanta(context, planta);
                 },
               ),
             ),

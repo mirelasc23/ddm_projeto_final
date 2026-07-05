@@ -14,7 +14,7 @@ class TelaMapa extends StatefulWidget {
 }
 
 class _TelaMapaState extends State<TelaMapa> {
-  Regiao? _regiao;
+  //Regiao? _regiao;
   bool _inicializado = false;
 
   @override

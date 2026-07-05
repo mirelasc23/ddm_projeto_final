@@ -81,7 +81,7 @@ class PlantaCardSheet extends StatelessWidget {
 
           // Última rega (busca assíncrona no banco)
           FutureBuilder<Rega?>(
-            future: _buscarUltimaRega(planta.id!),
+            future: buscarUltimaRega(planta.id!),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Padding(
@@ -149,7 +149,7 @@ class PlantaCardSheet extends StatelessWidget {
 
   // Busca a rega mais recente da planta.
   // Ajuste para usar seu DAO/repositório real (sqflite, etc).
-  static Future<Rega?> _buscarUltimaRega(int idPlanta) async {
+  static Future<Rega?> buscarUltimaRega(int idPlanta) async {
     // Exemplo:
     // final regas = await RegaDao().listarPorPlanta(idPlanta);
     // regas.sort((a, b) => b.dataRega.compareTo(a.dataRega));

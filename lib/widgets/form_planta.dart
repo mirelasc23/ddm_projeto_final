@@ -20,10 +20,10 @@ class _FormPlantaState extends State<FormPlanta> {
 
   @override
   Widget build(BuildContext context) {
-    final PlantaProvider plantaProvider = Provider.of<PlantaProvider>(
+    /*final PlantaProvider plantaProvider = Provider.of<PlantaProvider>(
       context,
       listen: false,
-    );
+    );*/
 
     //final planta = plantaProvider.plantaAtual;
 

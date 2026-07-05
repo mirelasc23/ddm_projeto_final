@@ -1,6 +1,8 @@
 import 'package:ddm_projeto_final/model/planta.dart';
+import 'package:ddm_projeto_final/model/rega.dart';
 import 'package:ddm_projeto_final/provider/planta_provider.dart';
 import 'package:ddm_projeto_final/util/rotas.dart';
+import 'package:ddm_projeto_final/widgets/planta_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +20,10 @@ class TelaLista extends StatelessWidget {
       extendBodyBehindAppBar: true,
       extendBody: true,
 
-      appBar: AppBar(backgroundColor: Colors.transparent),
+      appBar: AppBar(
+        title: Text("Plantas Cadastradas"),
+        backgroundColor: Colors.transparent,
+      ),
       body: Container(
         width: tamanhoTela.width,
         height: double.infinity,
@@ -34,31 +39,12 @@ class TelaLista extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              /*ElevatedButton.icon(
-                onPressed: () {
-                  Navigator.pushNamed(context, Rotas.telaPerfil);
-                },
-                icon: Image.asset(
-                  'assets/images/imagem_plantar.png',
-                  width: 24,
-                  height: 24,
-                ),
-                label: Text('Clique Aqui'),
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                ),
-              ),*/
-              Text("Plantas Cadastradas"),
+              //Text("Plantas Cadastradas"),
               Expanded(
                 child: ListView.builder(
-                  //shrinkWrap:
-                  //true, // 💡 Faz o ListView ocupar só o tamanho dos itens
-                  //physics:
-                  //const NeverScrollableScrollPhysics(), // 💡 Desativa a rolagem interna do ListView
                   itemCount: plantas.length,
                   itemBuilder: (context, index) {
                     final planta = plantas[index];
-                    //return PlantaCardSheet(planta: planta).build(context);
                     return Card(
                       elevation: 3,
                       color: const Color.fromRGBO(255, 255, 255, 0.53),
@@ -71,7 +57,81 @@ class TelaLista extends StatelessWidget {
                           planta.nome,
                         ),
                         leading: Text("${planta.id}"),
-                        //subtitle: ShowDatePicker(tarefa.dataPrevista as Date),
+                        subtitle: // Última rega (busca assíncrona no banco)
+                        FutureBuilder<Rega?>(
+                          future: PlantaCardSheet.buscarUltimaRega(planta.id!),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const Padding(
+                                padding: EdgeInsets.symmetric(vertical: 8),
+                                child: SizedBox(
+                                  height: 20,
+                                  width: 20,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                  ),
+                                ),
+                              );
+                            }
+
+                            final rega = snapshot.data;
+                            if (rega == null) {
+                              return Row(
+                                children: [
+                                  Icon(
+                                    Icons.water_drop_outlined,
+                                    size: 18,
+                                    color: Colors.grey.shade500,
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Text(
+                                    'Nenhuma rega registrada',
+                                    style: TextStyle(
+                                      color: Colors.grey.shade600,
+                                    ),
+                                  ),
+                                ],
+                              );
+                            }
+
+                            final data = DateTime.parse(rega.dataRega);
+                            final dias = DateTime.now().difference(data).inDays;
+
+                            return Row(
+                              children: [
+                                const Icon(
+                                  Icons.water_drop,
+                                  size: 18,
+                                  color: Colors.blue,
+                                ),
+                                const SizedBox(width: 8),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      'Última rega',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                    Text(
+                                      '${data.day.toString().padLeft(2, '0')}/'
+                                      '${data.month.toString().padLeft(2, '0')}/'
+                                      '${data.year} '
+                                      '(há $dias dia${dias == 1 ? '' : 's'})',
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            );
+                          },
+                        ),
                         trailing: IconButton(
                           onPressed: () {
                             Navigator.pushNamed(
