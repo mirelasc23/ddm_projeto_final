@@ -98,41 +98,68 @@ class _FormPerfilState extends State<FormPerfil> {
                       Stack(
                         children: [
                           Align(
-                            alignment: Alignment.centerLeft,
+                            alignment: Alignment.topCenter,
                             child: Text(
                               'Meta de água (mL)',
-                              style: TextStyle(
-                                fontFamily: AppFonts.mairy,
-                                fontSize: 16,
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400,
+                                letterSpacing: 0.4,
+                                color: Color.fromRGBO(70, 120, 148, 1.0),
+                                fontFamily: AppFonts.childos,
                               ),
                             ),
                           ),
-                          TextFormField(
-                            controller: _metaController,
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                              hintText: '2500',
-                              filled: true,
-                              fillColor: Colors.white.withOpacity(0.6),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide: BorderSide.none,
+                          Padding(
+                            padding: EdgeInsets.only(top: 22),
+                            child: TextFormField(
+                              controller: _metaController,
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(
+                                hintText: '2500',
+                                filled: true,
+                                fillColor: const Color.fromRGBO(
+                                  255,
+                                  255,
+                                  255,
+                                  0.53,
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(100),
+                                  borderSide: BorderSide.none,
+                                ),
+                                /*contentPadding: const EdgeInsets.symmetric(
+                                  horizontal: 20,
+                                  vertical: 16,
+                                ),*/
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(100.0),
+                                  borderSide: const BorderSide(
+                                    color: Color.from(
+                                      alpha: 1.0,
+                                      red: 0.13,
+                                      green: 0.59,
+                                      blue: 0.95,
+                                    ),
+                                    width: 1.5,
+                                  ),
+                                ),
                               ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 20,
-                                vertical: 16,
-                              ),
+                              //onTapOutside: focu,
+                              onTapOutside: (PointerDownEvent event) {
+                                FocusScope.of(context).unfocus();
+                              },
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Informe a meta de água';
+                                }
+                                final meta = int.tryParse(value);
+                                if (meta == null || meta <= 0) {
+                                  return 'Informe um valor válido';
+                                }
+                                return null;
+                              },
                             ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Informe a meta de água';
-                              }
-                              final meta = int.tryParse(value);
-                              if (meta == null || meta <= 0) {
-                                return 'Informe um valor válido';
-                              }
-                              return null;
-                            },
                           ),
                           /*
                           TextFormField(
@@ -161,7 +188,7 @@ class _FormPerfilState extends State<FormPerfil> {
                           ),*/
                         ],
                       ),
-                      //const SizedBox(height: 8),
+                      const SizedBox(height: 6),
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
