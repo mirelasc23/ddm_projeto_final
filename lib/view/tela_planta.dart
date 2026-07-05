@@ -1,4 +1,4 @@
-import 'package:ddm_projeto_final/widgets/form_perfil.dart';
+import 'package:ddm_projeto_final/widgets/form_planta.dart';
 import 'package:flutter/material.dart';
 
 class TelaPlanta extends StatelessWidget {
@@ -15,10 +15,10 @@ class TelaPlanta extends StatelessWidget {
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/images/tela-perfil.png'),
-            fit: BoxFit.cover, 
+            fit: BoxFit.cover,
           ),
         ),
-        child: const FormPerfil(),
+        child: const FormPlanta(),
       ),
     );
   }

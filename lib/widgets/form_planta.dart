@@ -1,5 +1,8 @@
+import 'package:ddm_projeto_final/model/planta.dart';
 import 'package:ddm_projeto_final/provider/planta_provider.dart';
+import 'package:ddm_projeto_final/util/fontes.dart';
 import 'package:ddm_projeto_final/util/util.dart';
+import 'package:ddm_projeto_final/widgets/caixa_texto.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,6 +23,7 @@ class _FormPlantaState extends State<FormPlanta> {
 
   @override
   Widget build(BuildContext context) {
+    Planta planta = ModalRoute.of(context)?.settings.arguments as Planta;
     /*final PlantaProvider plantaProvider = Provider.of<PlantaProvider>(
       context,
       listen: false,
@@ -55,23 +59,73 @@ class _FormPlantaState extends State<FormPlanta> {
                           ),
                         ),
                       ),
-                      //caixaTextoExibicao('Nome', planta!.nome),
-                      //caixaTextoExibicao('Meta', planta.email),
+                      caixaTextoExibicao('Nome', planta.nome),
+                      caixaTextoExibicao('Latitude', planta.lat.toString()),
+                      caixaTextoExibicao('Longitude', planta.long.toString()),
                       const SizedBox(height: 40),
-                      TextFormField(
-                        decoration: Util.estiloInput('Meta'),
-                        style: Util.estiloTextoInterno(),
-                        keyboardType: TextInputType.number,
-                        controller: _metaController,
-                        onSaved: (password) =>
-                            _dadosForm['password'] = password ?? '',
-                        validator: (_meta) {
-                          final password = _meta ?? '';
-                          if (password.isEmpty || password.length < 3) {
-                            return 'Informe uma senha válida';
-                          }
-                          return null;
-                        },
+                      Stack(
+                        children: [
+                          Align(
+                            alignment: Alignment.topCenter,
+                            child: Text(
+                              'Meta de água (mL)',
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400,
+                                letterSpacing: 0.4,
+                                color: Color.fromRGBO(70, 120, 148, 1.0),
+                                fontFamily: AppFonts.childos,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 22),
+                            child: TextFormField(
+                              controller: _metaController,
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(
+                                hintText: '2500',
+                                filled: true,
+                                fillColor: const Color.fromRGBO(
+                                  255,
+                                  255,
+                                  255,
+                                  0.53,
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(100),
+                                  borderSide: BorderSide.none,
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(100.0),
+                                  borderSide: const BorderSide(
+                                    color: Color.from(
+                                      alpha: 1.0,
+                                      red: 0.13,
+                                      green: 0.59,
+                                      blue: 0.95,
+                                    ),
+                                    width: 1.5,
+                                  ),
+                                ),
+                              ),
+                              style: Util.estiloTextoInterno(),
+                              onTapOutside: (PointerDownEvent event) {
+                                FocusScope.of(context).unfocus();
+                              },
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Informe a meta de água';
+                                }
+                                final meta = int.tryParse(value);
+                                if (meta == null || meta <= 0) {
+                                  return 'Informe um valor válido';
+                                }
+                                return null;
+                              },
+                            ),
+                          ),
+                        ],
                       ),
                       Tooltip(
                         message: 'Dados salvos localmente no SQLite.',

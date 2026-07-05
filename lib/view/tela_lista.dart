@@ -142,8 +142,8 @@ class TelaLista extends StatelessWidget {
                           },
                           icon: Icon(Icons.edit),
                         ),
-                        //tileColor: tarefa.estaFeliz ? Colors.green[300] : Colors.red[300] ,
-                        //subtitle: Text(tarefa.estaFeliz ? "Está feliz :)" : "Está triste :("),
+                        //titleTextStyle: Util.estiloTextoInterno(),
+                        //subtitleTextStyle: Util.estiloTextoInterno(),
                         onTap: () {
                           Navigator.pushNamed(
                             context,
