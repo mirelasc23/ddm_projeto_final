@@ -33,20 +33,6 @@ class _TelaMapaState extends State<TelaMapa> {
     });
   }
 
-  /*Future<void> _carregarMapa() async {
-    final provider = Provider.of<PlantaProvider>(context, listen: false);
-    await provider.carregarPlantas;
-    print("Plantas qtd: ${provider.plantas.length}");
-
-    setState(() {
-      _plantas = provider.plantas;
-      if (_plantas.isNotEmpty) {
-        _regiao = Regiao.calcularDePlantas(provider.plantas);
-      }
-      _carregando = false;
-    });
-  }*/
-
   void _abrirCardPlanta(BuildContext context, Planta planta) {
     PlantaCardSheet.mostrar(context, planta);
   }

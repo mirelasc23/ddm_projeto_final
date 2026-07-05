@@ -1,9 +1,11 @@
 import 'package:ddm_projeto_final/model/planta.dart';
 import 'package:ddm_projeto_final/model/rega.dart';
 import 'package:ddm_projeto_final/provider/planta_provider.dart';
+import 'package:ddm_projeto_final/service/localizacao_page.dart';
 import 'package:ddm_projeto_final/util/rotas.dart';
 import 'package:ddm_projeto_final/widgets/planta_card.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 
 class TelaLista extends StatelessWidget {
@@ -47,10 +49,13 @@ class TelaLista extends StatelessWidget {
                   foregroundColor: Colors.white,
                 ),
                 onPressed: () async {
+                  LocalizacaoPage localizacaoPlanta = LocalizacaoPage();
+                  await localizacaoPlanta.pegarLocalizacao();
+                  Position? posicaoPlanta = localizacaoPlanta.posicao;
                   Navigator.pushNamed(
                     context,
                     Rotas.telaMapaApi,
-                    //arguments: plantas.indexOf('ddd' as Planta),
+                    arguments: posicaoPlanta,
                   );
                   /*ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text("Todas as plantas regadas!")),
