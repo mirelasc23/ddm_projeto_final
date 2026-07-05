@@ -95,66 +95,71 @@ class _FormPerfilState extends State<FormPerfil> {
                       caixaTextoExibicao('Nome', acesso!.nome),
                       caixaTextoExibicao('Email', acesso.email),
                       //const SizedBox(height: 8),
-                      /*Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          'Meta de água (mL)',
-                          style: TextStyle(
-                            fontFamily: AppFonts.mairy,
-                            fontSize: 16,
+                      Stack(
+                        children: [
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Meta de água (mL)',
+                              style: TextStyle(
+                                fontFamily: AppFonts.mairy,
+                                fontSize: 16,
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                      TextFormField(
-                        controller: _metaController,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          hintText: '2500',
-                          filled: true,
-                          fillColor: Colors.white.withOpacity(0.6),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            borderSide: BorderSide.none,
+                          TextFormField(
+                            controller: _metaController,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              hintText: '2500',
+                              filled: true,
+                              fillColor: Colors.white.withOpacity(0.6),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                borderSide: BorderSide.none,
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 20,
+                                vertical: 16,
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Informe a meta de água';
+                              }
+                              final meta = int.tryParse(value);
+                              if (meta == null || meta <= 0) {
+                                return 'Informe um valor válido';
+                              }
+                              return null;
+                            },
                           ),
-                          contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 16,
-                          ),
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Informe a meta de água';
-                          }
-                          final meta = int.tryParse(value);
-                          if (meta == null || meta <= 0) {
-                            return 'Informe um valor válido';
-                          }
-                          return null;
-                        },
-                      ),*/
-                      TextFormField(
-                        decoration: Util.estiloInput('Meta'),
-                        style: TextStyle(
-                          color: Color.from(
-                            alpha: 1.0,
-                            red: 0.13,
-                            green: 0.59,
-                            blue: 0.95,
-                          ),
-                          fontFamily: AppFonts.mairy,
-                        ),
-                        keyboardType: TextInputType.number,
-                        controller: _metaController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Informe a meta de água';
-                          }
-                          final meta = int.tryParse(value);
-                          if (meta == null || meta <= 0) {
-                            return 'Informe um valor válido';
-                          }
-                          return null;
-                        },
+                          /*
+                          TextFormField(
+                            decoration: Util.estiloInput('Meta'),
+                            style: TextStyle(
+                              color: Color.from(
+                                alpha: 1.0,
+                                red: 0.13,
+                                green: 0.59,
+                                blue: 0.95,
+                              ),
+                              fontFamily: AppFonts.mairy,
+                            ),
+                            keyboardType: TextInputType.number,
+                            controller: _metaController,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Informe a meta de água';
+                              }
+                              final meta = int.tryParse(value);
+                              if (meta == null || meta <= 0) {
+                                return 'Informe um valor válido';
+                              }
+                              return null;
+                            },
+                          ),*/
+                        ],
                       ),
                       //const SizedBox(height: 8),
                       SizedBox(
