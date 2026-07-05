@@ -1,5 +1,6 @@
 import 'package:ddm_projeto_final/util/fontes.dart';
 import 'package:ddm_projeto_final/util/rotas.dart';
+import 'package:ddm_projeto_final/util/util.dart';
 import 'package:ddm_projeto_final/widgets/botao_login.dart';
 import '../provider/auth_provider.dart';
 import 'package:flutter/material.dart';
@@ -131,29 +132,18 @@ class _FormLoginState extends State<FormLogin> {
           builder: (context, constraints) {
             return SingleChildScrollView(
               child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  minHeight: constraints.maxHeight,
-                ),
+                constraints: BoxConstraints(minHeight: constraints.maxHeight),
                 child: IntrinsicHeight(
                   child: Column(
                     spacing: 16,
-                    mainAxisAlignment:
-                        MainAxisAlignment.center, 
+                    mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       if (_ehCadastro())
                         TextFormField(
                           controller: _nomeController,
                           decoration: _estiloInput('Nome'),
-                          style: TextStyle(
-                            color: Color.from(
-                              alpha: 1.0,
-                              red: 0.13,
-                              green: 0.59,
-                              blue: 0.95,
-                            ),
-                            fontFamily: AppFonts.mairy,
-                          ),
+                          style: Util.estiloTextoInterno(),
                           onSaved: (nome) => _dadosForm['nome'] = nome ?? '',
                           validator: (_nome) {
                             final nome = _nome ?? '';
@@ -166,37 +156,20 @@ class _FormLoginState extends State<FormLogin> {
                       TextFormField(
                         controller: _emailController,
                         decoration: _estiloInput('E-mail (login)'),
-                        style: TextStyle(
-                          color: Color.from(
-                            alpha: 1.0,
-                            red: 0.13,
-                            green: 0.59,
-                            blue: 0.95,
-                          ),
-                          fontFamily: AppFonts.mairy,
-                        ),
+                        style: Util.estiloTextoInterno(),
                         keyboardType: TextInputType.emailAddress,
-                        onSaved: (email) => _dadosForm['email'] =
-                            email ?? '', 
+                        onSaved: (email) => _dadosForm['email'] = email ?? '',
                         validator: (_email) {
                           final email = _email ?? '';
                           if (!email.contains('@')) {
-                            return 'Informe um e-mail válido.'; 
+                            return 'Informe um e-mail válido.';
                           }
                           return null;
                         },
                       ),
                       TextFormField(
                         decoration: _estiloInput('Senha'),
-                        style: TextStyle(
-                          color: Color.from(
-                            alpha: 1.0,
-                            red: 0.13,
-                            green: 0.59,
-                            blue: 0.95,
-                          ),
-                          fontFamily: AppFonts.mairy,
-                        ),
+                        style: Util.estiloTextoInterno(),
                         keyboardType: TextInputType.emailAddress,
                         obscureText: true,
                         controller: _passwordController,
@@ -213,15 +186,7 @@ class _FormLoginState extends State<FormLogin> {
                       if (_ehCadastro())
                         TextFormField(
                           decoration: _estiloInput('Confirmar Senha'),
-                          style: TextStyle(
-                            color: Color.from(
-                              alpha: 1.0,
-                              red: 0.13,
-                              green: 0.59,
-                              blue: 0.95,
-                            ),
-                            fontFamily: AppFonts.mairy,
-                          ),
+                          style: Util.estiloTextoInterno(),
                           keyboardType: TextInputType.emailAddress,
                           obscureText: true,
                           validator: _ehLogin()

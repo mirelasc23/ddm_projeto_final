@@ -1,4 +1,5 @@
 import 'package:ddm_projeto_final/util/fontes.dart';
+import 'package:ddm_projeto_final/util/util.dart';
 import 'package:flutter/material.dart';
 
 Widget caixaTextoExibicao(String label, String valor) {
@@ -25,14 +26,7 @@ Widget caixaTextoExibicao(String label, String valor) {
           color: const Color.fromRGBO(255, 255, 255, 0.53),
           borderRadius: BorderRadius.circular(100.0),
         ),
-        child: Text(
-          valor,
-          style: const TextStyle(
-            fontSize: 16,
-            color: Color.from(alpha: 1.0, red: 0.13, green: 0.59, blue: 0.95),
-            fontFamily: AppFonts.mairy,
-          ),
-        ),
+        child: Text(valor, style: Util.estiloTextoInterno()),
       ),
     ],
   );

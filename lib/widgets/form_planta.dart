@@ -37,9 +37,7 @@ class _FormPlantaState extends State<FormPlanta> {
           builder: (context, constraints) {
             return SingleChildScrollView(
               child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  minHeight: constraints.maxHeight,
-                ),
+                constraints: BoxConstraints(minHeight: constraints.maxHeight),
                 child: IntrinsicHeight(
                   child: Column(
                     spacing: 16,
@@ -47,16 +45,9 @@ class _FormPlantaState extends State<FormPlanta> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
-                        padding: const EdgeInsets.all(
-                          4.0,
-                        ), 
+                        padding: const EdgeInsets.all(4.0),
                         decoration: const BoxDecoration(
-                          color: Color.fromRGBO(
-                            255,
-                            148,
-                            186,
-                            1.0,
-                          ), 
+                          color: Color.fromRGBO(255, 148, 186, 1.0),
                           shape: BoxShape.circle,
                         ),
                         child: CircleAvatar(
@@ -71,15 +62,7 @@ class _FormPlantaState extends State<FormPlanta> {
                       const SizedBox(height: 40),
                       TextFormField(
                         decoration: Util.estiloInput('Meta'),
-                        style: TextStyle(
-                          color: Color.from(
-                            alpha: 1.0,
-                            red: 0.13,
-                            green: 0.59,
-                            blue: 0.95,
-                          ),
-                          fontFamily: AppFonts.mairy,
-                        ),
+                        style: Util.estiloTextoInterno(),
                         keyboardType: TextInputType.number,
                         controller: _metaController,
                         onSaved: (password) =>
@@ -94,8 +77,7 @@ class _FormPlantaState extends State<FormPlanta> {
                       ),
                       Tooltip(
                         message: 'Dados salvos localmente no SQLite.',
-                        triggerMode:
-                            TooltipTriggerMode.tap,
+                        triggerMode: TooltipTriggerMode.tap,
                         preferBelow: false,
                         child: IconButton(
                           icon: const Icon(

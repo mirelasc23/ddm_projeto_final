@@ -1,7 +1,6 @@
 import 'package:ddm_projeto_final/util/fontes.dart';
 import 'package:ddm_projeto_final/util/util.dart';
 import 'package:ddm_projeto_final/widgets/caixa_texto.dart';
-import 'package:ddm_projeto_final/widgets/caixa_texto_input.dart';
 import '../provider/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -128,10 +127,6 @@ class _FormPerfilState extends State<FormPerfil> {
                                   borderRadius: BorderRadius.circular(100),
                                   borderSide: BorderSide.none,
                                 ),
-                                /*contentPadding: const EdgeInsets.symmetric(
-                                  horizontal: 20,
-                                  vertical: 16,
-                                ),*/
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(100.0),
                                   borderSide: const BorderSide(
@@ -145,7 +140,7 @@ class _FormPerfilState extends State<FormPerfil> {
                                   ),
                                 ),
                               ),
-                              //onTapOutside: focu,
+                              style: Util.estiloTextoInterno(),
                               onTapOutside: (PointerDownEvent event) {
                                 FocusScope.of(context).unfocus();
                               },
@@ -161,34 +156,9 @@ class _FormPerfilState extends State<FormPerfil> {
                               },
                             ),
                           ),
-                          /*
-                          TextFormField(
-                            decoration: Util.estiloInput('Meta'),
-                            style: TextStyle(
-                              color: Color.from(
-                                alpha: 1.0,
-                                red: 0.13,
-                                green: 0.59,
-                                blue: 0.95,
-                              ),
-                              fontFamily: AppFonts.mairy,
-                            ),
-                            keyboardType: TextInputType.number,
-                            controller: _metaController,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Informe a meta de água';
-                              }
-                              final meta = int.tryParse(value);
-                              if (meta == null || meta <= 0) {
-                                return 'Informe um valor válido';
-                              }
-                              return null;
-                            },
-                          ),*/
                         ],
                       ),
-                      const SizedBox(height: 6),
+                      const SizedBox(height: 36),
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
@@ -215,7 +185,7 @@ class _FormPerfilState extends State<FormPerfil> {
                                 ),
                         ),
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 6),
                     ],
                   ),
                 ),

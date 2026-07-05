@@ -1,3 +1,4 @@
+import 'package:ddm_projeto_final/util/fontes.dart';
 import 'package:flutter/material.dart';
 
 class Util {
@@ -17,6 +18,14 @@ class Util {
           width: 1.5,
         ),
       ),
+    );
+  }
+
+  static TextStyle estiloTextoInterno() {
+    return TextStyle(
+      fontSize: 16,
+      color: Color.from(alpha: 1.0, red: 0.13, green: 0.59, blue: 0.95),
+      fontFamily: AppFonts.mairy,
     );
   }
 }
