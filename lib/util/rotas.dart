@@ -1,3 +1,5 @@
+import 'package:ddm_projeto_final/view/tela_mapa.dart';
+
 class Rotas {
   static final home = "/";
   static final telaInicial = "/tela-inicial";
@@ -6,4 +8,5 @@ class Rotas {
   static final telaMae = "/tela-mae";
   static final telaPlanta = "/tela_planta";
   static final telaLista = "/tela_lista";
+  static final telaMapaApi = "/tela_mapa_api";
 }

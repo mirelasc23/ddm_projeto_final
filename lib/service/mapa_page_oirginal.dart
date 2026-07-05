@@ -10,8 +10,8 @@ class MapaPage extends StatelessWidget {
       body: FlutterMap(
         options: MapOptions(
           initialCenter: LatLng(
-            -28.0267,
-            -49.1235,
+            -28.2882,
+            -49.0254,
           ), // Coordenadas de Gravatal, SC
           initialZoom: 13.0,
         ),
@@ -19,7 +19,7 @@ class MapaPage extends StatelessWidget {
           TileLayer(
             urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
             userAgentPackageName:
-                'com.seu.app', // Importante para o OpenStreetMap
+                'brotinho.ddm.ifsc', // Importante para o OpenStreetMap
           ),
         ],
       ),

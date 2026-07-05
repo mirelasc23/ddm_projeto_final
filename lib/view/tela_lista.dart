@@ -39,6 +39,24 @@ class TelaLista extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              ElevatedButton.icon(
+                icon: Icon(Icons.map),
+                label: Text("Mapa com API externa"),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  foregroundColor: Colors.white,
+                ),
+                onPressed: () async {
+                  Navigator.pushNamed(
+                    context,
+                    Rotas.telaMapaApi,
+                    //arguments: plantas.indexOf('ddd' as Planta),
+                  );
+                  /*ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("Todas as plantas regadas!")),
+                  );*/
+                },
+              ),
               //Text("Plantas Cadastradas"),
               Expanded(
                 child: ListView.builder(
