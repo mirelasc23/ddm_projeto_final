@@ -30,31 +30,31 @@ class TelaLista extends StatelessWidget {
           ),
         ),
         child: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                /*ElevatedButton.icon(
-                  onPressed: () {
-                    Navigator.pushNamed(context, Rotas.telaPerfil);
-                  },
-                  icon: Image.asset(
-                    'assets/images/imagem_plantar.png',
-                    width: 24,
-                    height: 24,
-                  ),
-                  label: Text('Clique Aqui'),
-                  style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                  ),
-                ),*/
-                ListView.builder(
-                  shrinkWrap:
-                      true, // 💡 Faz o ListView ocupar só o tamanho dos itens
-                  physics:
-                      const NeverScrollableScrollPhysics(), // 💡 Desativa a rolagem interna do ListView
-
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              /*ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.pushNamed(context, Rotas.telaPerfil);
+                },
+                icon: Image.asset(
+                  'assets/images/imagem_plantar.png',
+                  width: 24,
+                  height: 24,
+                ),
+                label: Text('Clique Aqui'),
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                ),
+              ),*/
+              Text("Plantas Cadastradas"),
+              Expanded(
+                child: ListView.builder(
+                  //shrinkWrap:
+                  //true, // 💡 Faz o ListView ocupar só o tamanho dos itens
+                  //physics:
+                  //const NeverScrollableScrollPhysics(), // 💡 Desativa a rolagem interna do ListView
                   itemCount: plantas.length,
                   itemBuilder: (context, index) {
                     final planta = plantas[index];
@@ -96,8 +96,8 @@ class TelaLista extends StatelessWidget {
                     );
                   },
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
