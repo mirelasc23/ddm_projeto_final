@@ -1,7 +1,5 @@
 import 'package:ddm_projeto_final/provider/planta_provider.dart';
-import 'package:ddm_projeto_final/util/fontes.dart';
 import 'package:ddm_projeto_final/util/util.dart';
-import 'package:ddm_projeto_final/widgets/caixa_texto.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

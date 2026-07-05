@@ -33,18 +33,6 @@ class _TelasState extends State<Telas> {
         paginaSelecionada: _selectedIndex,
         onTap: _navegarNavbar,
       ),
-      // bottomNavigationBar: BottomNavigationBar(
-      //   currentIndex: _selectedIndex,
-      //   onTap: _navegacaoNavbar,
-      //   type: BottomNavigationBarType.fixed,
-      //   backgroundColor: Colors.white.withOpacity(0.15),
-      //   elevation: 0,
-      //   items: [
-      //     BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-      //     BottomNavigationBarItem(icon: Icon(Icons.map), label: 'Mapa'),
-      //     BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Perfil'),
-      //   ],
-      // ),
     );
   }
 }

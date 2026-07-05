@@ -1,5 +1,8 @@
+import 'package:ddm_projeto_final/model/planta.dart';
+import 'package:ddm_projeto_final/provider/planta_provider.dart';
 import 'package:ddm_projeto_final/util/rotas.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class TelaLista extends StatelessWidget {
   final String titulo;
@@ -9,11 +12,13 @@ class TelaLista extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final tamanhoTela = MediaQuery.of(context).size;
+    final List<Planta> plantas = Provider.of<PlantaProvider>(context).plantas;
 
     return Scaffold(
       extendBodyBehindAppBar: true,
       extendBody: true,
 
+      appBar: AppBar(backgroundColor: Colors.transparent),
       body: Container(
         width: tamanhoTela.width,
         height: double.infinity,
@@ -30,16 +35,7 @@ class TelaLista extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // InkWell(
-                //   onTap: () {},
-                //   child: Ink.image(
-                //     image: AssetImage('assets/images/imagem_plantar.png'),
-                //     fit: BoxFit.cover,
-                //     width: 100,
-                //     height: 100,
-                //   ),
-                // ),
-                ElevatedButton.icon(
+                /*ElevatedButton.icon(
                   onPressed: () {
                     Navigator.pushNamed(context, Rotas.telaPerfil);
                   },
@@ -52,6 +48,48 @@ class TelaLista extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                   ),
+                ),*/
+                ListView.builder(
+                  itemCount: plantas.length,
+                  itemBuilder: (context, index) {
+                    final planta = plantas[index];
+                    //return PlantaCardSheet(planta: planta).build(context);
+                    return Card(
+                      elevation: 3,
+                      color: const Color.fromRGBO(255, 255, 255, 0.53),
+                      child: ListTile(
+                        title: Text(
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          planta.nome,
+                        ),
+                        leading: Text("${planta.id}"),
+                        //subtitle: ShowDatePicker(tarefa.dataPrevista as Date),
+                        trailing: IconButton(
+                          onPressed: () {
+                            Navigator.pushNamed(
+                              context,
+                              Rotas.telaPlanta,
+                              arguments: planta,
+                            );
+                          },
+                          icon: Icon(Icons.edit),
+                        ),
+                        //tileColor: tarefa.estaFeliz ? Colors.green[300] : Colors.red[300] ,
+                        //subtitle: Text(tarefa.estaFeliz ? "Está feliz :)" : "Está triste :("),
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            //Rotas.tarefaDetalhada,
+                            Rotas.telaPlanta,
+                            arguments: planta,
+                          );
+                        },
+                      ),
+                    );
+                  },
                 ),
               ],
             ),

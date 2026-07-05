@@ -163,6 +163,7 @@ class TelaHome extends StatelessWidget {
                           ),
                         ),
                       );
+                      print('Não foi possível obter a localização atual.');
                     }
                   }
                 },
