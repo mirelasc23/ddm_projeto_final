@@ -14,19 +14,26 @@ class TelaMapa extends StatefulWidget {
 }
 
 class _TelaMapaState extends State<TelaMapa> {
-  List<Planta> _plantas = [];
   Regiao? _regiao;
-  bool _carregando = true;
+  bool _inicializado = false;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _carregarMapa();
+      _buscarDadosIniciais();
     });
   }
 
-  Future<void> _carregarMapa() async {
+  Future<void> _buscarDadosIniciais() async {
+    final provider = Provider.of<PlantaProvider>(context, listen: false);
+    await provider.carregarPlantas(); // Garante a carga do banco
+    setState(() {
+      _inicializado = true; // Avisa que a primeira carga do banco terminou
+    });
+  }
+
+  /*Future<void> _carregarMapa() async {
     final provider = Provider.of<PlantaProvider>(context, listen: false);
     await provider.carregarPlantas;
     print("Plantas qtd: ${provider.plantas.length}");
@@ -38,7 +45,7 @@ class _TelaMapaState extends State<TelaMapa> {
       }
       _carregando = false;
     });
-  }
+  }*/
 
   void _abrirCardPlanta(BuildContext context, Planta planta) {
     PlantaCardSheet.mostrar(context, planta);
@@ -46,20 +53,14 @@ class _TelaMapaState extends State<TelaMapa> {
 
   @override
   Widget build(BuildContext context) {
-    if (_carregando) {
+    final provider = Provider.of<PlantaProvider>(context);
+    final plantas = provider.plantas;
+
+    if (!_inicializado) {
       return const Center(child: CircularProgressIndicator());
     }
 
-    final plantasDoProvider = Provider.of<PlantaProvider>(context).plantas;
-
-    if (plantasDoProvider.length != _plantas.length) {
-      _plantas = plantasDoProvider;
-      if (_plantas.isNotEmpty) {
-        _regiao = Regiao.calcularDePlantas(_plantas);
-      }
-    }
-
-    if (_plantas.isEmpty) {
+    if (plantas.isEmpty) {
       return const Center(
         child: Padding(
           padding: EdgeInsets.all(24),
@@ -70,8 +71,10 @@ class _TelaMapaState extends State<TelaMapa> {
         ),
       );
     }
+
+    final regiao = Regiao.calcularDePlantas(plantas);
     final tamanhoTela = MediaQuery.of(context).size;
-    final regiao = _regiao!;
+    //final regiao = _regiao!;
     return Container(
       width: tamanhoTela.width,
       height: tamanhoTela.height,
@@ -84,7 +87,7 @@ class _TelaMapaState extends State<TelaMapa> {
       child: SafeArea(
         child: Stack(
           children: [
-            ..._plantas.map((planta) {
+            ...plantas.map((planta) {
               final posicao = regiao.coordenadaParaPosicao(
                 planta.lat,
                 planta.long,

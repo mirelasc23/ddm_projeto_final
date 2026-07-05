@@ -50,6 +50,11 @@ class TelaLista extends StatelessWidget {
                   ),
                 ),*/
                 ListView.builder(
+                  shrinkWrap:
+                      true, // 💡 Faz o ListView ocupar só o tamanho dos itens
+                  physics:
+                      const NeverScrollableScrollPhysics(), // 💡 Desativa a rolagem interna do ListView
+
                   itemCount: plantas.length,
                   itemBuilder: (context, index) {
                     final planta = plantas[index];
