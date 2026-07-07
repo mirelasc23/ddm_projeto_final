@@ -74,13 +74,13 @@ class TelaLista extends StatelessWidget {
                       foregroundColor: Colors.white,
                     ),
                     onPressed: () async {
-                      LocalizacaoPage localizacaoPlanta = LocalizacaoPage();
-                      await localizacaoPlanta.pegarLocalizacao();
-                      Position? posicaoPlanta = localizacaoPlanta.posicao;
+                      //LocalizacaoPage localizacaoPlanta = LocalizacaoPage();
+                      //await localizacaoPlanta.pegarLocalizacao();
+                      //Position? posicaoPlanta = localizacaoPlanta.posicao;
                       Navigator.pushNamed(
                         context,
-                        Rotas.telaMapaApi,
-                        arguments: posicaoPlanta,
+                        Rotas.telaListaRega,
+                        //arguments: posicaoPlanta,
                       );
                       /*ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Text("Todas as plantas regadas!")),
