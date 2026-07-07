@@ -8,5 +8,6 @@ class Rotas {
   static final telaMae = "/tela-mae";
   static final telaPlanta = "/tela_planta";
   static final telaLista = "/tela_lista";
+  static final telaListaRega = "/tela_lista_rega";
   static final telaMapaApi = "/tela_mapa_api";
 }

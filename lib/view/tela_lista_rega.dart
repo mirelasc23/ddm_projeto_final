@@ -8,10 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 
-class TelaLista extends StatelessWidget {
+class TelaListaRega extends StatelessWidget {
   final String titulo;
 
-  const TelaLista({super.key, required this.titulo});
+  const TelaListaRega({super.key, required this.titulo});
 
   @override
   Widget build(BuildContext context) {
@@ -41,53 +41,26 @@ class TelaLista extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                spacing: 16,
-                children: [
-                  ElevatedButton.icon(
-                    icon: Icon(Icons.map),
-                    label: Text("Mapa com API externa"),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
-                      foregroundColor: Colors.white,
-                    ),
-                    onPressed: () async {
-                      LocalizacaoPage localizacaoPlanta = LocalizacaoPage();
-                      await localizacaoPlanta.pegarLocalizacao();
-                      Position? posicaoPlanta = localizacaoPlanta.posicao;
-                      Navigator.pushNamed(
-                        context,
-                        Rotas.telaMapaApi,
-                        arguments: posicaoPlanta,
-                      );
-                      /*ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text("Todas as plantas regadas!")),
-                      );*/
-                    },
-                  ),
-                  ElevatedButton.icon(
-                    icon: Icon(Icons.water_drop),
-                    label: Text("Regas"),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
-                      foregroundColor: Colors.white,
-                    ),
-                    onPressed: () async {
-                      LocalizacaoPage localizacaoPlanta = LocalizacaoPage();
-                      await localizacaoPlanta.pegarLocalizacao();
-                      Position? posicaoPlanta = localizacaoPlanta.posicao;
-                      Navigator.pushNamed(
-                        context,
-                        Rotas.telaMapaApi,
-                        arguments: posicaoPlanta,
-                      );
-                      /*ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text("Todas as plantas regadas!")),
-                      );*/
-                    },
-                  ),
-                ],
+              ElevatedButton.icon(
+                icon: Icon(Icons.map),
+                label: Text("Mapa com API externa"),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  foregroundColor: Colors.white,
+                ),
+                onPressed: () async {
+                  LocalizacaoPage localizacaoPlanta = LocalizacaoPage();
+                  await localizacaoPlanta.pegarLocalizacao();
+                  Position? posicaoPlanta = localizacaoPlanta.posicao;
+                  Navigator.pushNamed(
+                    context,
+                    Rotas.telaMapaApi,
+                    arguments: posicaoPlanta,
+                  );
+                  /*ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("Todas as plantas regadas!")),
+                  );*/
+                },
               ),
               //Text("Plantas Cadastradas"),
               Expanded(
