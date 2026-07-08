@@ -85,22 +85,60 @@ class TelaHome extends StatelessWidget {
                 label: 'Regar',
                 cor: Colors.lightBlue,
                 tamanho: 220,
-                onTap: () {
-                  final provider = Provider.of<RegaProvider>(
-                    context,
-                    listen: false,
+                onTap: () async{
+                  final controller = TextEditingController();
+                  final nome = await showDialog<String>(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Text('Nova planta'),
+                      content: TextField(
+                        controller: controller,
+                        decoration: InputDecoration(hintText: 'Nome da planta'),
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: Text('Cancelar'),
+                        ),
+                        TextButton(
+                          onPressed: () =>
+                              Navigator.pop(context, controller.text),
+                          child: Text('Salvar'),
+                        ),
+                      ],
+                    ),
                   );
-                  final hoje = DateTime.now();
-                  final dataHoje =
-                      '${hoje.year}-${hoje.month.toString().padLeft(2, '0')}-${hoje.day.toString().padLeft(2, '0')}';
-                  final rega = Rega(idPlanta: 2, dataRega: dataHoje);
-                  provider.regar(rega);
-                  /*final planta = Planta(nome: 'tst', lat: 1.0, long: 1.0);
-                  Provider.of<PlantaProvider>(
-                    context,
-                    listen: false,
-                  ).regarPlanta(context, planta);*/
-                  print(rega);
+                  if (nome != null && nome.isNotEmpty) {
+                    final provider = Provider.of<RegaProvider>(
+                      context,
+                      listen: false,
+                    );
+
+                    /*final provider = Provider.of<RegaProvider>(
+                      context,
+                      listen: false,
+                    );*/
+                    final hoje = DateTime.now();
+                    final dataHoje =
+                        '${hoje.year}-${hoje.month.toString().padLeft(2, '0')}-${hoje.day.toString().padLeft(2, '0')}';
+                    final rega = Rega(idPlanta: 2, dataRega: dataHoje);
+                    provider.regar(rega);
+                    /*final planta = Planta(nome: 'tst', lat: 1.0, long: 1.0);
+                    Provider.of<PlantaProvider>(
+                      context,
+                      listen: false,
+                    ).regarPlanta(context, planta);*/
+                    print(rega);
+                  } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text(
+                            'Não foi possível obter a localização atual.',
+                          ),
+                        ),
+                      );
+                      print('Não foi possível obter a localização atual.');
+                    }
                 },
               ),
             ),

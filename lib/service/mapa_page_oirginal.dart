@@ -88,7 +88,7 @@ class _MapaPageState extends State<MapaPage> {
                 backgroundColor: Colors.orangeAccent,
                 onPressed: () {
                   // Ação do seu botão aqui (ex: voltar para home, centralizar mapa, etc)
-                  print("Botão do mapa pressionado!");
+                  print("Lista de plantas!");
                   Navigator.pushNamed(context, Rotas.telaLista);
                 },
                 child: const Icon(Icons.list, color: Colors.white),
