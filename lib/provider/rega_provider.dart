@@ -14,15 +14,22 @@ class RegaProvider extends ChangeNotifier {
 
   bool foiRegadaHoje() {
     final hoje = DateTime.now();
-    final dataHoje = '${hoje.year}-${hoje.month.toString().padLeft(2, '0')}-${hoje.day.toString().padLeft(2, '0')}';
+    final dataHoje =
+        '${hoje.year}-${hoje.month.toString().padLeft(2, '0')}-${hoje.day.toString().padLeft(2, '0')}';
     return _regas.any((rega) => rega.dataRega == dataHoje);
   }
 
-  Future<void> carregarRegas(int idPlanta) async {
-    final response = await DBUtil.list('rega');
+  Future<void> carregarRegasDoLocal(int idPlanta) async {
+    final response = await DBUtil.list('  Rega');
     final regasFiltradas = response.where((map) => map['idPlanta'] == idPlanta);
     _regas = regasFiltradas.map((map) => Rega.fromMap(map)).toList();
     notifyListeners();
   }
 
+  Future<void> carregarRegas() async {
+    final response = await DBUtil.list('Rega');
+    //final regasFiltradas = response.where((map) => map['idPlanta'] == idPlanta);
+    _regas = response.map((map) => Rega.fromMap(map)).toList();
+    notifyListeners();
+  }
 }

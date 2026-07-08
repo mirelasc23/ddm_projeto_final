@@ -100,6 +100,7 @@ class TelaHome extends StatelessWidget {
                     context,
                     listen: false,
                   ).regarPlanta(context, planta);*/
+                  print(rega);
                 },
               ),
             ),

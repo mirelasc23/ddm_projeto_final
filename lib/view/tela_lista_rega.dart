@@ -1,11 +1,8 @@
-import 'package:ddm_projeto_final/model/planta.dart';
 import 'package:ddm_projeto_final/model/rega.dart';
-import 'package:ddm_projeto_final/provider/planta_provider.dart';
-import 'package:ddm_projeto_final/service/localizacao_page.dart';
+import 'package:ddm_projeto_final/provider/rega_provider.dart';
 import 'package:ddm_projeto_final/util/rotas.dart';
 import 'package:ddm_projeto_final/widgets/planta_card.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 
 class TelaListaRega extends StatelessWidget {
@@ -16,14 +13,14 @@ class TelaListaRega extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final tamanhoTela = MediaQuery.of(context).size;
-    final List<Planta> plantas = Provider.of<PlantaProvider>(context).plantas;
+    final List<Rega> plantas = Provider.of<RegaProvider>(context).regas;
 
     return Scaffold(
       extendBodyBehindAppBar: true,
       extendBody: true,
 
       appBar: AppBar(
-        title: Text("Plantas Cadastradas"),
+        title: Text("Regas Cadastradas"),
         backgroundColor: Colors.transparent,
       ),
       body: Container(
@@ -41,7 +38,7 @@ class TelaListaRega extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              ElevatedButton.icon(
+              /*ElevatedButton.icon(
                 icon: Icon(Icons.map),
                 label: Text("Mapa com API externa"),
                 style: ElevatedButton.styleFrom(
@@ -57,12 +54,12 @@ class TelaListaRega extends StatelessWidget {
                     Rotas.telaMapaApi,
                     arguments: posicaoPlanta,
                   );
-                  /*ScaffoldMessenger.of(context).showSnackBar(
+                  ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text("Todas as plantas regadas!")),
-                  );*/
+                  );
                 },
-              ),
-              //Text("Plantas Cadastradas"),
+              ),*/
+              //Text("Regas Cadastradas"),
               Expanded(
                 child: ListView.builder(
                   itemCount: plantas.length,
@@ -77,12 +74,15 @@ class TelaListaRega extends StatelessWidget {
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                           ),
-                          planta.nome,
+                          "id_planta: ${planta.idPlanta}",
                         ),
                         leading: Text("${planta.id}"),
                         subtitle: // Última rega (busca assíncrona no banco)
                         FutureBuilder<Rega?>(
-                          future: PlantaCardSheet.buscarUltimaRega(planta.id!),
+                          // Se planta.id for nulo, ele envia 0 (ou um id que não existe), evitando o crash
+                          future: PlantaCardSheet.buscarUltimaRega(
+                            planta.id ?? 0,
+                          ),
                           builder: (context, snapshot) {
                             if (snapshot.connectionState ==
                                 ConnectionState.waiting) {
