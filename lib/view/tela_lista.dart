@@ -45,7 +45,7 @@ class TelaLista extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 spacing: 16,
                 children: [
-                  ElevatedButton.icon(
+                  /*ElevatedButton.icon(
                     icon: Icon(Icons.map),
                     label: Text("Mapa com API externa"),
                     style: ElevatedButton.styleFrom(
@@ -65,7 +65,7 @@ class TelaLista extends StatelessWidget {
                         SnackBar(content: Text("Todas as plantas regadas!")),
                       );*/
                     },
-                  ),
+                  ),*/
                   ElevatedButton.icon(
                     icon: Icon(Icons.water_drop),
                     label: Text("Regas"),
