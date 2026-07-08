@@ -38,28 +38,6 @@ class TelaListaRega extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              /*ElevatedButton.icon(
-                icon: Icon(Icons.map),
-                label: Text("Mapa com API externa"),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                  foregroundColor: Colors.white,
-                ),
-                onPressed: () async {
-                  LocalizacaoPage localizacaoPlanta = LocalizacaoPage();
-                  await localizacaoPlanta.pegarLocalizacao();
-                  Position? posicaoPlanta = localizacaoPlanta.posicao;
-                  Navigator.pushNamed(
-                    context,
-                    Rotas.telaMapaApi,
-                    arguments: posicaoPlanta,
-                  );
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text("Todas as plantas regadas!")),
-                  );
-                },
-              ),*/
-              //Text("Regas Cadastradas"),
               Expanded(
                 child: ListView.builder(
                   itemCount: regas.length,
@@ -76,11 +54,8 @@ class TelaListaRega extends StatelessWidget {
                           ),
                           "id_planta: ${rega.idPlanta}",
                         ),
-                        //leading: Text("${rega.id}"),
                         leading: Text(rega.id?.toString() ?? "-"),
-                        subtitle: // Última rega (busca assíncrona no banco)
-                        FutureBuilder<Rega?>(
-                          // Se rega.id for nulo, ele envia 0 (ou um id que não existe), evitando o crash
+                        subtitle: FutureBuilder<Rega?>(
                           future: PlantaCardSheet.buscarUltimaRega(
                             rega.id ?? 0,
                           ),

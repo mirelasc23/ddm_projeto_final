@@ -8,7 +8,10 @@ class RegaProvider extends ChangeNotifier {
 
   Future<void> regar(Rega rega) async {
     await DBUtil.insert(rega);
-    _regas.add(rega);
+    /*final idDb = await DBUtil.insert(rega);
+    rega!.id(idDb);
+    _regas.add(rega);*/
+    await carregarRegas();
     notifyListeners();
   }
 
