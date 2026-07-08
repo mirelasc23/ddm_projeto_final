@@ -1,4 +1,4 @@
-import 'package:ddm_projeto_final/widgets/caixa_texto.dart';
+import 'package:ddm_projeto_final/util/db.dart';
 import 'package:flutter/material.dart';
 import 'package:ddm_projeto_final/model/planta.dart';
 import 'package:ddm_projeto_final/model/rega.dart';
@@ -152,34 +152,63 @@ class PlantaCardSheet extends StatelessWidget {
 
   // Busca a rega mais recente da planta.
   // Ajuste para usar seu DAO/repositório real (sqflite, etc).
-  static Future<Rega?> buscarUltimaRega(int idPlanta) async {
+  /*static Future<Rega?> buscarUltimaRega(int idPlanta) async {
     // Exemplo:
     // final regas = await RegaDao().listarPorPlanta(idPlanta);
     // regas.sort((a, b) => b.dataRega.compareTo(a.dataRega));
     // return regas.isNotEmpty ? regas.first : null;
     throw UnimplementedError('Conecte este método ao seu DAO de Rega');
-  }
+  }*/
 
-  /*FutureBuilder<Rega?>buscarUltimaRega(int idPlanta) async {
-  future: PlantaCardSheet.buscarUltimaRega(planta.id!), // Sua função assíncrona
-  builder: (context, snapshot) {
-    // 1. Enquanto estiver buscando no SQLite:
-    if (snapshot.connectionState == ConnectionState.waiting) {
-      return caixaTextoExibicao('Última Rega', 'Carregando...');
+  /*static Future<Rega?> buscarUltimaRega(int idPlanta) async {
+    future:
+    PlantaCardSheet.buscarUltimaRega(idPlanta); // Sua função assíncrona
+    builder:
+    (context, snapshot) {
+      // 1. Enquanto estiver buscando no SQLite:
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return caixaTextoExibicao('Última Rega', 'Carregando...');
+      }
+
+      // 2. Se o banco retornou um dado válido:
+      if (snapshot.hasData && snapshot.data != null) {
+        final rega = snapshot.data!;
+        // Aqui você formata a data para exibir (ex: 05/07/2026)
+        // Ajuste 'rega.dataRega' para o nome correto do campo de data do seu modelo Rega
+        String dataFormatada =
+            "${rega.dataRega.day.toString().padLeft(2, '0')}/${rega.dataRega.month.toString().padLeft(2, '0')}/${rega.dataRega.year}";
+
+        return caixaTextoExibicao('Última Rega', dataFormatada);
+      }
+
+      // 3. Se não houver nenhuma rega registrada para essa planta:
+      return caixaTextoExibicao('Última Rega', 'Nenhuma rega registrada');
+    };
+    //)
+  }*/
+
+  static Future<Rega?> buscarUltimaRega(int idPlanta) async {
+    try {
+      // 1. Busca todas as regas da tabela 'Rega'
+      final List<Map<String, dynamic>> response = await DBUtil.list('Rega');
+
+      // 2. Filtra as regas que pertencem a esta planta específica
+      final regasFiltradas = response
+          .map((map) => Rega.fromMap(map))
+          .where((rega) => rega.idPlanta == idPlanta)
+          .toList();
+
+      if (regasFiltradas.isEmpty) return null;
+
+      // 3. Ordena para garantir que a mais recente fique primeiro
+      // Como dataRega é String (ex: "2026-07-07"), a comparação alfabética funciona perfeitamente
+      regasFiltradas.sort((a, b) => b.dataRega.compareTo(a.dataRega));
+
+      // 4. Retorna a última rega encontrada
+      return regasFiltradas.first;
+    } catch (e) {
+      debugPrint("Erro ao buscar última rega: $e");
+      return null;
     }
-
-    // 2. Se o banco retornou um dado válido:
-    if (snapshot.hasData && snapshot.data != null) {
-      final rega = snapshot.data!;
-      // Aqui você formata a data para exibir (ex: 05/07/2026)
-      // Ajuste 'rega.dataRega' para o nome correto do campo de data do seu modelo Rega
-      String dataFormatada = "${rega.dataRega.day.toString().padLeft(2, '0')}/${rega.dataRega.month.toString().padLeft(2, '0')}/${rega.dataRega.year}";
-      
-      return caixaTextoExibicao('Última Rega', dataFormatada);
-    }
-
-    // 3. Se não houver nenhuma rega registrada para essa planta:
-    return caixaTextoExibicao('Última Rega', 'Nenhuma rega registrada');
   }
-  )*/
 }

@@ -93,7 +93,7 @@ class TelaHome extends StatelessWidget {
                   final hoje = DateTime.now();
                   final dataHoje =
                       '${hoje.year}-${hoje.month.toString().padLeft(2, '0')}-${hoje.day.toString().padLeft(2, '0')}';
-                  final rega = Rega(idPlanta: 1, dataRega: dataHoje);
+                  final rega = Rega(idPlanta: 2, dataRega: dataHoje);
                   provider.regar(rega);
                   /*final planta = Planta(nome: 'tst', lat: 1.0, long: 1.0);
                   Provider.of<PlantaProvider>(

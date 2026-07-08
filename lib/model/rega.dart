@@ -25,15 +25,20 @@ class Rega implements Model {
   }
 
   factory Rega.fromMap(Map<String, dynamic> map) {
-    return Rega(
+    final int idDb = map['id'] as int;
+
+    var rega = Rega(
       id: map['id'] as int?,
       idPlanta: map['idPlanta'] as int,
       dataRega: map['dataRega'] as String,
     );
+    rega._id = idDb;
+
+    return rega;
   }
 
   @override
   String toString() {
-    return 'Planta(id: $idPlanta, dataRega: $dataRega)';
+    return 'Planta(ID: $id, idPlanta: $idPlanta, dataRega: $dataRega)';
   }
 }

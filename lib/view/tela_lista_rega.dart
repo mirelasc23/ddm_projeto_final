@@ -13,7 +13,7 @@ class TelaListaRega extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final tamanhoTela = MediaQuery.of(context).size;
-    final List<Rega> plantas = Provider.of<RegaProvider>(context).regas;
+    final List<Rega> regas = Provider.of<RegaProvider>(context).regas;
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -62,9 +62,9 @@ class TelaListaRega extends StatelessWidget {
               //Text("Regas Cadastradas"),
               Expanded(
                 child: ListView.builder(
-                  itemCount: plantas.length,
+                  itemCount: regas.length,
                   itemBuilder: (context, index) {
-                    final planta = plantas[index];
+                    final rega = regas[index];
                     return Card(
                       elevation: 3,
                       color: const Color.fromRGBO(255, 255, 255, 0.53),
@@ -74,14 +74,15 @@ class TelaListaRega extends StatelessWidget {
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                           ),
-                          "id_planta: ${planta.idPlanta}",
+                          "id_planta: ${rega.idPlanta}",
                         ),
-                        leading: Text("${planta.id}"),
+                        //leading: Text("${rega.id}"),
+                        leading: Text(rega.id?.toString() ?? "-"),
                         subtitle: // Última rega (busca assíncrona no banco)
                         FutureBuilder<Rega?>(
-                          // Se planta.id for nulo, ele envia 0 (ou um id que não existe), evitando o crash
+                          // Se rega.id for nulo, ele envia 0 (ou um id que não existe), evitando o crash
                           future: PlantaCardSheet.buscarUltimaRega(
-                            planta.id ?? 0,
+                            rega.id ?? 0,
                           ),
                           builder: (context, snapshot) {
                             if (snapshot.connectionState ==
@@ -160,7 +161,7 @@ class TelaListaRega extends StatelessWidget {
                             Navigator.pushNamed(
                               context,
                               Rotas.telaPlanta,
-                              arguments: planta,
+                              arguments: rega,
                             );
                           },
                           icon: Icon(Icons.edit),
@@ -172,7 +173,7 @@ class TelaListaRega extends StatelessWidget {
                             context,
                             //Rotas.tarefaDetalhada,
                             Rotas.telaPlanta,
-                            arguments: planta,
+                            arguments: rega,
                           );
                         },
                       ),
