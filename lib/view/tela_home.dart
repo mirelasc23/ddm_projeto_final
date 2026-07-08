@@ -87,13 +87,13 @@ class TelaHome extends StatelessWidget {
                 tamanho: 220,
                 onTap: () async{
                   final controller = TextEditingController();
-                  final nome = await showDialog<String>(
+                  final idPlanta = await showDialog<int>(
                     context: context,
                     builder: (context) => AlertDialog(
-                      title: Text('Nova planta'),
+                      title: Text('ID da planta'),
                       content: TextField(
                         controller: controller,
-                        decoration: InputDecoration(hintText: 'Nome da planta'),
+                        decoration: InputDecoration(hintText: 'ID da planta'),
                       ),
                       actions: [
                         TextButton(
@@ -108,7 +108,7 @@ class TelaHome extends StatelessWidget {
                       ],
                     ),
                   );
-                  if (nome != null && nome.isNotEmpty) {
+                  if (idPlanta != null && idPlanta != 0) {
                     final provider = Provider.of<RegaProvider>(
                       context,
                       listen: false,
@@ -121,7 +121,7 @@ class TelaHome extends StatelessWidget {
                     final hoje = DateTime.now();
                     final dataHoje =
                         '${hoje.year}-${hoje.month.toString().padLeft(2, '0')}-${hoje.day.toString().padLeft(2, '0')}';
-                    final rega = Rega(idPlanta: 2, dataRega: dataHoje);
+                    final rega = Rega(idPlanta: idPlanta, dataRega: dataHoje);
                     provider.regar(rega);
                     /*final planta = Planta(nome: 'tst', lat: 1.0, long: 1.0);
                     Provider.of<PlantaProvider>(
